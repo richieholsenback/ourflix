@@ -1,0 +1,25 @@
+#card-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    h2 {
+        font-family: "Gotham Book";
+        color: white;
+
+    }
+    #media-img {
+        width: auto;
+        height: 75vh;
+        object-fit: cover;
+        object-position: center right;
+    }
+    #card-detail-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #card-detail-button-text {
+        margin-bottom: -0.5em;
+        margin-top: 0.8em;
+    }
+}
