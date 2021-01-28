@@ -1,0 +1,11 @@
+#filter {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    p {
+        font-family: "Gotham Book";
+        color: white;
+        font-size: 18px;
+        padding-left: 0.5em;
+    }
+}
