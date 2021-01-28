@@ -1,11 +1,16 @@
-import { CardFront } from "./card/card"
-import { NavBar } from "./NavBar/NavBar"
+import React from "react";
+import { Route } from "react-router-dom"
+import { CardList } from "./card/CardList"
+import { MediaProvider } from "./card/CardMediaProvider";
 
 export const ApplicationView = () => {
     return (
         <>
-            <NavBar />
-            <CardFront />
+            <MediaProvider>
+                <Route exact path='/'>
+                    <CardList />
+                </Route>
+            </MediaProvider>
         </>
     )
 }
