@@ -1,6 +1,7 @@
 import {FaSearch} from "react-icons/fa";
 import React from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../scss/_navBar.scss"
 import prof from "../../images/Caro.png"
 
@@ -9,27 +10,27 @@ export const NavBar = props => {
         <>
             <Navbar expand="lg" bg="transparent" id="navbar-container">
                 <Navbar.Brand>
-                    <Image id="nav-brand" src="https://fontmeme.com/permalink/210127/9162a5835f5b4c9cf29e6e2d37f7519c.png" alt="netflix-font" />
+                    <img src="https://fontmeme.com/permalink/210127/9162a5835f5b4c9cf29e6e2d37f7519c.png" alt="netflix-font" border="0" />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Nav className="mr-auto" id="nav-left">
+                    <Nav className="mr-auto">
                         <Nav.Item>
-                            <Nav.Link href="/">Home</Nav.Link>
+                            <h4>Home</h4>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/movies">Movies</Nav.Link>
+                            <h4>Movies</h4>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href="/shows">TV Shows</Nav.Link>
+                            <h4>TV Shows</h4>
                         </Nav.Item>
                     </Nav>
-                    <Nav id="nav-right">
+                    <Nav defaultActiveKey="/">
                         <Nav.Item>
                             <FaSearch size="1em" color="white"/>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>Friends</Nav.Link>
+                            <h4>Friends</h4>
                         </Nav.Item>
                         <Nav.Item>
                             <Image src={prof} id="prof-pic"/>
