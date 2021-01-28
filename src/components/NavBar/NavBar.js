@@ -15,13 +15,13 @@ export const NavBar = props => {
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav className="mr-auto" id="nav-left">
                         <Nav.Item>
-                            <Nav.Link>Home</Nav.Link>
+                            <Nav.Link href="/">Home</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>Movies</Nav.Link>
+                            <Nav.Link href="/movies">Movies</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>TV Shows</Nav.Link>
+                            <Nav.Link href="/shows">TV Shows</Nav.Link>
                         </Nav.Item>
                     </Nav>
                     <Nav id="nav-right">

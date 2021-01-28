@@ -19,6 +19,7 @@ export const MediaProvider = (props) => {
             .then(setResults)
     }
 
+
     return (
         <MediaContext.Provider value={{
             results, getResults
