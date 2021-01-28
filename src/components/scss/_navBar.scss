@@ -1,9 +1,6 @@
-#navbar-container{
-
-a {
+h4 {
     font-family: "Gotham Book";
     color: white;
-    font-size: 24px;
 }
 
 #prof-pic{
@@ -14,21 +11,3 @@ a {
     object-position: center right;
 }
 
-#nav-brand{
-    width: 8em;
-    height: auto;
-}
-
-#nav-left {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-#nav-right {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-}
