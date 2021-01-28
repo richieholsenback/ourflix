@@ -1,6 +1,8 @@
+
+
 import './App.scss';
-import { NavBar } from './components/navbar/NavBar';
 import { ApplicationView } from './components/applicationviews';
+import { NavBar } from './components/nav/Nav';
 
 function App() {
   return (

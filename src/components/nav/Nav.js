@@ -4,7 +4,7 @@ import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"
 import prof from "../../images/Caro.png"
 
-export const NavBar = props => {
+export const NavBar = () => {
     return (
         <>
             <Navbar expand="lg" bg="transparent" id="navbar-container">
