@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom"
+import { MediaDetails } from "./Media/card/CardDetails";
 import { AllList } from "./Media/card/CardList"
 import { MediaProvider } from "./Media/card/CardMediaProvider";
 import { MovieList } from "./Media/movies/MovieList";
@@ -27,6 +28,12 @@ export const ApplicationView = () => {
             <ShowProvider>
                 <Route exact path='/shows'>
                     <ShowList />
+                </Route>
+            </ShowProvider>
+            
+            <ShowProvider>
+                <Route exact path='/details'>
+                    <MediaDetails />
                 </Route>
             </ShowProvider>
 
