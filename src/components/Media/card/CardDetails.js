@@ -1,6 +1,6 @@
 import React from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
-import { IoCloseCircleOutline, IoCheckmarkCircleOutline } from "react-icons/io5"
+import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-icons/io5"
 import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
@@ -9,21 +9,26 @@ import poster from "../../../images/New_Girl.jpg"
 export const MediaDetails = ({ result }) => {
     return (
         <Container id="card-container">
+            <Row>
+                <Col id="filter">
+                    <IoFilter color="white" />
+                    <p>Filter</p>
+                </Col>
+            </Row>
             <Row className="card-image">
                 <Col>
-                    <Image id="media-img-detail" src={poster} alt="movie or show poster" rounded />
+                    <Image id="media-img-detail" src={result.image} alt="movie or show poster" rounded />
                     <div id="media-descrip">
-                        {/* <Image id="media-img detail" src={result.img} alt="movie or show poster" rounded /> */}
                         <h2>New Girl</h2>
-                        {/* <h2>{result.title}</h2> */}
-                        <p>2008</p>
-                        <p><BiStar />10/10</p>
-                        <p>{new Date(1000 * 1000).toISOString().substr(11, 8)}</p>
-                        <p>After a bad break-up, Jess, an offbeat young woman, moves into an apartment loft with three single men. Although they find her behavior very unusual, the men support her - most of the time.</p>
+                        <h2>{result.title}</h2>
+                        <p>{result.released}</p>
+                        <p><BiStar />{result.rating}/10</p>
+                        <p>{result.runtime}</p>
+                        <p>{result.synopsis}</p>
                     </div>
-                    <div id="preview">
+                    <a id="preview" href={"https://www.netflix.com/title/" + result.title} target="_blank" rel="noreferrer">
                         <button id="white-fill-button">Preview</button>
-                    </div>
+                    </a>
                 </Col>
             </Row>
             <Row className="card-options">

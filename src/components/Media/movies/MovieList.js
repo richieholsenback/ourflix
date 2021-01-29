@@ -39,10 +39,10 @@ export const MovieList = () => {
             <Row>
                 <Col>
                     {
-                        movies.map(result => {
+                        movies.map(item => {
                             return (
                                 <Swipeable onSwipe={handleOnSwipe}>
-                                    <MediaCard key={result.id} result={result} />
+                                    <MediaCard key={item.netflixid} item={item} />
                                 </Swipeable>
                             )
                         })

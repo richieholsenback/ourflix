@@ -13,8 +13,8 @@ export const ShowList = () => {
     return (
         <div>
             {
-                shows.map(result => {
-                    return <MediaCard key={result.id} result={result} />
+                shows.map(item => {
+                    return <MediaCard key={item.id} item={item} />
                 })
             }
         </div>

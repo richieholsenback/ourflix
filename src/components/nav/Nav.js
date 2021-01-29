@@ -26,10 +26,10 @@ export const NavBar = () => {
                     </Nav>
                     <Nav id="nav-right">
                         <Nav.Item>
-                            <FaSearch size="1em" color="white"/>
+                            <FaSearch size="1.5em" color="white"/>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>Friends</Nav.Link>
+                            <Nav.Link href="/friends">Friends</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Image src={prof} id="prof-pic"/>

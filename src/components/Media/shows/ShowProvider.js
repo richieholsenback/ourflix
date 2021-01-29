@@ -7,15 +7,15 @@ export const ShowProvider = (props) => {
     const [shows, setShows] = useState([])
 
     const getShows = () => {
-        return fetch("https://unogsng.p.rapidapi.com/search?type=series&orderby=rating&countrylist=78&limit=1", {
+        return fetch("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew10-!1900%2C2021-!0%2C5-!0%2C10-!0-!Series-!Any-!Any-!gt200-!%7Bdownloadable%7D&t=ns&cl=78&st=adv&ob=Rating&p=1&sa=and", {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "cd32ec05fbmsh6692bacfcb2a541p165764jsnbb20f354fae0",
-                "x-rapidapi-host": "unogsng.p.rapidapi.com"
+                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
             }
         })
             .then(res => res.json())
-            .then(res => res.results)
+            .then(res => res.ITEMS)
             .then(setShows)
     }
 

@@ -6,7 +6,7 @@
             "lastName": "Barkley",
             "email": "SirCharles@aol.com",
             "password": 2,
-            "avatar": "/images/userimg.jpg",
+            "avatar": "images/userimg.jpg",
             "country": 78
         },
         {
@@ -15,7 +15,7 @@
             "lastName": "Newton",
             "email": "CammyCam@aol.com",
             "password": 3,
-            "avatar": "/images/userimg.jpg",
+            "avatar": "images/userimg.jpg",
             "country": 78
         },
         {
@@ -24,7 +24,7 @@
             "lastName": "Jackson",
             "email": "2Sportz@aol.com",
             "password": 4,
-            "avatar": "/images/userimg.jpg",
+            "avatar": "images/userimg.jpg",
             "country": 78
         }
     ],
