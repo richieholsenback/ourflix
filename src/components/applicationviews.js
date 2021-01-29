@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom"
+import { FriendDetails } from "./friends/FriendDetails";
 import { FriendList } from "./friends/FriendList";
 import { FriendProvider } from "./friends/FriendProvider";
 import { GroupDetails } from "./groups/GroupDetails";
@@ -57,14 +58,14 @@ export const ApplicationView = () => {
                     </Route>
                 </UserProvider>
             </FriendProvider>
-            
+
             <GroupUsersProvider>
                 <UserProvider>
-                <GroupsProvider>
-                    <Route exact path="/friends">
-                        <GroupUserList />
-                    </Route>
-                </GroupsProvider>
+                    <GroupsProvider>
+                        <Route exact path="/friends">
+                            <GroupUserList />
+                        </Route>
+                    </GroupsProvider>
                 </UserProvider>
             </GroupUsersProvider>
 
@@ -73,7 +74,15 @@ export const ApplicationView = () => {
                     <UserDetails />
                 </Route>
             </UserProvider>
-            
+
+            <FriendProvider>
+                <UserProvider>
+                    <Route exact path="/friends/detail/:friendId(\d+)">
+                        <FriendDetails />
+                    </Route>
+                </UserProvider>
+            </FriendProvider>
+
             <GroupsProvider>
                 <Route exact path="/groups/detail/:groupId(\d+)">
                     <GroupDetails />

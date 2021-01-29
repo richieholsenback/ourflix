@@ -18,6 +18,11 @@ export const FriendProvider = (props) => {
             .then(setFriend)
     }
 
+    const getFriendById = (id)=> {
+        return fetch(`http://localhost:8088/friends/${id}?_expand=user`)
+            .then(res => res.json())
+    }
+
     /*
         You return a context provider which has the
         `locations` state, the `addLocation` function,
@@ -26,7 +31,7 @@ export const FriendProvider = (props) => {
     */
     return (
         <FriendContext.Provider value={{
-            friends, getFriends
+            friends, getFriends, getFriendById
         }}>
             {props.children}
         </FriendContext.Provider>

@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import { useHistory, useParams } from "react-router-dom"
-import "../scss/_group.scss"
-import { GroupContext } from "./GroupProvider"
+import "../scss/_friend.scss"
+import { FriendContext } from "./FriendProvider"
 
-export const GroupDetails = ({ }) => {
-    const { getGroupById } = useContext(GroupContext)
+export const FriendDetails = ({ }) => {
+    const { getFriendById } = useContext(FriendContext)
 
-    const [group, setGroup] = useState({})
+    const [friend, setFriend] = useState({})
+    const [user, setUser] = useState({})
 
-    const { groupId } = useParams();
+    const { friendId } = useParams();
 
     useEffect(() => {
-        getGroupById(groupId)
+        getFriendById(friendId)
             .then(response => {
-                setGroup(response)
+                setFriend(response)
+                setUser(response.user)
             })
     }, [])
 
     return (
-        <Container id="group-page">
+        <Container id="friend-page">
             <Row>
                 <Col>
-                    <h2>The {group.name} should watch</h2>
+                    <h2>You and {user.firstName} should watch</h2>
                 </Col>
             </Row>
             <br />
