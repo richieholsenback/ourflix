@@ -14,7 +14,7 @@ export const ShowList = () => {
         <div>
             {
                 shows.map(item => {
-                    return <MediaCard key={item.id} item={item} />
+                    return <MediaCard key={item.nfid} item={item} />
                 })
             }
         </div>

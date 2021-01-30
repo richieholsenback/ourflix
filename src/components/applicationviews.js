@@ -17,6 +17,7 @@ import { ShowProvider } from "./Media/shows/ShowProvider";
 import { UserDetails } from "./users/UserDetails";
 import { UserList } from "./users/UserList";
 import { UserProvider } from "./users/UserProvider";
+import { UserSearch } from "./users/UserSearch";
 
 export const ApplicationView = () => {
     return (
@@ -47,6 +48,7 @@ export const ApplicationView = () => {
 
             <UserProvider>
                 <Route exact path='/users'>
+                    <UserSearch />
                     <UserList />
                 </Route>
             </UserProvider>

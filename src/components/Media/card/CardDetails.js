@@ -4,7 +4,7 @@ import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-
 import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
-import poster from "../../../images/New_Girl.jpg"
+// import poster from "../../../images/New_Girl.jpg"
 
 export const MediaDetails = ({ result }) => {
     return (

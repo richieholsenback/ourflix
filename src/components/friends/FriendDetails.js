@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Col, Container, Image, Row } from "react-bootstrap"
-import { useHistory, useParams } from "react-router-dom"
+import { Col, Container, Row } from "react-bootstrap"
+import { useParams } from "react-router-dom"
 import "../scss/_friend.scss"
 import { FriendContext } from "./FriendProvider"
 

@@ -42,7 +42,7 @@ export const MovieList = () => {
                         movies.map(item => {
                             return (
                                 <Swipeable onSwipe={handleOnSwipe}>
-                                    <MediaCard key={item.netflixid} item={item} />
+                                    <MediaCard key={item.nfid} item={item} />
                                 </Swipeable>
                             )
                         })

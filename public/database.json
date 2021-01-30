@@ -38,8 +38,18 @@
     "likes": [
         {
             "id": 1,
-            "resultId": 1,
+            "nfId": 80063224,
             "userId": 1
+        },
+        {
+            "id": 2,
+            "nfId": 80063224,
+            "userId": 2
+        },
+        {
+            "id": 3,
+            "nfId": 80063224,
+            "userId": 3
         }
     ],
     "dislikes": [
