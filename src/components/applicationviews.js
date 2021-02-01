@@ -1,95 +1,68 @@
 import React from "react";
-import { Route } from "react-router-dom"
+import { useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom"
+import { FirebaseContext } from "./fbAuth/firebase";
 import { FriendDetails } from "./friends/FriendDetails";
 import { FriendList } from "./friends/FriendList";
-import { FriendProvider } from "./friends/FriendProvider";
 import { GroupDetails } from "./groups/GroupDetails";
 import { GroupUserList } from "./groups/GroupList";
-import { GroupsProvider } from "./groups/GroupProvider";
-import { GroupUsersProvider } from "./groups/GroupUsersProvider";
 import { MediaDetails } from "./Media/card/CardDetails";
 import { AllList } from "./Media/card/CardList"
-import { MediaProvider } from "./Media/card/CardMediaProvider";
 import { MovieList } from "./Media/movies/MovieList";
-import { MovieProvider } from "./Media/movies/MovieProvider";
 import { ShowList } from "./Media/shows/ShowList";
-import { ShowProvider } from "./Media/shows/ShowProvider";
 import { UserDetails } from "./users/UserDetails";
 import { UserList } from "./users/UserList";
-import { UserProvider } from "./users/UserProvider";
 import { UserSearch } from "./users/UserSearch";
+import { Login } from "./login";
+import { Register } from "./register";
 
 export const ApplicationView = () => {
+    const { isLoggedIn } = useContext(FirebaseContext);
+
     return (
-        <>
-            <MediaProvider>
-                <Route exact path='/'>
-                    <AllList />
+        <Switch>
+                <Route path="/" exact>
+                    {isLoggedIn ? <AllList /> : <Redirect to="/login" />}
                 </Route>
-            </MediaProvider>
-
-            <MovieProvider>
-                <Route exact path='/movies'>
-                    <MovieList />
+                <Route path="/movies">
+                    {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
                 </Route>
-            </MovieProvider>
 
-            <ShowProvider>
-                <Route exact path='/shows'>
-                    <ShowList />
+                <Route path="/shows">
+                    {isLoggedIn ? <ShowList /> : <Redirect to="/login" />}
                 </Route>
-            </ShowProvider>
 
-            <ShowProvider>
-                <Route exact path='/details'>
-                    <MediaDetails />
+                <Route path="/details">
+                    {isLoggedIn ? <MediaDetails /> : <Redirect to="/login" />}
                 </Route>
-            </ShowProvider>
 
-            <UserProvider>
-                <Route exact path='/users'>
-                    <UserSearch />
-                    <UserList />
+                <Route path="/users">
+                    {isLoggedIn ? <><UserSearch /> <UserList /></> : <Redirect to="/login" />}
                 </Route>
-            </UserProvider>
 
-            <FriendProvider>
-                <UserProvider>
-                    <Route exact path="/friends">
-                        <FriendList />
-                    </Route>
-                </UserProvider>
-            </FriendProvider>
-
-            <GroupUsersProvider>
-                <UserProvider>
-                    <GroupsProvider>
-                        <Route exact path="/friends">
-                            <GroupUserList />
-                        </Route>
-                    </GroupsProvider>
-                </UserProvider>
-            </GroupUsersProvider>
-
-            <UserProvider>
-                <Route exact path="/users/detail/:userId(\d+)">
-                    <UserDetails />
+                <Route path="/friends">
+                    {isLoggedIn ? <><FriendList /> <GroupUserList /></> : <Redirect to="/login" />}
                 </Route>
-            </UserProvider>
 
-            <FriendProvider>
-                <UserProvider>
-                    <Route exact path="/friends/detail/:friendId(\d+)">
-                        <FriendDetails />
-                    </Route>
-                </UserProvider>
-            </FriendProvider>
-
-            <GroupsProvider>
-                <Route exact path="/groups/detail/:groupId(\d+)">
-                    <GroupDetails />
+                <Route path="/login">
+                    <Login />
                 </Route>
-            </GroupsProvider>
-        </>
+
+                <Route path="/register">
+                    <Register />
+                </Route>
+                
+                <Route path="/users/detail/:userId(\d+)">
+                    {isLoggedIn ? <UserDetails /> : <Redirect to="/login" />}
+                </Route>
+                
+                <Route path="/friends/detail/:friendId(\d+)">
+                    {isLoggedIn ? <FriendDetails /> : <Redirect to="/login" />}
+                </Route>
+                
+                <Route path="/groups/detail/:groupId(\d+)">
+                    {isLoggedIn ? <GroupDetails /> : <Redirect to="/login" />}
+                </Route>
+            </Switch>
     )
 }

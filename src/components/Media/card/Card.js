@@ -9,7 +9,7 @@ export const MediaCard = ({item}) => {
         <Container id="card-container">
             <Row className="card-image">
                 <Col>
-                    <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
+                    <Image id="media-img" src={item.image} alt="movie or show poster" loading="lazy" rounded />
                 </Col>
             </Row>
             <Row className="card-options">

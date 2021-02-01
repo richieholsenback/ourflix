@@ -11,4 +11,18 @@
         color: white;
         font-size: 36px;
     }
+
+}
+
+.friend-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#friend-pic {
+    width: 4em;
+    height: 4em;
+    object-fit: cover;
+    object-position: center;
 }

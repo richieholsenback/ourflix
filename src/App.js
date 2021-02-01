@@ -1,37 +1,22 @@
-
-
-import { Redirect, Route } from 'react-router-dom';
+import React from 'react';
 import './App.scss';
+import { BrowserRouter as Router } from 'react-router-dom'
 import { ApplicationView } from './components/applicationviews';
-import { Login } from './components/login/LogIn';
-import { Register } from './components/login/Register';
 import { NavBar } from './components/nav/Nav';
+import { FirebaseProvider } from './components/firebase';
 
 function App() {
-  return (
-    <>
-    <Route
-      render={() => {
-        if (sessionStorage.getItem("active_user")) {
-          return (
-            <>
-              <NavBar />
-              <ApplicationView />
-            </>
-          );
-        } else {
-          return <Redirect to="/login" />;
-        }
-      }}
-    />
 
-    <Route path="/login">
-      <Login />
-    </Route>
-    <Route path="/register">
-      <Register />
-    </Route>
-  </>
+  return (
+    <div className="App">
+      <Router>
+        <FirebaseProvider>
+          <NavBar />
+          <ApplicationView />
+        </FirebaseProvider>
+      </Router>
+
+    </div>
   );
 }
 

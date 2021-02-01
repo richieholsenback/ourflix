@@ -1,91 +1,72 @@
-import React, { useRef } from "react";
-import { Button, InputGroup, Input, Form, Row, Col, FormControl } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-// import "./Login.css";
+import React, { useState, useContext } from "react";
+import { Button, Form, Container, Col, Row } from 'react-bootstrap';
+import { useHistory, Link } from "react-router-dom";
+import { FirebaseContext } from "../fbAuth/firebase";
 
-export const Register = props => {
-    const username = useRef();
-    const email = useRef();
-    const verifyPassword = useRef();
-    const conflictDialog = useRef();
-    const history = useHistory();
+export default function Register() {
+  const history = useHistory();
+  const { register } = useContext(FirebaseContext);
 
-    const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
-            .then(res => res.json())
-            .then(user => !!user.length);
-    };
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
-    const handleRegister = e => {
-        e.preventDefault();
+  const registerClick = (e) => {
+    e.preventDefault();
+    if (password && password !== confirmPassword) {
+      alert("Passwords don't match. Do better.");
+    } else {
+      const userProfile = { name, email };
+      register(userProfile, password)
+        .then(() => history.push("/"));
+    }
+  };
 
-        existingUserCheck().then(userExists => {
-            if (!userExists) {
-                fetch("http://localhost:8088/users", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: email.current.value,
-                        username: `${username.current.value}`
-                    })
-                })
-                    .then(_ => _.json())
-                    .then(createdUser => {
-                        if (createdUser.hasOwnProperty("id")) {
-                            sessionStorage.setItem("active_user", createdUser.id);
-                            history.push("/");
-                        }
-                    });
-            } else {
-                conflictDialog.current.showModal();
-            }
-        });
-    };
+  return (
+    <>
+    <Container fluid="xl">
+    <Row>
+      <Col className="m-2" md={6}>
+      <Form onSubmit={registerClick}>
+              <h5 className="username">Create Your Chris-List Account</h5>
+              <fieldset>
 
-    return (
-        <>
-            <Row textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-                <Col style={{ maxWidth: 450 }}>
-                    <h1 color='teal' textAlign='center' className="LaughTrackHeadline">
-                        Laugh Track
-                    </h1>
-                    <dialog className="dialog dialog--password" ref={conflictDialog}>
-                        <div>Account with that email address already exists</div>
-                        <button
-                            className="button--close"
-                            onClick={e => conflictDialog.current.close()}> Close </button>
-                    </dialog>
-                    <Form size='large' onSubmit={handleRegister}>
-                        <InputGroup stacked>
-                            <FormControl
-                                ref={username}
-                                type="text"
-                                name="username"
-                                className="form-control"
-                                placeholder="Username"
-                                required
-                                autoFocus
-                            />
-                            <FormControl
-                                ref={email}
-                                type="email"
-                                name="email"
-                                className="form-control"
-                                placeholder="Email address"
-                                required
-                            />
-                            <Button type="submit" fluid size='compact'>
-                                <p className="loginButton">Sign Up</p>
-                            </Button>
-                        </InputGroup>
-                    </Form>
-                    <p>
-                        Already have an account? <Link to="/login" id="sign-register">Log in</Link>
-                    </p>
-                </Col>
-            </Row>
-        </>
-    );
-};
+              <Form.Group>
+                <Form.Label>Name</Form.Label>
+                <Form.Control placeholder="User Name" id="name" type="text" onChange={e => setName(e.target.value)} />
+              </Form.Group>
+
+              <Form.Group controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+              </Form.Group>
+
+              <Form.Group controlId="confirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
+              </Form.Group>
+              
+              <Button variant="primary" type="submit">Continue</Button>
+            </fieldset>
+          </Form>
+    </Col>
+
+      <Col className="m-2">
+      <h5 className="username">Already have an account?</h5>
+          <Link to="/login" className="btn btn-block btn-outline-success">Sign in</Link>
+       
+     </Col>
+    </Row>
+    </Container>
+  </>
+  );
+}

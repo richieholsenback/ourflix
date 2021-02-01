@@ -6,12 +6,13 @@ import { BrowserRouter as Router } from "react-router-dom"
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 
+import { firebaseConfig } from "./components/fbAuth/firebaseConfig";
+import firebase from "firebase/app";
+
+firebase.initializeApp(firebaseConfig);
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Router basename="/">
-      <App />
-    </Router>
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 

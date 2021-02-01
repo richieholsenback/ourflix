@@ -31,8 +31,13 @@
     "friends": [
         {
             "id": 1,
-            "userId": 1,
-            "friendedId": 2
+            "userId": 2,
+            "friendedId": 1
+        },
+        {
+            "id": 2,
+            "userId": 3,
+            "friendedId": 1
         }
     ],
     "likes": [
