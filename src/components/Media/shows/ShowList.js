@@ -1,19 +1,37 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { MediaCard } from "../card/Card"
-import { ShowContext } from "./ShowProvider"
+import { getShows } from "../../../modules/APICalls"
 
 export const ShowList = () => {
 
-    const { shows, getShows } = useContext(ShowContext)
+    const [showArray, setShowArray] = useState([])
+
+    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+
+    const getAllShows = () => {
+        getShows()
+            .then(data => {
+                console.log("fb data", data)
+                let arrayWithFBID = Object.keys(data).map((key, index) => {
+                    data[key].fbid = key;
+                    return data[key];
+                })
+
+                console.log("arrayWithFBID", arrayWithFBID);
+                //and sort with most recent date first
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setShowArray(arrayWithFBID)
+            })
+    }
 
     useEffect(() => {
-        getShows()
-    }, [])
+		getAllShows()
+	}, [])
 
     return (
         <div>
             {
-                shows.map(item => {
+                showArray.map(item => {
                     return <MediaCard key={item.nfid} item={item} />
                 })
             }

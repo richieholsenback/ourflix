@@ -26,18 +26,6 @@ export const MovieList = () => {
                 setMovieArray(arrayWithFBID)
             })
     }
-    // const liked = []
-    // const disliked = []
-
-    // const handleOnSwipe = (swipeDirection, media) => {
-    //     if (swipeDirection === direction.RIGHT) {
-    //         setLastSwipeDirection('your right');
-    //     }
-
-    //     if (swipeDirection === direction.LEFT) {
-    //         setLastSwipeDirection('your left');
-    //     }
-    // }
 
     useEffect(() => {
 		getAllMovies()

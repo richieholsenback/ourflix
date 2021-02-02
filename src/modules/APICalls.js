@@ -22,6 +22,22 @@ export const getMovies = () => {
 	
 }
 
+export const getShows = () => {
+	//in the rules section of your Firebase Database, be sure to include 'indexOn` for the properties you will need for selection
+	// for example: only return items with a specific uid
+	/* 
+		"christList": {
+			".indexOn": ["uid"]
+		}
+	*/
+	
+	// https://firebase.google.com/docs/database/rest/retrieve-data?authuser=0
+	// combine orderBy with any of the other five parameters: limitToFirst, limitToLast, startAt, endAt, and equalTo
+	return fetch(`${dataURL}/shows.json`)
+	.then(response => response.json())
+	
+}
+
 // ?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}
 
 export const getOneItem = (fbid) => {
