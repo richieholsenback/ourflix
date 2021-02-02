@@ -12,6 +12,7 @@ export const FirebaseContext = createContext()
  This component establishes what data can be used.
  */
 export const FirebaseProvider = (props) => {
+  
   const active_user = sessionStorage.getItem("active_user");
   const [isLoggedIn, setIsLoggedIn] = useState(active_user != null);
 

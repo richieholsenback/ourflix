@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
 import { useHistory, Link } from "react-router-dom";
-import { FirebaseContext } from "../fbAuth/firebase";
+import { FirebaseContext } from "../fbAuth/FirebaseProvider";
 
-export default function Register() {
+export const Register = () => {
   const history = useHistory();
   const { register } = useContext(FirebaseContext);
 

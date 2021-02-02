@@ -1,32 +1,47 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Col, Row, Container } from "react-bootstrap"
 import { MediaCard } from "../card/Card"
-import { MovieContext } from "./MovieProvider"
+import { getMovies } from "../../../modules/APICalls"
 import { IoFilter } from "react-icons/io5";
-import { Swipeable, direction } from 'react-deck-swiper';
 import "../../scss/_list.scss"
 
 export const MovieList = () => {
 
-    const { movies, getMovies } = useContext(MovieContext)
-    const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+    const [movieArray, setMovieArray] = useState([])
+
+    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+
+    const getAllMovies = () => {
+        getMovies()
+            .then(data => {
+                console.log("fb data", data)
+                let arrayWithFBID = Object.keys(data).map((key, index) => {
+                    data[key].fbid = key;
+                    return data[key];
+                })
+
+                console.log("arrayWithFBID", arrayWithFBID);
+                //and sort with most recent date first
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setMovieArray(arrayWithFBID)
+            })
+    }
+    // const liked = []
+    // const disliked = []
+
+    // const handleOnSwipe = (swipeDirection, media) => {
+    //     if (swipeDirection === direction.RIGHT) {
+    //         setLastSwipeDirection('your right');
+    //     }
+
+    //     if (swipeDirection === direction.LEFT) {
+    //         setLastSwipeDirection('your left');
+    //     }
+    // }
 
     useEffect(() => {
-        getMovies()
-    }, [])
-
-    const liked = []
-    const disliked = []
-
-    const handleOnSwipe = (swipeDirection, media) => {
-        if (swipeDirection === direction.RIGHT) {
-            setLastSwipeDirection('your right');
-        }
-
-        if (swipeDirection === direction.LEFT) {
-            setLastSwipeDirection('your left');
-        }
-    }
+		getAllMovies()
+	}, [])
 
     return (
         <Container>
@@ -39,11 +54,9 @@ export const MovieList = () => {
             <Row>
                 <Col>
                     {
-                        movies.map(item => {
+                        movieArray.map(item => {
                             return (
-                                <Swipeable onSwipe={handleOnSwipe}>
-                                    <MediaCard key={item.nfid} item={item} />
-                                </Swipeable>
+                                <MediaCard key={item.nfid} item={item} />
                             )
                         })
                     }

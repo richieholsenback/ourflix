@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { useHistory, Link } from "react-router-dom";
-import { FirebaseContext } from "../fbAuth/firebase";
+import { FirebaseContext } from "../fbAuth/FirebaseProvider";
 
-export default function Login() {
+export const LogIn = () => {
   const history = useHistory();
   const { login } = useContext(FirebaseContext);
   const { signInWithGoogle } = useContext(FirebaseContext);

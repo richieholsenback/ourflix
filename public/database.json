@@ -1,79 +1,46 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "firstName": "Charles",
-            "lastName": "Barkley",
-            "email": "SirCharles@aol.com",
-            "password": 2,
-            "avatar": "images/userimg.jpg",
-            "country": 78
-        },
-        {
-            "id": 2,
-            "firstName": "Cam",
-            "lastName": "Newton",
-            "email": "CammyCam@aol.com",
-            "password": 3,
-            "avatar": "images/userimg.jpg",
-            "country": 78
-        },
-        {
-            "id": 3,
-            "firstName": "Bo",
-            "lastName": "Jackson",
-            "email": "2Sportz@aol.com",
-            "password": 4,
-            "avatar": "images/userimg.jpg",
-            "country": 78
-        }
-    ],
     "friends": [
         {
-            "id": 1,
-            "userId": 2,
-            "friendedId": 1
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
+            "friendedId": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3"
         },
         {
-            "id": 2,
-            "userId": 3,
-            "friendedId": 1
+            "UID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
+            "friendedId": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "likes": [
         {
-            "id": 1,
             "nfId": 80063224,
-            "userId": 1
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         },
         {
-            "id": 2,
-            "nfId": 80063224,
-            "userId": 2
+            "nfId": 70196145,
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         },
         {
-            "id": 3,
-            "nfId": 80063224,
-            "userId": 3
+            "nfId": 80171965,
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "dislikes": [
         {
-            "id": 1,
-            "resultId": 1,
-            "userId": 1
+            "resultId": 81128796,
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "groupUsers": [
         {
-            "id": 1,
-            "userId": 1,
-            "groupId": 1
+            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
+            "groupId": "MSZD3B1cn_IuE0EhKmi"
+        },
+        {
+            "UID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
+            "groupId": "MSZD3B1cn_IuE0EhKmi"
         }
     ],
     "groups": [
         {
-            "id": 1,
             "name": "Roommates"
         }
     ]

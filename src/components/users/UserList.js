@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
 import { UserCard } from './UserCard'
 import { UserContext } from './UserProvider'
 
@@ -9,7 +8,6 @@ export const UserList = () => {
   const { users, getUsers, searchTerms } = useContext(UserContext)
 
   const [filteredUsers, setFiltered] = useState([])
-  const history = useHistory()
   
 
   //useEffect - reach out to the world for something

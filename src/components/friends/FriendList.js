@@ -12,24 +12,24 @@ export const FriendList = () => {
         getFriends()
     }, [])
 
-    const history = useHistory()
-    //returns the user's list of friends
+      const history = useHistory()
+      //returns the user's list of friends
 
-    const filteredFriends = friends.filter(friend => friend.friendedId === parseInt(sessionStorage.getItem("active_user")))
+      const filteredFriends = friends.filter(friend => friend.friendedId === parseInt(sessionStorage.getItem("active_user")))
 
     return (
         <Container className="friends">
             <Row>
                 <Col>
-                    <h2>Your Friends</h2>
-                    <div className="followingList">
-                        {
-                            filteredFriends.map(friend => {
-                                return <FriendCard key={friend.id} friend={friend} user={friend.user} />
-                            })
-                        }
-                    </div>
-                </Col>
+            <h2>Your Friends</h2>
+            <div className="followingList">
+                {
+                    filteredFriends.map(friend => {
+                        return <FriendCard key={friend.id} friend={friend} user={friend.user}/>
+                    })
+                }
+            </div>
+            </Col>
             </Row>
         </Container>
     )

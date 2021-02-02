@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import "../scss/_group.scss"
 import { GroupContext } from "./GroupProvider"
 
-export const GroupDetails = ({ }) => {
+export const GroupDetails = () => {
     const { getGroupById } = useContext(GroupContext)
 
     const [group, setGroup] = useState({})
