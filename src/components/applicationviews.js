@@ -8,22 +8,19 @@ import { GroupDetails } from "./groups/GroupDetails";
 import { GroupUserList } from "./groups/GroupList";
 import { MediaDetails } from "./Media/card/CardDetails";
 import { AllList } from "./Media/card/CardList"
-import { MovieList } from "./Media/movies/MovieList";
-import { ShowList } from "./Media/shows/ShowList";
 import { UserDetails } from "./users/UserDetails";
 import { UserList } from "./users/UserList";
 import { UserSearch } from "./users/UserSearch";
 import { LogIn } from "./login/LogIn";
 import { Register } from "./login/Register";
-import { MovieProvider } from "./Media/movies/MovieProvider";
-import { ShowProvider } from "./Media/shows/ShowProvider";
+import { MovieList } from "./Media/movies/MovieList";
+import { ShowList } from "./Media/shows/ShowList";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
 
     return (
         <Switch>
-            
             <Route path="/login">
                 <LogIn />
             </Route>
@@ -32,19 +29,13 @@ export const ApplicationView = () => {
                 <Register />
             </Route>
 
-                <Route path="/" exact>
-                    {isLoggedIn ? <AllList /> : <Redirect to="/login" />}
-                </Route>
-
-                <Route path="/movies">
-                    {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
-                </Route>
-
-            <ShowProvider>
-                <Route path="/shows">
-                    {isLoggedIn ? <ShowList /> : <Redirect to="/login" />}
-                </Route>
-            </ShowProvider>
+            <Route path="/movies">
+                {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/shows">
+                {isLoggedIn ? <ShowList /> : <Redirect to="/login" />}
+            </Route>
 
             <Route path="/details">
                 {isLoggedIn ? <MediaDetails /> : <Redirect to="/login" />}
@@ -71,5 +62,6 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <GroupDetails /> : <Redirect to="/login" />}
             </Route>
         </Switch>
+
     )
 }

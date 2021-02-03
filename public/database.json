@@ -1,41 +1,41 @@
 {
     "friends": [
         {
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
             "friendedId": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3"
         },
         {
-            "UID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
+            "UserID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
             "friendedId": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "likes": [
         {
             "nfId": 80063224,
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         },
         {
             "nfId": 70196145,
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         },
         {
             "nfId": 80171965,
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "dislikes": [
         {
             "resultId": 81128796,
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],
     "groupUsers": [
         {
-            "UID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
+            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
             "groupId": "MSZD3B1cn_IuE0EhKmi"
         },
         {
-            "UID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
+            "UserID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
             "groupId": "MSZD3B1cn_IuE0EhKmi"
         }
     ],

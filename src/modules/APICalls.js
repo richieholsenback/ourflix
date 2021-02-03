@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-import { firebaseConfig } from "../components/fbAuth/FirebaseConfig";
+import  { firebaseConfig }  from "../components/fbAuth/FirebaseConfig";
 
 console.log("fb",firebase);
 const dataURL = firebaseConfig.databaseURL;
@@ -23,36 +23,57 @@ export const getMovies = () => {
 }
 
 export const getShows = () => {
-	//in the rules section of your Firebase Database, be sure to include 'indexOn` for the properties you will need for selection
-	// for example: only return items with a specific uid
-	/* 
-		"christList": {
-			".indexOn": ["uid"]
-		}
-	*/
-	
-	// https://firebase.google.com/docs/database/rest/retrieve-data?authuser=0
-	// combine orderBy with any of the other five parameters: limitToFirst, limitToLast, startAt, endAt, and equalTo
 	return fetch(`${dataURL}/shows.json`)
 	.then(response => response.json())
 	
 }
 
-// ?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}
+export const getFriends = () => {
+	return fetch(`${dataURL}/friends.json/?orderBy="UID"&equalTo="${firebase.auth().currentUser.uid}"`)
+	.then(response => response.json())
+	
+}
 
-export const getOneItem = (fbid) => {
+export const getGroups = () => {
+	return fetch(`${dataURL}/groups.json`)
+	.then(response => response.json())
+	
+}
+
+export const getLikes = () => {
+	return fetch(`${dataURL}/likes.json`)
+	.then(response => response.json())
+	
+}
+
+export const getDislikes = () => {
+	return fetch(`${dataURL}/dislikes.json`)
+	.then(response => response.json())
+	
+}
+
+export const getGroupUsers = () => {
+	return fetch(`${dataURL}/groupUsers.json`)
+	.then(response => response.json())
+	
+}
+
+
+export const getOneMovie = (fbid) => {
 	console.log("getone", fbid);
 	return fetch(`${dataURL}/movies/${fbid}.json`)
 	.then(response => response.json())
 }
 
-export const addItem = (itemObj) => {
+//////// Friends
+
+export const addFriend = (friendObj) => {
 	return fetch(`${dataURL}/ourflix.json`,{
 		method:"POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify(itemObj)
+		body: JSON.stringify(friendObj)
 	}).then(response => response.json())
 }
 

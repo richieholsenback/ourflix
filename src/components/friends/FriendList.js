@@ -1,21 +1,34 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { useHistory } from "react-router-dom"
+import { getFriends } from "../../modules/APICalls"
 import { FriendCard } from "./FriendCard"
-import { FriendContext } from "./FriendProvider"
 
 export const FriendList = () => {
 
-    const { friends, getFriends } = useContext(FriendContext)
+    const [friendArray, setFriendArray] = useState([])
+
+    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+
+    const getAllFriends = () => {
+        getFriends()
+            .then(data => {
+                console.log("fb data", data)
+                let arrayWithFBID = Object.keys(data).map((key, index) => {
+                    data[key].fbid = key;
+                    return data[key];
+                })
+
+                console.log("arrayWithFBID", arrayWithFBID);
+                //and sort with most recent date first
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setFriendArray(arrayWithFBID)
+            })
+    }
 
     useEffect(() => {
-        getFriends()
-    }, [])
+		getAllFriends()
+	}, [])
 
-      const history = useHistory()
-      //returns the user's list of friends
-
-      const filteredFriends = friends.filter(friend => friend.friendedId === parseInt(sessionStorage.getItem("active_user")))
 
     return (
         <Container className="friends">
@@ -24,7 +37,7 @@ export const FriendList = () => {
             <h2>Your Friends</h2>
             <div className="followingList">
                 {
-                    filteredFriends.map(friend => {
+                    friendArray.map(friend => {
                         return <FriendCard key={friend.id} friend={friend} user={friend.user}/>
                     })
                 }

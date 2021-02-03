@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Row, Container } from "react-bootstrap"
 import { MediaCard } from "../card/Card"
 import { getMovies } from "../../../modules/APICalls"
@@ -12,6 +12,7 @@ export const MovieList = () => {
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
     const getAllMovies = () => {
+        
         getMovies()
             .then(data => {
                 console.log("fb data", data)
@@ -28,7 +29,8 @@ export const MovieList = () => {
     }
 
     useEffect(() => {
-		getAllMovies()
+        console.log("hello")		
+        getAllMovies()
 	}, [])
 
     return (
@@ -43,8 +45,9 @@ export const MovieList = () => {
                 <Col>
                     {
                         movieArray.map(item => {
+                            console.log("hello" + movieArray)
                             return (
-                                <MediaCard key={item.nfid} item={item} />
+                                <MediaCard key={item.fbid} item={item} />
                             )
                         })
                     }

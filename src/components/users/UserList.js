@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
+import { FriendContext } from "../friends/FriendProvider"
 import { UserCard } from './UserCard'
 import { UserContext } from './UserProvider'
 
@@ -6,13 +7,16 @@ import { UserContext } from './UserProvider'
 export const UserList = () => {
   // This state changes when `getAnimals()` is invoked below
   const { users, getUsers, searchTerms } = useContext(UserContext)
+  const { friends, getFriends } = useContext(FriendContext)
 
   const [filteredUsers, setFiltered] = useState([])
   
 
   //useEffect - reach out to the world for something
   useEffect(() => {
-    getUsers()
+    getUsers().then(
+      getFriends()
+    )
   }, [])
 
   useEffect(() => {
@@ -26,12 +30,19 @@ export const UserList = () => {
     }
   }, [searchTerms, users])
 
+  const findIfFollowing = (obj) => {
+    const hasFollowers = friends.find(friend => friend.userId === obj.id)
+    if (!hasFollowers && obj.id !== parseInt(sessionStorage.getItem("active_user"))) {
+      return <UserCard key={obj.id} user={obj} />
+    }
+  }
+
   return (
     <div className="users">
       {/* {console.log("UserList: Render")} */}
       {
         filteredUsers.map(user => {
-          return <UserCard key={user.id} user={user} />
+          return findIfFollowing(user)
         })
       }
     </div>
