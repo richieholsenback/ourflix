@@ -5,7 +5,6 @@ import { FirebaseContext } from "./fbAuth/FirebaseProvider";
 import { FriendDetails } from "./friends/FriendDetails";
 import { FriendList } from "./friends/FriendList";
 import { GroupDetails } from "./groups/GroupDetails";
-import { MediaDetails } from "./Media/card/CardDetails";
 import { UserDetails } from "./users/UserDetails";
 import { UserList } from "./users/UserList";
 // import { UserSearch } from "./users/UserSearch";
@@ -15,6 +14,8 @@ import { MovieList } from "./Media/movies/MovieList";
 import { ShowList } from "./Media/shows/ShowList";
 import Advanced from "./test";
 import { NavBar } from "./nav/Nav";
+import { MovieDetails } from "./Media/movies/MovieDetails";
+import { ShowDetails } from "./Media/shows/ShowDetails";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -41,8 +42,12 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><ShowList /> </>: <Redirect to="/login" />}
             </Route>
 
-            <Route path="/movies/details/:nfid(\d+)">
-                {isLoggedIn ? <> <NavBar /><MediaDetails /> </>: <Redirect to="/login" />}
+            <Route path="/movies/detail/:fbid(\d+)">
+                {isLoggedIn ? <> <NavBar /><MovieDetails /> </>: <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/shows/detail/:fbid(\d+)">
+                {isLoggedIn ? <> <NavBar /><ShowDetails /> </>: <Redirect to="/login" />}
             </Route>
 
             <Route path="/users">

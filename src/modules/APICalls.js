@@ -24,6 +24,10 @@ export const getMovies = () => {
 		.then(response => response.json())
 
 }
+export const GetOneMovie = (fbid) => {
+	return fetch(`${dataURL}/movies/${fbid}.json`)
+		.then(response => response.json())
+}
 
 export const getShows = () => {
 	return fetch(`${dataURL}/shows.json/?orderBy="rating"`)
@@ -31,14 +35,11 @@ export const getShows = () => {
 
 }
 
-export const GetOneMovie = (fbid) => {
-	console.log("getone", fbid);
-	return fetch(`${dataURL}/movies/${fbid}.json`)
+export const GetOneShow = (fbid) => {
+	return fetch(`${dataURL}/shows/${fbid}.json`)
 		.then(response => response.json())
-		.then(data => {
-			<MediaCard key={data.netflixid} item={data} />
-		})
 }
+
 
 ///////// Likes & Dislikes
 

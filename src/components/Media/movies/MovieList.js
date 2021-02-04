@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Col, Row, Container, Image, Button } from "react-bootstrap"
-import { MediaCard } from "../card/Card"
 import { addDislike, addLike, getMovies } from "../../../modules/APICalls"
 import "../../scss/_list.scss"
 import TinderCard from "react-tinder-card";
@@ -88,12 +87,12 @@ export const MovieList = () => {
                                     <Container >
                                         <Row className="card-image">
                                             <Col>
-                                                <Image id="media-img" src={item.image} alt="movie or show poster" loading="lazy" rounded />
+                                                <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
                                             </Col>
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe('right')} variant="dark">
+                                                <Button onClick={() => swipe('left')} variant="dark">
                                                     <IoCloseCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
