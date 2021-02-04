@@ -1,4 +1,3 @@
-import {FaSearch} from "react-icons/fa";
 import React from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"

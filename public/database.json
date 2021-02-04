@@ -9,11 +9,11 @@
     ],
     "friends": [
         {
-            "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
+            "UserUid": "r5afiTCvlWPJMFj5W8afgBHryoT2",
             "friendedId": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3"
         },
         {
-            "UserID": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
+            "UserUid": "xVcCfTO4f1Mvu9eLYMhuFyyu54A3",
             "friendedId": "r5afiTCvlWPJMFj5W8afgBHryoT2"
         }
     ],

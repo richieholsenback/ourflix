@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { getFriends } from "../../modules/APICalls"
 import { FriendCard } from "./FriendCard"

@@ -3,7 +3,6 @@ import { MediaContext } from "./CardMediaProvider"
 import { MediaCard } from "./Card"
 import { Col, Container, Row } from "react-bootstrap"
 import "../../scss/_card.scss"
-import { IoFilter } from "react-icons/io5"
 
 export const AllList = () => {
 

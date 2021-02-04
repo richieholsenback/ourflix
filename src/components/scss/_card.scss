@@ -68,7 +68,9 @@
         padding: 1em;
     }
 
-    .card-options{
-        padding: 2em ;
+    #card-options{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 }

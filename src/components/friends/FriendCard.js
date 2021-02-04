@@ -1,5 +1,5 @@
 import React from "react"
-import { Container, Image } from "react-bootstrap"
+import { Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import "../scss/_friend.scss"
 

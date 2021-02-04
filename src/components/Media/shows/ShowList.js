@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { MediaCard } from "../card/Card"
 import { getShows } from "../../../modules/APICalls"
 

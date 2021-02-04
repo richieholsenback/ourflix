@@ -1,9 +1,7 @@
 import React, { useState, createContext } from "react"
 import firebase from "firebase/app";
-import { firebaseConfig } from '../../fbAuth/FirebaseConfig'
 
 console.log("fb",firebase);
-const dataURL = firebaseConfig.databaseURL;
 
 
 export const MediaContext = createContext()

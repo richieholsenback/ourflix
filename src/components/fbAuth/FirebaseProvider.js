@@ -5,7 +5,6 @@ import "firebase/auth";
 import { firebaseConfig } from "../fbAuth/FirebaseConfig";
 import { addUser } from "../../modules/APICalls";
 
-const dataURL = firebaseConfig.databaseURL;
 /*
     The context is imported and used by individual components
     that need data

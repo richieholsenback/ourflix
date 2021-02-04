@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react"
-import { Image, Button, Container, Row, Col } from "react-bootstrap"
+import React, { useState } from "react"
+import { Image, Button, Row, Col } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import { addFriend } from "../../modules/APICalls"
 import "../scss/_user.scss"

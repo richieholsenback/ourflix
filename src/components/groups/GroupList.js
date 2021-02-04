@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { getGroupUsers } from "../../modules/APICalls"
 import { GroupUserCard } from "./GroupCard"
-import { GroupUserContext } from "./GroupUsersProvider"
 
 export const GroupUserList = () => {
 
