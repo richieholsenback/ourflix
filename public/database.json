@@ -1,4 +1,12 @@
 {
+    "users": [
+        {
+            "id": "test",
+            "displayName": "test",
+            "email" : "test",
+            "photoURL" : "test"
+        }
+    ],
     "friends": [
         {
             "UserID": "r5afiTCvlWPJMFj5W8afgBHryoT2",
