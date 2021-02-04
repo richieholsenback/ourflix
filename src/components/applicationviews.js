@@ -15,6 +15,7 @@ import { LogIn } from "./login/LogIn";
 import { Register } from "./login/Register";
 import { MovieList } from "./Media/movies/MovieList";
 import { ShowList } from "./Media/shows/ShowList";
+import { GetOneMovie } from "../modules/APICalls";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -29,15 +30,19 @@ export const ApplicationView = () => {
                 <Register />
             </Route>
 
+            {/* <Route exact path="/">
+                {isLoggedIn ? <GetOneMovie /> : <Redirect to="/login" />}
+            </Route> */}
+
             <Route path="/movies">
                 {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
             </Route>
-            
+
             <Route path="/shows">
                 {isLoggedIn ? <ShowList /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/details">
+            <Route path="/movies/details/:nfid(\d+)">
                 {isLoggedIn ? <MediaDetails /> : <Redirect to="/login" />}
             </Route>
 

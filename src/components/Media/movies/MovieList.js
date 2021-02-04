@@ -15,37 +15,27 @@ export const MovieList = () => {
         
         getMovies()
             .then(data => {
-                console.log("fb data", data)
                 let arrayWithFBID = Object.keys(data).map((key, index) => {
                     data[key].fbid = key;
                     return data[key];
                 })
-
-                console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setMovieArray(arrayWithFBID)
+                console.log(movieArray)
             })
     }
 
-    useEffect(() => {
-        console.log("hello")		
+    useEffect(() => {	
         getAllMovies()
 	}, [])
 
     return (
         <Container>
             <Row>
-                <Col id="filter">
-                    <IoFilter color="white" />
-                    <p>Filter</p>
-                </Col>
-            </Row>
-            <Row>
                 <Col>
                     {
                         movieArray.map(item => {
-                            console.log("hello" + movieArray)
                             return (
                                 <MediaCard key={item.fbid} item={item} />
                             )

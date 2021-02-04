@@ -4,6 +4,7 @@ import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-
 import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
+import { Link } from "react-router-dom";
 // import poster from "../../../images/New_Girl.jpg"
 
 export const MediaDetails = ({ result }) => {
@@ -19,7 +20,6 @@ export const MediaDetails = ({ result }) => {
                 <Col>
                     <Image id="media-img-detail" src={result.image} alt="movie or show poster" rounded />
                     <div id="media-descrip">
-                        <h2>New Girl</h2>
                         <h2>{result.title}</h2>
                         <p>{result.released}</p>
                         <p><BiStar />{result.rating}/10</p>
@@ -33,10 +33,12 @@ export const MediaDetails = ({ result }) => {
             </Row>
             <Row className="card-options">
                 <Col xs={4}><IoCloseCircleOutline color="white" size="5em" /></Col>
-                <Col xs={4} id="card-detail-button">
-                    <h2 id="card-detail-button-text">Details</h2>
-                    <FiChevronDown color="white" size="3em" />
-                </Col>
+                <Link to={`/movies`}>
+                    <Col xs={4} id="card-detail-button">
+                        <h2 id="card-detail-button-text">Back</h2>
+                        <FiChevronDown color="white" size="3em" />
+                    </Col>
+                </Link>
                 <Col xs={4}><IoCheckmarkCircleOutline color="white" size="5em" /></Col>
             </Row>
         </Container>

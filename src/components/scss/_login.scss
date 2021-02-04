@@ -1,0 +1,29 @@
+@import "./variables";
+
+#gray-input {
+    background-color: #3f3f3f;
+    border: none;
+    padding: 1.5em;
+}
+
+h4 {
+    font-family: "Gotham Bold";
+    font-size: 36px;
+    color: white;
+}
+
+h5 {
+    color: white;
+    padding: 0.5em;
+    font-size: 24px;
+}
+
+#button-sign-in {
+    padding: 1em;
+}
+
+#button-sign-in-red {
+    background-color: #E50914;
+    border: none;
+    padding: 1em;
+}

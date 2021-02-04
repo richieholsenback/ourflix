@@ -2,6 +2,10 @@ import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "react-bootstrap";
 import firebase from "firebase/app";
 import "firebase/auth";
+import  { firebaseConfig }  from "../fbAuth/FirebaseConfig";
+import { addUser } from "../../modules/APICalls";
+
+const dataURL = firebaseConfig.databaseURL;
 /*
     The context is imported and used by individual components
     that need data
@@ -54,7 +58,6 @@ export const FirebaseProvider = (props) => {
         setIsLoggedIn(true);
       });
   };
-  
 
   const signInWithGoogle = () => {
     return firebase.auth().signInWithPopup(provider)
@@ -62,7 +65,21 @@ export const FirebaseProvider = (props) => {
         console.log('savedU', savedactive_user)
         sessionStorage.setItem("active_user", JSON.stringify(savedactive_user.user))
         setIsLoggedIn(true);
-      })
+        return(savedactive_user.user.uid)
+      }).then(uid =>{
+        //we want to look in the db to see if we have the uid of the active user already, so we order and filter based off that
+          return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+          .then(response => response.json())
+          .then(response => {
+            if(response === uid){
+              return null
+            } else {
+              addUser(response)
+            }
+          })
+        }
+      
+      )
   }
 
 

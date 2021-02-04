@@ -1,20 +1,35 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
+import { getGroupUsers } from "../../modules/APICalls"
 import { GroupUserCard } from "./GroupCard"
 import { GroupUserContext } from "./GroupUsersProvider"
 
 export const GroupUserList = () => {
 
-    const { groupUsers, getGroupUsers } = useContext(GroupUserContext)
+    const [groupUserArray, setGroupUserArray] = useState([])
+
+    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+
+    const getAllGroupUsers = () => {
+        getGroupUsers()
+            .then(data => {
+                console.log("fb data", data)
+                let arrayWithFBID = Object.keys(data).map((key, index) => {
+                    data[key].fbid = key;
+                    return data[key];
+                })
+
+                console.log("arrayWithFBID", arrayWithFBID);
+                //and sort with most recent date first
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setGroupUserArray(arrayWithFBID)
+            })
+    }
 
     useEffect(() => {
-        getGroupUsers()
-    }, [])
-
-    //   const history = useHistory()
-    //   //returns the user's list of groupUsers
-
-    //   const filteredGroupUsers = groupUsers.filter(groupUser => groupUser.followedById === parseInt(sessionStorage.getItem("active_user")))
+        console.log("hello")		
+        getAllGroupUsers()
+	}, [])
 
     return (
         <Container className="groupUsers">
@@ -23,7 +38,7 @@ export const GroupUserList = () => {
                     <h2>Your Groups</h2>
                     <div className="followingList">
                         {
-                            groupUsers.map(groupUser => {
+                            groupUserArray.map(groupUser => {
                                 return <GroupUserCard key={groupUser.id} groupUser={groupUser} user={groupUser.user} group={groupUser.group} />
                             })
                         }

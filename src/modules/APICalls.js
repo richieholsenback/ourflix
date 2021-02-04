@@ -1,8 +1,11 @@
 import firebase from "firebase/app";
-import  { firebaseConfig }  from "../components/fbAuth/FirebaseConfig";
+import { firebaseConfig } from "../components/fbAuth/FirebaseConfig";
+import { MediaCard } from "../components/Media/card/Card";
 
-console.log("fb",firebase);
+console.log("fb", firebase);
 const dataURL = firebaseConfig.databaseURL;
+
+////// Media
 
 //https://firebase.google.com/docs/reference/rest/database
 
@@ -14,62 +17,97 @@ export const getMovies = () => {
 			".indexOn": ["uid"]
 		}
 	*/
-	
+
 	// https://firebase.google.com/docs/database/rest/retrieve-data?authuser=0
 	// combine orderBy with any of the other five parameters: limitToFirst, limitToLast, startAt, endAt, and equalTo
 	return fetch(`${dataURL}/movies.json`)
-	.then(response => response.json())
-	
+		.then(response => response.json())
+
 }
 
 export const getShows = () => {
-	return fetch(`${dataURL}/shows.json`)
-	.then(response => response.json())
-	
+	return fetch(`${dataURL}/shows.json/?orderBy="rating"`)
+		.then(response => response.json())
+
 }
 
-export const getFriends = () => {
-	return fetch(`${dataURL}/friends.json/?orderBy="UID"&equalTo="${firebase.auth().currentUser.uid}"`)
-	.then(response => response.json())
-	
+export const GetOneMovie = (fbid) => {
+	console.log("getone", fbid);
+	return fetch(`${dataURL}/movies/${fbid}.json`)
+		.then(response => response.json())
+		.then(data => {
+			<MediaCard key={data.netflixid} item={data} />
+		})
 }
 
-export const getGroups = () => {
-	return fetch(`${dataURL}/groups.json`)
-	.then(response => response.json())
-	
-}
+///////// Likes & Dislikes
 
 export const getLikes = () => {
 	return fetch(`${dataURL}/likes.json`)
-	.then(response => response.json())
-	
+		.then(response => response.json())
+
+}
+
+export const addLike = (likeObj) => {
+	return fetch(`${dataURL}/likes.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(likeObj)
+	}).then(response => response.json())
 }
 
 export const getDislikes = () => {
 	return fetch(`${dataURL}/dislikes.json`)
-	.then(response => response.json())
-	
+		.then(response => response.json())
+
 }
 
-export const getGroupUsers = () => {
-	return fetch(`${dataURL}/groupUsers.json`)
-	.then(response => response.json())
-	
+export const addDislike = (dislikeObj) => {
+	return fetch(`${dataURL}/dislikes.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(dislikeObj)
+	}).then(response => response.json())
 }
 
+//////// Users
 
-export const getOneMovie = (fbid) => {
-	console.log("getone", fbid);
-	return fetch(`${dataURL}/movies/${fbid}.json`)
-	.then(response => response.json())
+export const getUsers = () => {
+	return fetch(`${dataURL}/users.json`)
+		.then(response => response.json())
+
+}
+
+export const getUserConfirm = () => {
+	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+		.then(response => response.json())
+}
+
+export const addUser = (userObj) => {
+	return fetch(`${dataURL}/users.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(userObj)
+	}).then(response => response.json())
 }
 
 //////// Friends
 
+export const getFriends = () => {
+	return fetch(`${dataURL}/friends.json/?orderBy="UID"&equalTo="${firebase.auth().currentUser.uid}"`)
+		.then(response => response.json())
+
+}
+
 export const addFriend = (friendObj) => {
-	return fetch(`${dataURL}/ourflix.json`,{
-		method:"POST",
+	return fetch(`${dataURL}/ourflix.json`, {
+		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
@@ -77,19 +115,47 @@ export const addFriend = (friendObj) => {
 	}).then(response => response.json())
 }
 
+//////// Groups
+
+export const getGroupUsers = () => {
+	return fetch(`${dataURL}/groupUsers.json`)
+		.then(response => response.json())
+
+}
+
+export const getGroups = () => {
+	return fetch(`${dataURL}/groups.json`)
+		.then(response => response.json())
+
+}
+
+export const addGroup = (groupObj) => {
+	return fetch(`${dataURL}/ourflix.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(groupObj)
+	}).then(response => response.json())
+}
+
+
+
+
+
 export const updateItem = (itemObj) => {
 	//we don't want to add the firebase key to the item object on firebase(duplication of data) so, 
 	//make a reference to the fbid and then remove it from the object
 	const fbid = itemObj.fbid;
 	delete itemObj.fbid;
 
-	return fetch(`${dataURL}/christList/${fbid}.json`,{
+	return fetch(`${dataURL}/christList/${fbid}.json`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(itemObj)
-	})	
+	})
 }
 
 export const updateChristList = (itemObj) => {
@@ -99,17 +165,17 @@ export const updateChristList = (itemObj) => {
 	const fbid = itemObj.fbid;
 	delete itemObj.fbid;
 
-	return fetch(`${dataURL}/christList/${fbid}.json`,{
+	return fetch(`${dataURL}/christList/${fbid}.json`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(itemObj)
-	})	
+	})
 }
 
 export const deleteItem = (itemFBID) => {
-	return fetch(`${dataURL}/christList/${itemFBID}.json`,{
+	return fetch(`${dataURL}/christList/${itemFBID}.json`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json"

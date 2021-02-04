@@ -18,12 +18,6 @@ export const AllList = () => {
     return (
         <Container>
             <Row>
-                <Col id="filter">
-                    <IoFilter color="white" />
-                    <p>Filter</p>
-                </Col>
-            </Row>
-            <Row>
                 <Col>
                     {
                         items.map((item, index) => {

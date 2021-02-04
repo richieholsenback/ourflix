@@ -11,13 +11,11 @@ export const ShowList = () => {
     const getAllShows = () => {
         getShows()
             .then(data => {
-                console.log("fb data", data)
                 let arrayWithFBID = Object.keys(data).map((key, index) => {
                     data[key].fbid = key;
                     return data[key];
                 })
 
-                console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setShowArray(arrayWithFBID)
