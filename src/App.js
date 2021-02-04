@@ -11,11 +11,9 @@ function App() {
     <div className="App">
       <Router>
         <FirebaseProvider>
-          <NavBar />
           <ApplicationView />
         </FirebaseProvider>
       </Router>
-
     </div>
   );
 }

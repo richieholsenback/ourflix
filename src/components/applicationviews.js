@@ -14,6 +14,7 @@ import { Register } from "./login/Register";
 import { MovieList } from "./Media/movies/MovieList";
 import { ShowList } from "./Media/shows/ShowList";
 import Advanced from "./test";
+import { NavBar } from "./nav/Nav";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -29,48 +30,44 @@ export const ApplicationView = () => {
             </Route>
 
             <Route exact path="/">
-                {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /> <MovieList /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/movies">
-                {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><MovieList /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/shows">
-                {isLoggedIn ? <ShowList /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><ShowList /> </>: <Redirect to="/login" />}
             </Route>
 
             <Route path="/movies/details/:nfid(\d+)">
-                {isLoggedIn ? <MediaDetails /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><MediaDetails /> </>: <Redirect to="/login" />}
             </Route>
 
             <Route path="/users">
-                {isLoggedIn ? <><UserList /></> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><UserList /></> : <Redirect to="/login" />}
             </Route>
             
             <Route path="/advanced">
-                {isLoggedIn ? <><Advanced /></> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><Advanced /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/friends">
-                {isLoggedIn ?
-                    <>
-                        <FriendList />
-                        {/* <GroupUserList /> */}
-                    </> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar />  <FriendList /> </> : <Redirect to="/login" />}
             </Route>
 
 
             <Route path="/users/detail/:useruid(\d+)">
-                {isLoggedIn ? <UserDetails /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/friends/detail/:friendId(\d+)">
-                {isLoggedIn ? <FriendDetails /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/groups/detail/:groupId(\d+)">
-                {isLoggedIn ? <GroupDetails /> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><GroupDetails /> </>: <Redirect to="/login" />}
             </Route>
         </Switch>
 

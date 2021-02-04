@@ -90,16 +90,16 @@ export const FirebaseProvider = (props) => {
           //if the array in the db has info, has more info than 0, just log them in
           console.log("YEAH, true user")
           sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-          setIsLoggedIn(true);
         } else {
           //if not, create a user in the db and then log them in
           addUser(firebase.auth().currentUser)
-            .then(() => {
-              sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-              setIsLoggedIn(true)
-            })
+          .then(() => {
+            sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
+            setIsLoggedIn(true)
+          })
           //add to user in DB
         }
+        setIsLoggedIn(true);
       })
   }
 
