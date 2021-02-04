@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Container } from "react-bootstrap"
 import { getUsers } from "../../modules/APICalls"
 import { UserCard } from './UserCard'
 
@@ -33,13 +34,13 @@ export const UserList = () => {
 	}, [])
 
   return (
-    <div className="users">
+    <Container className="justify-content-xs-center">
       {/* {console.log("UserList: Render")} */}
       {
         userArray.map(user => {
           return <UserCard key={user.id} user={user} />
         })
       }
-    </div>
+    </Container>
   )
 }

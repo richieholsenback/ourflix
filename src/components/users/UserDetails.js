@@ -1,13 +1,21 @@
 import React from "react"
-import { Image } from "react-bootstrap"
+import { Col, Container, Image, Row } from "react-bootstrap"
 import "../scss/_user.scss"
 
-export const UserDetails = ({user}) => {
+export const UserDetails = ({ user }) => {
     return (
-        <div className="user-card">
-            <Image src={user.avatar} alt="user pic" id="user-pic"/>
-            <h2>{user.firstName} {user.lastName}</h2>
-            <button id="white-fill-button">Add Friend</button>
-        </div>
+        <Container className="user-card">
+            <Row>
+                <Col>
+                    <Image src={user.photoURL} alt="user pic" id="user-pic" />
+                </Col>
+                <Col>
+                    <button id="white-fill-button">Add Friend</button>
+                </Col>
+            </Row>
+            <Col>
+                <h2>{user.displayName}</h2>
+            </Col>
+        </Container>
     )
 }

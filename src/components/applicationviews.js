@@ -10,7 +10,7 @@ import { MediaDetails } from "./Media/card/CardDetails";
 import { AllList } from "./Media/card/CardList"
 import { UserDetails } from "./users/UserDetails";
 import { UserList } from "./users/UserList";
-import { UserSearch } from "./users/UserSearch";
+// import { UserSearch } from "./users/UserSearch";
 import { LogIn } from "./login/LogIn";
 import { Register } from "./login/Register";
 import { MovieList } from "./Media/movies/MovieList";
@@ -30,9 +30,9 @@ export const ApplicationView = () => {
                 <Register />
             </Route>
 
-            {/* <Route exact path="/">
-                {isLoggedIn ? <GetOneMovie /> : <Redirect to="/login" />}
-            </Route> */}
+            <Route exact path="/">
+                {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
+            </Route>
 
             <Route path="/movies">
                 {isLoggedIn ? <MovieList /> : <Redirect to="/login" />}
@@ -47,7 +47,7 @@ export const ApplicationView = () => {
             </Route>
 
             <Route path="/users">
-                {isLoggedIn ? <><UserSearch /> <UserList /></> : <Redirect to="/login" />}
+                {isLoggedIn ? <><UserList /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/friends">
@@ -55,7 +55,7 @@ export const ApplicationView = () => {
             </Route>
 
 
-            <Route path="/users/detail/:userId(\d+)">
+            <Route path="/users/detail/:useruid(\d+)">
                 {isLoggedIn ? <UserDetails /> : <Redirect to="/login" />}
             </Route>
 
