@@ -4,6 +4,7 @@ import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
 import { Link, useHistory, useParams } from "react-router-dom";
 import { GetOneShow } from "../../../modules/APICalls";
+import { FaPlay } from "react-icons/fa";
 
 // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 export const ShowDetails = () => {
@@ -40,10 +41,10 @@ export const ShowDetails = () => {
                             <p>{show.synopsis}</p>
                         </div>
                         <a id="imdb-preview" href={"https://www.imdb.com/title/" + show.imdbid} target="_blank" rel="noreferrer">
-                            <button id="yellow-fill-button">IMDB</button>
+                            <button id="yellow-fill-button">IMDb</button>
                         </a>
                         <a id="preview" href={"https://www.netflix.com/title/" + show.netflixid} target="_blank" rel="noreferrer">
-                            <button id="white-fill-button">Preview</button>
+                            <button id="white-fill-button"><FaPlay size="0.8em"/> Preview</button>
                         </a>
                     </Col>
                 </Row>

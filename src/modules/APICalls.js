@@ -82,6 +82,11 @@ export const getUsers = () => {
 
 }
 
+export const GetOneUser = (fbid) => {
+	return fetch(`${dataURL}/users/${fbid}.json`)
+		.then(response => response.json())
+}
+
 export const getUserConfirm = () => {
 	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
 		.then(response => response.json())
@@ -95,6 +100,21 @@ export const addUser = (userObj) => {
 		},
 		body: JSON.stringify(userObj)
 	}).then(response => response.json())
+}
+
+export const updateUser = (userObj) => {
+	//we don't want to add the firebase key to the user object on firebase(duplication of data) so, 
+	//make a reference to the fbid and then remove it from the object
+	const fbid = userObj.fbid;
+	delete userObj.fbid;
+
+	return fetch(`${dataURL}/users/${fbid}.json`,{
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(userObj)
+	})	
 }
 
 //////// Friends

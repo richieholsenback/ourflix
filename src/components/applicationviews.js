@@ -16,6 +16,7 @@ import Advanced from "./test";
 import { NavBar } from "./nav/Nav";
 import { MovieDetails } from "./Media/movies/MovieDetails";
 import { ShowDetails } from "./Media/shows/ShowDetails";
+import { UserForm } from "./users/UserForm";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -50,7 +51,7 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><ShowDetails /> </>: <Redirect to="/login" />}
             </Route>
 
-            <Route path="/users">
+            <Route exact path="/users">
                 {isLoggedIn ? <> <NavBar /><UserList /></> : <Redirect to="/login" />}
             </Route>
             
@@ -63,16 +64,20 @@ export const ApplicationView = () => {
             </Route>
 
 
-            <Route path="/users/detail/:useruid(\d+)">
+            <Route path="/users/detail/:userfbid">
                 {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/friends/detail/:friendId(\d+)">
+            <Route path="/friends/detail/:friendId">
                 {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/groups/detail/:groupId(\d+)">
+            <Route path="/groups/detail/:groupId">
                 {isLoggedIn ? <> <NavBar /><GroupDetails /> </>: <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/user/update/:userfbid">
+                {isLoggedIn ? <> <NavBar /><UserForm /> </>: <Redirect to="/login" />}
             </Route>
         </Switch>
 

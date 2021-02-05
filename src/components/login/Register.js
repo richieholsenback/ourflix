@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
 import { useHistory, Link } from "react-router-dom";
 import { FirebaseContext } from "../fbAuth/FirebaseProvider";
+import firebase from "firebase/app";
 
 export const Register = () => {
   const history = useHistory();
@@ -19,7 +20,7 @@ export const Register = () => {
     } else {
       const userProfile = { name, email };
       register(userProfile, password)
-        .then(() => history.push("/"));
+        .then(() => history.push(`/user/update/${firebase.auth().currentUser.uid}`));
     }
   };
 
@@ -29,13 +30,8 @@ export const Register = () => {
     <Row>
       <Col className="m-2" md={6}>
       <Form onSubmit={registerClick}>
-              <h5 className="username">Create Your Chris-List Account</h5>
+              <h5 className="username">Create Your Ourflix Account</h5>
               <fieldset>
-
-              <Form.Group>
-                <Form.Label>Name</Form.Label>
-                <Form.Control placeholder="User Name" id="name" type="text" onChange={e => setName(e.target.value)} />
-              </Form.Group>
 
               <Form.Group controlId="email">
                 <Form.Label>Email</Form.Label>
@@ -54,6 +50,7 @@ export const Register = () => {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
               </Form.Group>
+              
               
               <Button variant="primary" type="submit">Continue</Button>
             </fieldset>

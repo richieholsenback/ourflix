@@ -34,7 +34,7 @@ export const UserList = () => {
 	}, [])
 
   return (
-    <Container className="justify-content-xs-center">
+    <Container >
       {/* {console.log("UserList: Render")} */}
       {
         userArray.map(user => {

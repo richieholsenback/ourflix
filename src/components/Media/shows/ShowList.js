@@ -6,6 +6,7 @@ import TinderCard from "react-tinder-card"
 import { IoCheckmarkCircleOutline, IoCloseCircleOutline } from "react-icons/io5"
 import { Link } from "react-router-dom"
 import { FiChevronDown } from "react-icons/fi"
+import firebase from "firebase/app";
 
 export const ShowList = () => {
 
@@ -42,25 +43,23 @@ export const ShowList = () => {
     const childRefs = useMemo(() => Array(showArray.length).fill(0).map(i => React.createRef()), [])
 
     const swiped = (direction, idOfShow) => {
-        setLastDirection(direction)
-        const userId = parseInt(sessionStorage.getItem("active_user"))
-        if (direction === "right") {
-            addLike({
-                userUid: userId,
-                showId: idOfShow
-            })
-        } else if (direction === "left") {
-            addDislike({
-                userUid: userId,
-                showId: idOfShow
-
-            })
-        }
+        
+        const userId = sessionStorage.getItem("active_user").uid
+                if (direction === "right") {
+                    addLike({
+                        showId: idOfShow,
+                        userId: firebase.auth().currentUser.uid
+                    })
+                } else if (direction === "left") {
+                    addDislike({
+                        showId: idOfShow,
+                        userId: firebase.auth().currentUser.uid
+                    })
+                }
     }
 
-
     const outOfFrame = (title) => {
-        console.log(title + ' left the screen!')
+        console.log(firebase.auth().currentUser.uid)
         ShowState = ShowState.filter(show => show.title !== title)
         setShows(ShowState)
     }
@@ -81,7 +80,7 @@ export const ShowList = () => {
                     {
                         showArray.map((item, index) => {
                             return (
-                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.uid)}>
+                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.fbid)}>
                                     <Container >
                                         <Row className="card-image">
                                             <Col>

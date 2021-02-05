@@ -21,14 +21,14 @@ export const UserCard = ({ user }) => {
 
     return (
         <>
-            <Row className="justify-content-md-center">
+            <Row>
                 <Col xs={1}>
-                    <Link to={`users/details/${user.uid}`}>
+                    <Link to={`users/details/${user.fbid}`}>
                         <Image src={user.photoURL} alt="user pic" id="user-pic" />
                     </Link>
                 </Col>
                 <Col xs={4}>
-                    <Link to={`users/details/${user.uid}`}>
+                    <Link to={`users/details/${user.fbid}`}>
                         <h2>{user.displayName}</h2>
                     </Link>
                 </Col>

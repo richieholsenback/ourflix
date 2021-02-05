@@ -1,32 +1,38 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
-import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-icons/io5"
 import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
-import { Link } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { GetOneMovie } from "../../../modules/APICalls";
 // import poster from "../../../images/New_Girl.jpg"
 
-export const MovieDetails = ({ result }) => {
+export const MovieDetails = () => {
+
+    const [movie, setMovie] = useState({})
+    const history = useHistory();
+    const { fbid } = useParams();
+
+    useEffect(() => {
+        GetOneMovie(fbid)
+            .then(response => {
+                setMovie(response)
+            })
+    }, [fbid])
+
     return (
         <Container id="card-container">
-            <Row>
-                <Col id="filter">
-                    <IoFilter color="white" />
-                    <p>Filter</p>
-                </Col>
-            </Row>
             <Row className="card-image">
                 <Col>
-                    <Image id="media-img-detail" src={result.image} alt="movie or show poster" rounded />
+                    <Image id="media-img-detail" src={movie.image} alt="movie or show poster" rounded />
                     <div id="media-descrip">
-                        <h2>{result.title}</h2>
-                        <p>{result.released}</p>
-                        <p><BiStar />{result.rating}/10</p>
-                        <p>{result.runtime}</p>
-                        <p>{result.synopsis}</p>
+                        <h2>{movie.title}</h2>
+                        <p>{movie.released}</p>
+                        <p><BiStar />{movie.rating}/10</p>
+                        <p>{movie.runtime}</p>
+                        <p>{movie.synopsis}</p>
                     </div>
-                    <a id="preview" href={"https://www.netflix.com/title/" + result.title} target="_blank" rel="noreferrer">
+                    <a id="preview" href={"https://www.netflix.com/title/" + movie.title} target="_blank" rel="noreferrer">
                         <button id="white-fill-button">Preview</button>
                     </a>
                 </Col>

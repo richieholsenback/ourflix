@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from "../fbAuth/FirebaseConfig";
 import { addUser } from "../../modules/APICalls";
+import { UserForm } from "../users/UserForm";
 
 /*
     The context is imported and used by individual components
@@ -55,11 +56,9 @@ export const FirebaseProvider = (props) => {
     return firebase.auth().createUserWithEmailAndPassword(active_user.email, password)
       .then(savedactive_user => {
         return (savedactive_user.user.uid)
-      }).then(uid => {
-        checkUser(uid)
-      }
-      )
-  }
+      })
+    }
+    
   const signInWithGoogle = () => {
     return firebase.auth().signInWithPopup(provider)
     //sign in
@@ -95,11 +94,36 @@ export const FirebaseProvider = (props) => {
           addUser(firebase.auth().currentUser)
           .then(() => {
             sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-            setIsLoggedIn(true)
           })
           //add to user in DB
         }
         setIsLoggedIn(true);
+      })
+  }
+  
+  const checkUserRegister = (userId) => {
+    console.log("checkUser", userId)
+    fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
+      // go to the db and pull any user with the uid of the signed in user
+      .then(result => result.json())
+      //convert to JSON
+      .then(parsedResult => {
+        console.log("check result", parsedResult)
+        let resultArray = Object.keys(parsedResult)
+        //Convert the logged in user object into an array - children cannot be objects
+        if (resultArray.length > 0) {
+          //if the array in the db has info, has more info than 0, just log them in
+          console.log("YEAH, true user")
+          sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
+        } else {
+          //if not, create a user in the db and then log them in
+          addUser(firebase.auth().currentUser)
+          .then(() => {
+            sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
+            setIsLoggedIn(true);
+          })
+          //add to user in DB
+        }
       })
   }
 

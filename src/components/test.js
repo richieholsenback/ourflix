@@ -39,6 +39,7 @@ function Advanced () {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
+    console.log(alreadyRemoved)
   }
 
   const outOfFrame = (name) => {
