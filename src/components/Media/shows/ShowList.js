@@ -90,18 +90,18 @@ export const ShowList = () => {
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe('left')} variant="dark">
+                                                <Button onClick={() => swipe('left')} variant="link">
                                                     <IoCloseCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
                                             <Col xs={3} >
-                                                <Link to={`/shows/detail/${item.fbid}`} id="card-detail-button">
+                                                <Link to={`/showdetail/${item.fbid}`} id="card-detail-button">
                                                     <h2 id="card-detail-button-text">Details</h2>
                                                     <FiChevronDown color="white" size="3em" />
                                                 </Link>
                                             </Col>
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe('right')} variant="dark">
+                                                <Button onClick={() => swipe('right')} variant="link">
                                                     <IoCheckmarkCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>

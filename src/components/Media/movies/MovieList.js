@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Col, Row, Container, Image, Button } from "react-bootstrap"
 import { addDislike, addLike, getMovies } from "../../../modules/APICalls"
 import "../../scss/_list.scss"
+import "../../scss/_advanced.scss"
 import TinderCard from "react-tinder-card";
 import { Link, useHistory } from "react-router-dom"
 import { IoCheckmarkCircleOutline, IoCloseCircleOutline } from "react-icons/io5"
@@ -84,26 +85,26 @@ export const MovieList = () => {
                         movieArray.map((item, index) => {
                             return (
                                 <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.uid)}>
-                                    <Container >
-                                        <Row className="card-image">
+                                    <Container className="card-image">
+                                        <Row >
                                             <Col>
                                                 <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
                                             </Col>
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe('left')} variant="dark">
+                                                <Button onClick={() => swipe('left')} variant="link">
                                                     <IoCloseCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
                                             <Col xs={3} >
-                                                <Link to={`movies/details/${item.nfid}`} id="card-detail-button">
+                                                <Link to={`/moviedetail/${item.fbid}`} id="card-detail-button">
                                                     <h2 id="card-detail-button-text">Details</h2>
                                                     <FiChevronDown color="white" size="3em" />
                                                 </Link>
                                             </Col>
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe('right')} variant="dark">
+                                                <Button onClick={() => swipe('right')} variant="link">
                                                     <IoCheckmarkCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>

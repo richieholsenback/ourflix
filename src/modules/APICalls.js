@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import { firebaseConfig } from "../components/fbAuth/FirebaseConfig";
 import { MediaCard } from "../components/Media/card/Card";
 
-console.log("fb", firebase);
 const dataURL = firebaseConfig.databaseURL;
 
 ////// Media
@@ -27,12 +26,12 @@ export const getMovies = () => {
 export const GetOneMovie = (fbid) => {
 	return fetch(`${dataURL}/movies/${fbid}.json`)
 		.then(response => response.json())
+		.then(console.log("heyyyyaaaa"))
 }
 
 export const getShows = () => {
 	return fetch(`${dataURL}/shows.json/?orderBy="rating"`)
 		.then(response => response.json())
-
 }
 
 export const GetOneShow = (fbid) => {

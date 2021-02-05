@@ -31,7 +31,7 @@ export const MovieDetails = ({ result }) => {
                     </a>
                 </Col>
             </Row>
-            <Row className="card-options">
+            {/* <Row className="card-options">
                 <Col xs={4}><IoCloseCircleOutline color="white" size="5em" /></Col>
                 <Link to={`/movies`}>
                     <Col xs={4} id="card-detail-button">
@@ -40,7 +40,7 @@ export const MovieDetails = ({ result }) => {
                     </Col>
                 </Link>
                 <Col xs={4}><IoCheckmarkCircleOutline color="white" size="5em" /></Col>
-            </Row>
+            </Row> */}
         </Container>
     )
 }

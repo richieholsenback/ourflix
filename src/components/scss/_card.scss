@@ -7,6 +7,12 @@
         color: white;
 
     }
+
+    a {
+        font-family: "Gotham Book";
+        color: white;
+    }
+
     #media-img {
         width: auto;
         height: 77vh;
@@ -43,6 +49,16 @@
         border-radius: 8px;
         padding: 0 0.7em;
     }
+    
+    #yellow-fill-button{
+        background-color: #F5DE50;
+        border:#F5DE50;
+        font-family: "Gotham Bold";
+        color: rgb(0, 0, 0);
+        font-size: 28px;
+        border-radius: 8px;
+        padding: 0 0.7em;
+    }
 
     #card-detail-button {
         display: flex;
@@ -65,6 +81,13 @@
         position: absolute;
         bottom: 8px;
         right: 16px;
+        padding: 1em;
+    }
+    
+    #imdb-preview {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
         padding: 1em;
     }
 

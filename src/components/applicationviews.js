@@ -34,19 +34,19 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /> <MovieList /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/movies">
+            <Route exact path="/movies">
                 {isLoggedIn ? <> <NavBar /><MovieList /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/shows">
+            <Route exact path="/shows">
                 {isLoggedIn ? <> <NavBar /><ShowList /> </>: <Redirect to="/login" />}
             </Route>
 
-            <Route path="/movies/detail/:fbid(\d+)">
+            <Route path="/moviedetail/:fbid">
                 {isLoggedIn ? <> <NavBar /><MovieDetails /> </>: <Redirect to="/login" />}
             </Route>
             
-            <Route path="/shows/detail/:fbid(\d+)">
+            <Route path="/showdetail/:fbid">
                 {isLoggedIn ? <> <NavBar /><ShowDetails /> </>: <Redirect to="/login" />}
             </Route>
 

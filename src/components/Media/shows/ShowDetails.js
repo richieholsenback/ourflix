@@ -1,60 +1,53 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
-import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-icons/io5"
-import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
 import { Link, useHistory, useParams } from "react-router-dom";
 import { GetOneShow } from "../../../modules/APICalls";
 
-    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
+// const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 export const ShowDetails = () => {
 
     const [show, setShow] = useState({})
-
-    const {fbid} = useParams();
     const history = useHistory();
+    const { fbid } = useParams();
 
     useEffect(() => {
         GetOneShow(fbid)
-        .then(response => {
-            setShow(response)
-        })
-	}, [])
+            .then(response => {
+                setShow(response)
+            })
+    }, [fbid])
 
     return (
-        <Container id="card-container">
+        <Container >
             <Row>
                 <Col id="filter">
-                    <IoFilter color="white" />
-                    <p>Filter</p>
+                    <Link to="/shows">
+                        <h3>Back</h3>
+                    </Link>
                 </Col>
             </Row>
-            <Row className="card-image">
-                <Col>
-                    <Image id="media-img-detail" src={show.image} alt="movie or show poster" rounded />
-                    <div id="media-descrip">
-                        <h2>{show.title}</h2>
-                        <p>{show.released}</p>
-                        <p><BiStar />{show.rating}/10</p>
-                        <p>{show.runtime}</p>
-                        <p>{show.synopsis}</p>
-                    </div>
-                    <a id="preview" href={"https://www.netflix.com/title/" + show.title} target="_blank" rel="noreferrer">
-                        <button id="white-fill-button">Preview</button>
-                    </a>
-                </Col>
-            </Row>
-            <Row className="card-options">
-                <Col xs={4}><IoCloseCircleOutline color="white" size="5em" /></Col>
-                <Link to={`/movies`}>
-                    <Col xs={4} id="card-detail-button">
-                        <h2 id="card-detail-button-text">Back</h2>
-                        <FiChevronDown color="white" size="3em" />
+            <div id="card-container">
+                <Row>
+                    <Col className="card-image">
+                        <Image id="media-img-detail" src={show.image} alt="movie or show poster" rounded />
+                        <div id="media-descrip">
+                            <h2>{show.title}</h2>
+                            <p>{show.released}</p>
+                            <p><BiStar />{show.rating}/10</p>
+                            <p>{show.runtime}</p>
+                            <p>{show.synopsis}</p>
+                        </div>
+                        <a id="imdb-preview" href={"https://www.imdb.com/title/" + show.imdbid} target="_blank" rel="noreferrer">
+                            <button id="yellow-fill-button">IMDB</button>
+                        </a>
+                        <a id="preview" href={"https://www.netflix.com/title/" + show.netflixid} target="_blank" rel="noreferrer">
+                            <button id="white-fill-button">Preview</button>
+                        </a>
                     </Col>
-                </Link>
-                <Col xs={4}><IoCheckmarkCircleOutline color="white" size="5em" /></Col>
-            </Row>
+                </Row>
+            </div>
         </Container>
     )
 }
