@@ -26,7 +26,6 @@ export const getMovies = () => {
 export const GetOneMovie = (fbid) => {
 	return fetch(`${dataURL}/movies/${fbid}.json`)
 		.then(response => response.json())
-		.then(console.log("heyyyyaaaa"))
 }
 
 export const getShows = () => {

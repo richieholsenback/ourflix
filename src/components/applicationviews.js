@@ -43,11 +43,11 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><ShowList /> </>: <Redirect to="/login" />}
             </Route>
 
-            <Route path="/moviedetail/:fbid">
+            <Route path="/movie/details/:fbid">
                 {isLoggedIn ? <> <NavBar /><MovieDetails /> </>: <Redirect to="/login" />}
             </Route>
             
-            <Route path="/showdetail/:fbid">
+            <Route path="/show/details/:fbid">
                 {isLoggedIn ? <> <NavBar /><ShowDetails /> </>: <Redirect to="/login" />}
             </Route>
 
@@ -64,15 +64,15 @@ export const ApplicationView = () => {
             </Route>
 
 
-            <Route path="/users/detail/:userfbid">
+            <Route path="/user/details/:userfbid">
                 {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/friends/detail/:friendId">
+            <Route path="/friend/details/:friendId">
                 {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/groups/detail/:groupId">
+            <Route path="/group/details/:groupId">
                 {isLoggedIn ? <> <NavBar /><GroupDetails /> </>: <Redirect to="/login" />}
             </Route>
             

@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+
     h2 {
         font-family: "Gotham Book";
         color: white;
@@ -15,7 +16,7 @@
 
     #media-img {
         width: auto;
-        height: 77vh;
+        height: 75vh;
     }
     
     #media-img-detail {

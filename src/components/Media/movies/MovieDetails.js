@@ -5,6 +5,7 @@ import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
 import { useHistory, useParams } from "react-router-dom";
 import { GetOneMovie } from "../../../modules/APICalls";
+import { FaPlay } from "react-icons/fa";
 // import poster from "../../../images/New_Girl.jpg"
 
 export const MovieDetails = () => {
@@ -32,9 +33,12 @@ export const MovieDetails = () => {
                         <p>{movie.runtime}</p>
                         <p>{movie.synopsis}</p>
                     </div>
-                    <a id="preview" href={"https://www.netflix.com/title/" + movie.title} target="_blank" rel="noreferrer">
-                        <button id="white-fill-button">Preview</button>
-                    </a>
+                    <a id="imdb-preview" href={"https://www.imdb.com/title/" + movie.imdbid} target="_blank" rel="noreferrer">
+                            <button id="yellow-fill-button">IMDb</button>
+                        </a>
+                        <a id="preview" href={"https://www.netflix.com/title/" + movie.netflixid} target="_blank" rel="noreferrer">
+                            <button id="white-fill-button"><FaPlay size="0.8em"/> Preview</button>
+                        </a>
                 </Col>
             </Row>
             {/* <Row className="card-options">
