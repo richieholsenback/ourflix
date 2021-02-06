@@ -21,7 +21,6 @@ export const LogIn = () => {
 
   const loginGoogle = () => {
     signInWithGoogle()
-      .then(response => history.push("/"))
   }
 
 

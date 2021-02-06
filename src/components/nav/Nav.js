@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"
 import prof from "../../images/Caro.png"
+import { GetOneUser, getOneUserAlt, getUsers } from "../../modules/APICalls";
+import { useHistory, useParams } from "react-router-dom";
+import firebase from "firebase/app";
 
 export const NavBar = () => {
+
+    const [user, setUser] = useState({})
+    const [userArray, setUserArray] = useState({})
+    const history = useHistory();
+    const { fbid } = useParams();
+
+    useEffect(() => {
+        console.log(JSON.parse(sessionStorage.getItem("active_user")).uid)
+        getOneUserAlt(JSON.parse(sessionStorage.getItem("active_user")).uid)
+            .then((response) => {
+                console.log(Object.keys(response))
+                GetOneUser(Object.keys(response))
+                .then(response => {
+                    setUser(response)
+                })
+            })
+    }, [])
+    
     return (
         <>
             <Navbar expand="lg" bg="transparent" id="navbar-container" variant="dark">
@@ -28,7 +49,7 @@ export const NavBar = () => {
                             <Nav.Link href="/friends">Friends</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Image src={prof} id="prof-pic"/>
+                            <img src={user.photoURL} id="prof-pic"/>
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>

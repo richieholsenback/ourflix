@@ -92,6 +92,11 @@ export const getUserConfirm = () => {
 		.then(response => response.json())
 }
 
+export const getOneUserAlt = (prop) => {
+	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${prop}"`)
+		.then(response => response.json())
+}
+
 export const addUser = (userObj) => {
 	return fetch(`${dataURL}/users.json`, {
 		method: "POST",

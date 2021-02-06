@@ -24,11 +24,11 @@ export const ApplicationView = () => {
     return (
         <Switch>
             <Route path="/login">
-                <LogIn />
+                {isLoggedIn ? <Redirect to="/" /> : <LogIn />}
             </Route>
 
             <Route path="/register">
-                <Register />
+            {isLoggedIn ? <Redirect to="/" /> : <Register />}
             </Route>
 
             <Route exact path="/">

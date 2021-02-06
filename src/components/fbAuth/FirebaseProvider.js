@@ -5,17 +5,20 @@ import "firebase/auth";
 import { firebaseConfig } from "../fbAuth/FirebaseConfig";
 import { addUser } from "../../modules/APICalls";
 import { UserForm } from "../users/UserForm";
+import { useHistory } from "react-router-dom";
 
 /*
     The context is imported and used by individual components
     that need data
 */
+
 export const FirebaseContext = createContext()
 
 /*
- This component establishes what data can be used.
- */
+This component establishes what data can be used.
+*/
 export const FirebaseProvider = (props) => {
+  
 
   const active_user = sessionStorage.getItem("active_user");
   const [isLoggedIn, setIsLoggedIn] = useState(active_user != null);
@@ -58,7 +61,7 @@ export const FirebaseProvider = (props) => {
         return (savedactive_user.user.uid)
       })
     }
-    
+
   const signInWithGoogle = () => {
     return firebase.auth().signInWithPopup(provider)
     //sign in
@@ -74,9 +77,9 @@ export const FirebaseProvider = (props) => {
 
       )
   }
+  const history = useHistory();
 
   const checkUser = (userId) => {
-    console.log("checkUser", userId)
     fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
       // go to the db and pull any user with the uid of the signed in user
       .then(result => result.json())
@@ -96,8 +99,9 @@ export const FirebaseProvider = (props) => {
             sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
           })
           //add to user in DB
+          setIsLoggedIn(true)
+  
         }
-        setIsLoggedIn(true);
       })
   }
   

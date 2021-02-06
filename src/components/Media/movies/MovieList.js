@@ -7,6 +7,7 @@ import TinderCard from "react-tinder-card";
 import { Link, useHistory } from "react-router-dom"
 import { IoCheckmarkCircleOutline, IoCloseCircleOutline } from "react-icons/io5"
 import { FiChevronDown } from "react-icons/fi"
+import firebase from "firebase/app";
 
 export const MovieList = () => {
 
@@ -42,21 +43,20 @@ export const MovieList = () => {
 
     const childRefs = useMemo(() => Array(movieArray.length).fill(0).map(i => React.createRef()), [])
 
-    const swiped = (direction, idOfMovie) => {
-        setLastDirection(direction)
-        const userId = parseInt(sessionStorage.getItem("active_user"))
-        if (direction === "right") {
-            addLike({
-                userUid: userId,
-                movieId: idOfMovie
-            })
-        } else if (direction === "left") {
-            addDislike({
-                userUid: userId,
-                movieId: idOfMovie
-
-            })
-        }
+    const swiped = (direction, idOfShow) => {
+        
+        const userId = sessionStorage.getItem("active_user").uid
+                if (direction === "right") {
+                    addLike({
+                        showId: idOfShow,
+                        userId: firebase.auth().currentUser.uid
+                    })
+                } else if (direction === "left") {
+                    addDislike({
+                        showId: idOfShow,
+                        userId: firebase.auth().currentUser.uid
+                    })
+                }
     }
 
 
