@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Button, Col, Container, Row } from "react-bootstrap"
+import { Button, Col, Container, Row, Dropdown } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import "../scss/_group.scss"
-import { getGroups, GetOneGroup } from "../../modules/APICalls"
+import { deleteGroup, getGroups, GetOneGroup } from "../../modules/APICalls"
 
 export const GroupDetails = () => {
 
@@ -13,7 +13,8 @@ export const GroupDetails = () => {
         getGroups(groupId)
             .then(response => {
                 const result = Object.keys(response)
-                GetOneGroup(result)
+                console.log(result)
+                GetOneGroup(groupId)
                     .then(response => {
                         setGroup(response)
                     })
@@ -27,7 +28,19 @@ export const GroupDetails = () => {
                     <h2>The {group.name} should watch</h2>
                 </Col>
                 <Col>
-                    <Link to={`/group/details/${groupId}/add`}>Add User</Link>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                            Group Options
+                    </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item href={`/group/details/${groupId}/add`}>
+                                Add User
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={deleteGroup(`${group.fbid}`)}>
+                                    Delete Group
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Col>
             </Row>
             <br />

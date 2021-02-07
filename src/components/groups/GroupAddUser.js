@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Button} from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom"
-import { addGroupUser, getUsers } from "../../modules/APICalls";
+import { addGroupUser, getGroups, GetOneGroup, getUsers } from "../../modules/APICalls";
 
 export const GroupForm = () => {
 
@@ -16,9 +16,10 @@ export const GroupForm = () => {
         setGroupUserItem(newGroupUserObj)
     }
 
-    const handleAddGroupUser = () => {
+    const handleAddGroupUser = (userId) => {
             const newGroupUserObj = { ...groupUserItem }
-            newGroupUserObj.GroupId = groupId
+            newGroupUserObj.userId = groupId
+            newGroupUserObj.GroupId = userId
             addGroupUser(newGroupUserObj)
     }
 
@@ -34,9 +35,22 @@ export const GroupForm = () => {
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setUserArray(arrayWithFBID)
-                console.log(userArray)
             })
     }
+
+    const [group, setGroup] = useState({})
+
+    useEffect(() => {
+        getGroups(groupId)
+            .then(response => {
+                const result = Object.keys(response)
+                console.log(result)
+                GetOneGroup(groupId)
+                    .then(response => {
+                        setGroup(response)
+                    })
+            })
+    }, [])
 
     useEffect(() => {		
         getAllUsers()
@@ -45,6 +59,7 @@ export const GroupForm = () => {
     return (
         <>
         <Container >
+          <h2>Add friends to the {group.name}</h2>
       {
         userArray.map(user => {
           return (
@@ -59,7 +74,7 @@ export const GroupForm = () => {
                 <Button
                     type="submit"
                     onClick={() => {
-                        handleAddGroupUser(user.uid)
+                        handleAddGroupUser(`${user.uid}`)
                     }}
                 >
                     Add User

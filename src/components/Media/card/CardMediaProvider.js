@@ -1,8 +1,4 @@
 import React, { useState, createContext } from "react"
-import firebase from "firebase/app";
-
-console.log("fb",firebase);
-
 
 export const MediaContext = createContext()
 

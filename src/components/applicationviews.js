@@ -19,6 +19,7 @@ import { ShowDetails } from "./Media/shows/ShowDetails";
 import { UserForm } from "./users/UserForm";
 import { GroupForm } from "./groups/GroupAddUser";
 import { GroupList } from "./groups/GroupList"
+import { UserSearch } from "./users/UserSearch";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -54,7 +55,7 @@ export const ApplicationView = () => {
             </Route>
 
             <Route exact path="/users">
-                {isLoggedIn ? <> <NavBar /><UserList /></> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /><UserSearch /><UserList /></> : <Redirect to="/login" />}
             </Route>
             
             <Route path="/advanced">

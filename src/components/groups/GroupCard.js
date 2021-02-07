@@ -1,13 +1,19 @@
 import React from "react"
+import { Col, Row, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { deleteGroup } from "../../modules/APICalls"
 import "../scss/_user.scss"
 
 export const GroupCard = ({ group }) => {
+
+
     return (
-        <div className="user-card">
-            <Link to={`/group/details/${group.fbid}`}>
-                <h2>{group.name}</h2>
-            </Link>
-        </div>
+        <Row className="user-card">
+            <Col>
+                <Link to={`/group/details/${group.fbid}`}>
+                    <h3>{group.name}</h3>
+                </Link>
+            </Col>
+        </Row >
     )
 }

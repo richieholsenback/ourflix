@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { getGroups } from "../../modules/APICalls"
 import { GroupCard } from "./GroupCard"
+import "../scss/_group.scss"
 
 export const GroupList = () => {
 
@@ -12,13 +13,10 @@ export const GroupList = () => {
     const getAllGroups = () => {
         getGroups()
             .then(data => {
-                console.log("fb data", data)
                 let arrayWithFBID = Object.keys(data).map((key, index) => {
                     data[key].fbid = key;
                     return data[key];
                 })
-
-                console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setGroupArray(arrayWithFBID)

@@ -186,6 +186,18 @@ export const addGroup = (groupObj) => {
 	}).then(response => response.json())
 }
 
+export const deleteGroup = (groupObj) => {
+	return fetch(`${dataURL}/groups/${groupObj}.json`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+	}).then(response => {
+		//should return 200 OK HTTP status code
+		return response.status
+	})
+}
+
 export const addGroupUser = (groupUserObj) => {
 	return fetch(`${dataURL}/groupUsers.json`, {
 		method: "POST",
@@ -194,6 +206,18 @@ export const addGroupUser = (groupUserObj) => {
 		},
 		body: JSON.stringify(groupUserObj)
 	}).then(response => response.json())
+}
+
+export const deleteGroupUser = (groupUserObj) => {
+	return fetch(`${dataURL}/groupUsers/${groupUserObj}.json`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+	}).then(response => {
+		//should return 200 OK HTTP status code
+		return response.status
+	})
 }
 
 

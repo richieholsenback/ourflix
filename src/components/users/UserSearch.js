@@ -1,16 +1,15 @@
-// import React, { useContext } from "react"
-// import { UserContext } from "./UserProvider"
+import React, { useContext, useState } from "react"
 
-// export const UserSearch = () => {
-//   const { setSearchTerms } = useContext(UserContext)
+export const UserSearch = () => {
+    const [ searchTerms, setSearchTerms ] = useState("")
 
-//   return (
-//     <>
-//       User search:
-//       <input type="text"
-//         className="input--wide"
-//         onKeyUp={(event) => setSearchTerms(event.target.value)}
-//         placeholder="Search for a user... " />
-//     </>
-//   )
-// }
+  return (
+    <>
+      <p>User search:</p>
+      <input type="text"
+        className="input--wide"
+        onKeyUp={(event) => setSearchTerms(event.target.value)}
+        placeholder="Search for a user... " />
+    </>
+  )
+}

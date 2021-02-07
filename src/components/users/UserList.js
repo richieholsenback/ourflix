@@ -6,9 +6,11 @@ import { UserCard } from './UserCard'
 
 export const UserList = () => {
 
-  const [userArray, setUserArray] = useState([])
-
-    const getAllUsers = () => {
+  const [userArray, setUserArray ] = useState([])
+  const [ searchTerms, setSearchTerms ] = useState("")
+  const [filteredUsers, setFiltered] = useState([])
+  
+  const getAllUsers = () => {
         
         getUsers()
             .then(data => {
@@ -20,13 +22,21 @@ export const UserList = () => {
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setUserArray(arrayWithFBID)
-                console.log(userArray)
             })
     }
 
     useEffect(() => {		
         getAllUsers()
-	}, [])
+  }, [])
+  
+  useEffect(() => {
+    if (searchTerms !== "") {
+      const subset = userArray.filter(users => users.displayName.toLowerCase().includes(searchTerms))
+      setFiltered(subset)
+    } else {
+      setFiltered(userArray)
+    }
+  }, [searchTerms, userArray])
 
   return (
     <Container >

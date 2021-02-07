@@ -50,6 +50,12 @@
     "groups": [
         {
             "name": "Roommates"
+        },
+        {
+            "name": "Family"
+        },
+        {
+            "name": "Pals"
         }
     ]
 }

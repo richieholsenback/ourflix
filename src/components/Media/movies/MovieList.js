@@ -61,7 +61,6 @@ export const MovieList = () => {
 
 
     const outOfFrame = (title) => {
-        console.log(title + ' left the screen!')
         MovieState = MovieState.filter(movie => movie.title !== title)
         setMovies(MovieState)
     }

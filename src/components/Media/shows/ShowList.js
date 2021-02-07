@@ -59,7 +59,6 @@ export const ShowList = () => {
     }
 
     const outOfFrame = (title) => {
-        console.log(firebase.auth().currentUser.uid)
         ShowState = ShowState.filter(show => show.title !== title)
         setShows(ShowState)
     }

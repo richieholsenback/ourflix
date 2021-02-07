@@ -10,7 +10,6 @@ export const NavBar = () => {
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        console.log(firebase.auth().currentUser.uid)
         getOneUserAlt(firebase.auth().currentUser.uid)
         .then(response => {
             const result = Object.keys(response)
@@ -45,6 +44,9 @@ export const NavBar = () => {
                     <Nav id="nav-right" >
                         <Nav.Item>
                             <Nav.Link href="/friends">Friends</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/groups">Groups</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href={`user/details/${firebase.auth().currentUser.uid}`}>
