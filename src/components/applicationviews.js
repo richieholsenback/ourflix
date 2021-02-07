@@ -17,6 +17,8 @@ import { NavBar } from "./nav/Nav";
 import { MovieDetails } from "./Media/movies/MovieDetails";
 import { ShowDetails } from "./Media/shows/ShowDetails";
 import { UserForm } from "./users/UserForm";
+import { GroupForm } from "./groups/GroupAddUser";
+import { GroupList } from "./groups/GroupList"
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -63,6 +65,10 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar />  <FriendList /> </> : <Redirect to="/login" />}
             </Route>
 
+            <Route path="/groups">
+                {isLoggedIn ? <> <NavBar />  <GroupList /> </> : <Redirect to="/login" />}
+            </Route>
+
 
             <Route path="/user/details/:uid">
                 {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
@@ -72,8 +78,12 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/group/details/:groupId">
+            <Route exact path="/group/details/:groupId">
                 {isLoggedIn ? <> <NavBar /><GroupDetails /> </>: <Redirect to="/login" />}
+            </Route>
+            
+            <Route exact path="/group/details/:groupId/add">
+                {isLoggedIn ? <> <NavBar /><GroupForm /> </>: <Redirect to="/login" />}
             </Route>
             
             <Route path="/user/update/:userfbid">

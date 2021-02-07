@@ -42,7 +42,7 @@ function Advanced () {
     console.log(alreadyRemoved)
   }
 
-  const outOfFrame = (name) => {
+  const outOfFrame = (name, direction) => {
     console.log(name + ' left the screen!')
     charactersState = charactersState.filter(character => character.name !== name)
     setCharacters(charactersState)

@@ -66,14 +66,20 @@ export const MovieList = () => {
         setMovies(MovieState)
     }
 
-    const swipe = (dir) => {
+    const swipe = (item, dir) => {
         const cardsLeft = movies.filter(movie => !alreadyRemoved.includes(movie.title))
         if (cardsLeft.length) {
             const toBeRemoved = cardsLeft[cardsLeft.length - 1].title // Find the card object to be removed
             const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
-            alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
             childRefs[index].current.swipe(dir) // Swipe the card!
-        }
+            //     if(dir === "left"){ // Make sure the next card gets removed next time if this card do not have time to exit the screen
+        //     handleAddDisike(item.fbid)
+        //     childRefs[index].current.swipe(dir) // Swipe the card!
+        // } else if(dir === "right"){
+        //     handleAddLike(item.fbid)
+        //     childRefs[index].current.swipe(dir)
+        // }
+    }
     }
 
     const [like, setLike] = useState({});
@@ -101,6 +107,14 @@ export const MovieList = () => {
       .then(response => history.push("/"))
   }
 
+  const likeCheck = (userObj) => {
+    const hasLiked = movieArray.find(movie => movie.fbid === userObj.fbid)
+    if (!hasLiked) {
+      return ( null )
+    } else {
+        return null
+    }
+  }
 
     return (
         <Container>
@@ -118,7 +132,7 @@ export const MovieList = () => {
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => handleAddDisike(`${item.fbid}`)} variant="link">
+                                                <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
                                                     <IoCloseCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
@@ -129,7 +143,7 @@ export const MovieList = () => {
                                                 </Link>
                                             </Col>
                                             <Col xs={3}>
-                                                <Button onClick={() => handleAddLike(`${item.fbid}`)} variant="link">
+                                                <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
                                                     <IoCheckmarkCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>

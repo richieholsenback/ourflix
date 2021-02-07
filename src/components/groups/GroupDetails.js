@@ -1,20 +1,22 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { Button, Col, Container, Row } from "react-bootstrap"
+import { Link, useParams } from "react-router-dom"
 import "../scss/_group.scss"
-import { GroupContext } from "./GroupProvider"
+import { getGroups, GetOneGroup } from "../../modules/APICalls"
 
 export const GroupDetails = () => {
-    const { getGroupById } = useContext(GroupContext)
 
     const [group, setGroup] = useState({})
-
-    const { groupId } = useParams();
+    const { groupId } = useParams()
 
     useEffect(() => {
-        getGroupById(groupId)
+        getGroups(groupId)
             .then(response => {
-                setGroup(response)
+                const result = Object.keys(response)
+                GetOneGroup(result)
+                    .then(response => {
+                        setGroup(response)
+                    })
             })
     }, [])
 
@@ -23,6 +25,9 @@ export const GroupDetails = () => {
             <Row>
                 <Col>
                     <h2>The {group.name} should watch</h2>
+                </Col>
+                <Col>
+                    <Link to={`/group/details/${groupId}/add`}>Add User</Link>
                 </Col>
             </Row>
             <br />

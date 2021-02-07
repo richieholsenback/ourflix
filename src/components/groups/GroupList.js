@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { getGroupUsers } from "../../modules/APICalls"
-import { GroupUserCard } from "./GroupCard"
+import { getGroups } from "../../modules/APICalls"
+import { GroupCard } from "./GroupCard"
 
-export const GroupUserList = () => {
+export const GroupList = () => {
 
-    const [groupUserArray, setGroupUserArray] = useState([])
+    const [groupArray, setGroupArray] = useState([])
 
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
-    const getAllGroupUsers = () => {
-        getGroupUsers()
+    const getAllGroups = () => {
+        getGroups()
             .then(data => {
                 console.log("fb data", data)
                 let arrayWithFBID = Object.keys(data).map((key, index) => {
@@ -21,24 +21,23 @@ export const GroupUserList = () => {
                 console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setGroupUserArray(arrayWithFBID)
+                setGroupArray(arrayWithFBID)
             })
     }
 
-    useEffect(() => {
-        console.log("hello")		
-        getAllGroupUsers()
+    useEffect(() => {	
+        getAllGroups()
 	}, [])
 
     return (
-        <Container className="groupUsers">
+        <Container className="groups">
             <Row>
                 <Col>
                     <h2>Your Groups</h2>
                     <div className="followingList">
                         {
-                            groupUserArray.map(groupUser => {
-                                return <GroupUserCard key={groupUser.id} groupUser={groupUser} user={groupUser.user} group={groupUser.group} />
+                            groupArray.map(group => {
+                                return <GroupCard key={group.fbid} group={group} />
                             })
                         }
                     </div>

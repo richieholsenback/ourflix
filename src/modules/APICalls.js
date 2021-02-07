@@ -148,7 +148,7 @@ export const getFriends = () => {
 }
 
 export const addFriend = (friendObj) => {
-	return fetch(`${dataURL}/ourflix.json`, {
+	return fetch(`${dataURL}/friends.json`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -171,8 +171,13 @@ export const getGroups = () => {
 
 }
 
+export const GetOneGroup = (fbid) => {
+	return fetch(`${dataURL}/groups/${fbid}.json`)
+		.then(response => response.json())
+}
+
 export const addGroup = (groupObj) => {
-	return fetch(`${dataURL}/ourflix.json`, {
+	return fetch(`${dataURL}/groups.json`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -181,7 +186,15 @@ export const addGroup = (groupObj) => {
 	}).then(response => response.json())
 }
 
-
+export const addGroupUser = (groupUserObj) => {
+	return fetch(`${dataURL}/groupUsers.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(groupUserObj)
+	}).then(response => response.json())
+}
 
 
 

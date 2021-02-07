@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, Form, Container, Col, Row } from 'react-bootstrap';
+import { Button, Form, Container, Col, Row, Image } from 'react-bootstrap';
 import { useHistory, Link } from "react-router-dom";
 import { FirebaseContext } from "../fbAuth/FirebaseProvider";
 import firebase from "firebase/app";
@@ -26,44 +26,39 @@ export const Register = () => {
 
   return (
     <>
-    <Container fluid="xl">
-    <Row>
-      <Col className="m-2" md={6}>
-      <Form onSubmit={registerClick}>
-              <h5 className="username">Create Your Ourflix Account</h5>
+      <Container id="log-in-container">
+        <Row className="justify-content-md-center">
+          <Col className="m-2" md={6}>
+            <div className="center">
+              <Image id="login-brand" src='https://fontmeme.com/permalink/210207/255046587a9e2009d9f79ed250f070c1.png' alt="netflix-font" />
+            </div>
+            <h4 className="username">Create Your Ourflix Account</h4>
+            <Form onSubmit={registerClick}>
               <fieldset>
-
-              <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
+                <Form.Group controlId="email">
+                  <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} id="gray-input" />
+                  <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
                 </Form.Text>
-              </Form.Group>
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} id="gray-input" />
+                </Form.Group>
 
-              <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-              </Form.Group>
+                <Form.Group controlId="confirmPassword">
+                  <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} id="gray-input" />
+                </Form.Group>
 
-              <Form.Group controlId="confirmPassword">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
-              </Form.Group>
-              
-              
-              <Button variant="primary" type="submit">Continue</Button>
-            </fieldset>
-          </Form>
-    </Col>
 
-      <Col className="m-2">
-      <h5 className="username">Already have an account?</h5>
-          <Link to="/login" className="btn btn-block btn-outline-success">Sign in</Link>
-       
-     </Col>
-    </Row>
-    </Container>
-  </>
+                <Button variant="primary" className="btn btn-block" type="submit" id="button-sign-in-red">Create your account</Button>
+              </fieldset>
+            </Form>
+            <div className="space-1">
+              <p>Already have an account? <Link to="login"> Sign In</Link>.</p>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }

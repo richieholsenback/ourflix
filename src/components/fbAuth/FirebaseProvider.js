@@ -25,6 +25,10 @@ export const FirebaseProvider = (props) => {
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
 
+  function refreshPage() {
+    window.location.reload(false);
+}
+
   const provider = new firebase.auth.GoogleAuthProvider();
   //https://firebase.google.com/docs/auth/web/start?authuser=0
   useEffect(() => {
@@ -73,6 +77,7 @@ export const FirebaseProvider = (props) => {
       }).then(uid => {
         //then run it through our user check
         checkUser(uid)
+        refreshPage()
       }
 
       )
