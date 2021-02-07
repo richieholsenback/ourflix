@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"
 import firebase from "firebase/app";
-import { GetOneUser } from "../../modules/APICalls";
+import { GetOneUser, getOneUserAlt } from "../../modules/APICalls";
 import { useParams, Link } from "react-router-dom";
 
 export const NavBar = () => {
+
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        console.log(firebase.auth().currentUser.uid)
+        getOneUserAlt(firebase.auth().currentUser.uid)
+        .then(response => {
+            const result = Object.keys(response)
+                GetOneUser(result)
+                    .then(response => {
+                        setUser(response)
+                    })
+            })
+    }, [])
 
     return (
         <>
@@ -34,7 +48,8 @@ export const NavBar = () => {
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href={`user/details/${firebase.auth().currentUser.uid}`}>
-                                Home
+                                <Image id="prof-pic" src={user.photoURL} />
+                                {/* Home */}
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
