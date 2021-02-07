@@ -1,3 +1,17 @@
+#user-card {
+    h2 {
+        font-family: "Gotham Bold";
+        color: white;
+        font-size: 48px;
+    }
+    
+    h5 {
+        font-family: "Gotham Book";
+        color: white;
+        font-size: 48px;
+    }
+}
+
 #user-pic {
     width: 4em;
     height: 4em;
@@ -5,14 +19,3 @@
     object-position: center right;
 }
 
-h2 {
-    font-family: "Gotham Book";
-    color: white;
-}
-
-
-// .user-card{
-//     display: flex;
-//     flex-direction: row;
-    
-// }

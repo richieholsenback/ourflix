@@ -64,7 +64,7 @@ export const ApplicationView = () => {
             </Route>
 
 
-            <Route path="/user/details/:userfbid">
+            <Route path="/user/details/:uid">
                 {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
             </Route>
 

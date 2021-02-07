@@ -8,7 +8,6 @@ export const UserList = () => {
 
   const [userArray, setUserArray] = useState([])
 
-
     const getAllUsers = () => {
         
         getUsers()
@@ -27,14 +26,15 @@ export const UserList = () => {
 
     useEffect(() => {		
         getAllUsers()
-        
 	}, [])
 
   return (
     <Container >
       {
         userArray.map(user => {
-          return <UserCard key={user.id} user={user} />
+          return (
+          <UserCard key={user.id} user={user} />
+          )
         })
       }
     </Container>

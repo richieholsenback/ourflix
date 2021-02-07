@@ -9,24 +9,24 @@ export const FriendList = () => {
 
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
-    const getAllFriends = () => {
-        getFriends()
-            .then(data => {
-                console.log("fb data", data)
-                let arrayWithFBID = Object.keys(data).map((key, index) => {
-                    data[key].fbid = key;
-                    return data[key];
-                })
+    // const getAllFriends = () => {
+    //     getFriends()
+    //         .then(data => {
+    //             console.log("fb data", data)
+    //             let arrayWithFBID = Object.keys(data).map((key, index) => {
+    //                 data[key].fbid = key;
+    //                 return data[key];
+    //             })
 
-                console.log("arrayWithFBID", arrayWithFBID);
-                //and sort with most recent date first
-                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setFriendArray(arrayWithFBID)
-            })
-    }
+    //             console.log("arrayWithFBID", arrayWithFBID);
+    //             //and sort with most recent date first
+    //             arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+    //             setFriendArray(arrayWithFBID)
+    //         })
+    // }
 
     useEffect(() => {
-        getAllFriends()
+        getFriends()
     }, [])
 
 

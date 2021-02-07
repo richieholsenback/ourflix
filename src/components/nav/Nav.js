@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"
-import { GetOneUser, getOneUserAlt } from "../../modules/APICalls";
+import firebase from "firebase/app";
+import { GetOneUser } from "../../modules/APICalls";
+import { useParams, Link } from "react-router-dom";
 
 export const NavBar = () => {
-
-    const [user, setUser] = useState({})
-
-    useEffect(() => {
-        getOneUserAlt(JSON.parse(sessionStorage.getItem("active_user")).uid)
-            .then((response) => {
-                GetOneUser(Object.keys(response))
-                    .then(response => {
-                        setUser(response)
-                    })
-            })
-    }, [])
 
     return (
         <>
@@ -43,8 +33,8 @@ export const NavBar = () => {
                             <Nav.Link href="/friends">Friends</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href={`user/details/${user.fbid}`}>
-                                <Image src={user.photoURL} alt="your profile picture" id="prof-pic" />
+                            <Nav.Link href={`user/details/${firebase.auth().currentUser.uid}`}>
+                                Home
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>

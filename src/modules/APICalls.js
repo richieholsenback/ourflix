@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import { firebaseConfig } from "../components/fbAuth/FirebaseConfig";
 import { MediaCard } from "../components/Media/card/Card";
+import { UserList } from "../components/users/UserList";
 
 const dataURL = firebaseConfig.databaseURL;
 
@@ -91,8 +92,8 @@ export const getUserConfirm = () => {
 		.then(response => response.json())
 }
 
-export const getOneUserAlt = (prop) => {
-	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${prop}"`)
+export const getOneUserAlt = (uid) => {
+	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${uid}"`)
 		.then(response => response.json())
 }
 
@@ -124,9 +125,26 @@ export const updateUser = (userObj) => {
 //////// Friends
 
 export const getFriends = () => {
-	return fetch(`${dataURL}/friends.json/?orderBy="UID"&equalTo="${firebase.auth().currentUser.uid}"`)
+	return fetch(`${dataURL}/friends.json/?orderBy="friendedId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
 		.then(response => response.json())
-
+		.then(parsedResponse => {
+			console.log("first call", parsedResponse)
+			const urlArray = Object.keys(parsedResponse)
+			const responseArray = urlArray.map(item => {
+				console.log(parsedResponse[item].uid)
+				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].uid}"`)
+				.then(response => {
+					response.json()
+				})
+			})
+			return responseArray;
+		})
+		.then(requests => {
+			Promise.all(requests)
+			.then(responses => {
+				console.log("responses", responses)
+			})
+		})
 }
 
 export const addFriend = (friendObj) => {

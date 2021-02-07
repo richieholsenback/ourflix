@@ -1,21 +1,39 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
+import { useHistory, useParams } from "react-router-dom"
+import { GetOneUser, getOneUserAlt } from "../../modules/APICalls"
 import "../scss/_user.scss"
 
-export const UserDetails = ({ user }) => {
+
+
+export const UserDetails = () => {
+
+    const [user, setUser] = useState({})
+    const { uid } = useParams();
+
+    useEffect(() => {
+        getOneUserAlt(uid)
+            .then(response => {
+                const result = Object.keys(response)
+                GetOneUser(result)
+                    .then(response => {
+                        setUser(response)
+                    })
+            })
+    }, [])
+
     return (
-        <Container className="user-card">
+        <Container id="user-card">
+            <Row>
+                <Image src={user.photoURL} />
+                <h2>{user.displayName}'s profile</h2>
+            </Row>
             <Row>
                 <Col>
-                    <Image src={user.photoURL} alt="user pic" id="user-pic" />
-                </Col>
-                <Col>
-                    <button id="white-fill-button">Add Friend</button>
+                    <h5>Movies</h5>
+                    <h5>Shows</h5>
                 </Col>
             </Row>
-            <Col>
-                <h2>{user.displayName}</h2>
-            </Col>
         </Container>
     )
 }
