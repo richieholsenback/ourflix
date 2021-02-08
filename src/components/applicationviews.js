@@ -56,7 +56,7 @@ export const ApplicationView = () => {
             </Route>
 
             <Route exact path="/users">
-                {isLoggedIn ? <> <NavBar /><UserSearch /><UserList /></> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar /></> : <Redirect to="/login" />}
             </Route>
             
             <Route path="/advanced">
@@ -64,7 +64,7 @@ export const ApplicationView = () => {
             </Route>
 
             <Route path="/friends">
-                {isLoggedIn ? <> <NavBar />  <FriendList /> </> : <Redirect to="/login" />}
+                {isLoggedIn ? <> <NavBar />  <FriendList /> <UserSearch /><UserList /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/groups">

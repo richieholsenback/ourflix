@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { getFriends, getUsers } from "../../modules/APICalls"
 import { FriendCard } from "./FriendCard"
+import firebase from "firebase/app";
 
 export const FriendList = () => {
 
     const [friendArray, setFriendArray] = useState([])
 
+    const userId = firebase.auth().currentUser.uid
+
     const getAllFriends = () => {
-        getFriends()
+        console.log(userId)
+        getFriends(userId)
             .then(data => {
                 console.log("fb data", data)
                 data.map(friendObject => {

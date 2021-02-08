@@ -124,8 +124,8 @@ export const updateUser = (userObj) => {
 
 //////// Friends
 
-export const getFriends = () => {
-	return fetch(`${dataURL}/friends.json/?orderBy="friendedId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
+export const getFriends = (uid) => {
+	return fetch(`${dataURL}/friends.json/?orderBy="friendedId"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
