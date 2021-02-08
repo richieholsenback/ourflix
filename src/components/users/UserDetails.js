@@ -4,7 +4,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import { GetOneUser, getOneUserAlt, getMovieLikes } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import "../scss/_user.scss"
-
+import firebase from "firebase/app";
 
 
 export const UserDetails = () => {
@@ -13,7 +13,7 @@ export const UserDetails = () => {
     const [movieLikes, setMovieLikes] = useState([])
     const { fbid } = useParams();
 
-    const userId = sessionStorage.getItem("active_user").uid
+    const userId = firebase.auth().currentUser.uid
 
     useEffect(() => {
         GetOneUser(fbid)
@@ -23,21 +23,21 @@ export const UserDetails = () => {
     }, [])
 
     const getAllMovieLikes = () => {
-        console.log(userId)
+        console.log("heeeeyyaaaa!!", userId)
         getMovieLikes(userId)
             .then(data => {
                 console.log("fb data", data)
                 data.map(friendObject => {
-                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
-                    friendObject[key].fbid = key;
-                    return friendObject[key];
-                    
+                    let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
+                        friendObject[key].fbid = key;
+                        return friendObject[key];
+
+                    })
+                    console.log("arrayWithFBID", arrayWithFBID);
+                    //and sort with most recent date first
+                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                    setMovieLikes(arrayWithFBID)
                 })
-                console.log("arrayWithFBID", arrayWithFBID);
-                //and sort with most recent date first
-                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setMovieLikes(arrayWithFBID)
-            })
             })
     }
 
@@ -57,11 +57,22 @@ export const UserDetails = () => {
             <Row>
                 <Col>
                     <h5>Movies</h5>
-                    {
-                        movieLikes.map(like =>{
-                            return <MediaCard key={like.fbid} item={like} />
-                            })
-                    }
+                </Col>
+            </Row>
+            <Row>
+
+                {
+                    movieLikes.map(like => {
+                        return (
+                            <Col xs={4}>
+                                <MediaCard key={like.fbid} item={like} />
+                            </Col>
+                        )
+                    })
+                }
+            </Row>
+            <Row>
+                <Col>
                     <h5>Shows</h5>
                 </Col>
             </Row>

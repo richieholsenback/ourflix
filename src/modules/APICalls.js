@@ -59,7 +59,7 @@ export const addLike = (likeObj) => {
 }
 
 export const getMovieLikes = (uid) => {
-	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
+	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
