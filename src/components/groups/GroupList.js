@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { getBetterGroups } from "../../modules/APICalls"
+import { getGroups } from "../../modules/APICalls"
 import { GroupCard } from "./GroupCard"
 import "../scss/_group.scss"
 import firebase from "firebase/app";
@@ -13,7 +13,7 @@ export const GroupList = () => {
     
     const getAllGroups = () => {
         console.log(userId)
-        getBetterGroups(userId)
+        getGroups(userId)
             .then(data => {
                 console.log("fb data", data)
                 data.map(friendObject => {

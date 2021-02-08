@@ -13,18 +13,11 @@ export const MediaCard = ({ item }) => {
                     <Image id="media-img" src={item.image} alt="movie or show poster" loading="lazy" rounded />
                 </Col>
             </Row>
-            <Row className="card-options">
-                <Col xs={4}><IoCloseCircleOutline color="white" size="6em" /></Col>
-                <Col xs={4} >
-                    <Link to={`movies/details/${item.nfid}`} id="card-detail-button">
-                        <h2 id="card-detail-button-text">Details</h2>
-                        <FiChevronDown color="white" size="3em" />
-                    </Link>
-                </Col>
-                <Col xs={4}>
-                    <IoCheckmarkCircleOutline color="white" size="6em" />
+            <Row>
+                <Col>
+                    <h2>{item.title}</h2>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     )
 }

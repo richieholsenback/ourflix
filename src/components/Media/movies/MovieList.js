@@ -91,16 +91,16 @@ export const MovieList = () => {
 
   const handleAddLike = (item) => {
     const newLikeObj = { ...like };
-    newLikeObj.userUid = firebase.auth().currentUser.uid;
-    newLikeObj.resultUid = item;
+    newLikeObj.userId = firebase.auth().currentUser.uid;
+    newLikeObj.resultId = item;
     addLike(newLikeObj)
       .then(response => history.push("/"))
   }
 
   const handleAddDisike = (item) => {
     const newDislikeObj = { ...like };
-    newDislikeObj.userUid = firebase.auth().currentUser.uid;
-    newDislikeObj.resultUid = item;
+    newDislikeObj.userId = firebase.auth().currentUser.uid;
+    newDislikeObj.resultId = item;
     addDislike(newDislikeObj)
       .then(response => history.push("/"))
   }
@@ -121,7 +121,7 @@ export const MovieList = () => {
                     {
                         movieArray.map((item, index) => {
                             return (
-                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.uid)}>
+                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.netflixid)}>
                                     <Container className="card-image">
                                         <Row >
                                             <Col>
@@ -130,7 +130,7 @@ export const MovieList = () => {
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
+                                                <Button onClick={() => handleAddDisike(`${item.netflixid}`, "left")} variant="link">
                                                     <IoCloseCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
@@ -141,7 +141,7 @@ export const MovieList = () => {
                                                 </Link>
                                             </Col>
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
+                                                <Button onClick={() => swipe(`${item.netflixid}`, "right")} variant="link">
                                                     <IoCheckmarkCircleOutline color="white" size="5em" />
                                                 </Button>
                                             </Col>
