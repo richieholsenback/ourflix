@@ -42,11 +42,11 @@ export const GetOneShow = (fbid) => {
 
 ///////// Likes & Dislikes
 
-export const getLikes = () => {
-	return fetch(`${dataURL}/likes.json`)
-		.then(response => response.json())
+// export const getLikes = () => {
+// 	return fetch(`${dataURL}/likes.json`)
+// 		.then(response => response.json())
 
-}
+// }
 
 export const addLike = (likeObj) => {
 	return fetch(`${dataURL}/likes.json`, {
@@ -56,6 +56,28 @@ export const addLike = (likeObj) => {
 		},
 		body: JSON.stringify(likeObj)
 	}).then(response => response.json())
+}
+
+export const getLikes = (uid) => {
+	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="${uid}"`)
+		.then(response => response.json())
+		.then(likeResponse => {
+			const urlArray = Object.keys(likeResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${likeResponse[item].UserUid}"`)
+				.then(response => response.json())
+			})
+			return urlArray;
+		})
+		.then(movieResponse => {
+			const urlArray = Object.keys(movieResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/movies.json/?orderBy="uid"&equalTo="${movieResponse[item].UserUid}"`)
+				.then(response => response.json())
+			})
+			return urlArray;
+		})
+		.then(requests => {
+			return Promise.all(requests)
+		})
 }
 
 export const getDislikes = () => {
@@ -135,6 +157,7 @@ export const getFriends = (uid) => {
 			return urlArray;
 		})
 		.then(requests => {
+			console.log(Promise.all(requests))
 			return Promise.all(requests)
 		})
 }
@@ -161,6 +184,24 @@ export const getGroups = () => {
 	return fetch(`${dataURL}/groups.json`)
 		.then(response => response.json())
 
+}
+
+export const getBetterGroups = (uid) => {
+	console.log("groupUsers", `${dataURL}/groupUsers.json/?orderBy="userId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
+		return fetch(`${dataURL}/groupUsers.json/?orderBy="userId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
+			.then(response => response.json())
+			.then(parsedResponse => {
+				const urlArray = Object.keys(parsedResponse).map(item => { 
+					console.log("groups", `${firebaseConfig.databaseURL}/groups.json/?orderBy="groupId"&equalTo="${parsedResponse[item].groupId}"`)
+					return fetch(`${firebaseConfig.databaseURL}/groups.json/?orderBy="groupId"&equalTo="${parsedResponse[item].groupId}"`)
+					.then(response => response.json())
+				})
+				return urlArray;
+			})
+			.then(requests => {
+				console.log(Promise.all(requests))
+				return Promise.all(requests)
+			})
 }
 
 export const GetOneGroup = (fbid) => {

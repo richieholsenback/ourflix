@@ -2,6 +2,7 @@ import { Button } from "bootstrap";
 import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom"
+import { uuid } from "uuidv4";
 import { addGroup } from "../../modules/APICalls";
 
 export const GroupForm = () => {
@@ -20,6 +21,7 @@ export const GroupForm = () => {
             alert("Name your group")
         } else {
             const newGroupObj = { ...groupItem }
+            newGroupObj.groupId = uuid()
             addGroup(newGroupObj)
                 .then(response => history.push("/groups"))
         }

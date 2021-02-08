@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { getGroups } from "../../modules/APICalls"
+import { getBetterGroups } from "../../modules/APICalls"
 import { GroupCard } from "./GroupCard"
 import "../scss/_group.scss"
+import firebase from "firebase/app";
 
 export const GroupList = () => {
 
     const [groupArray, setGroupArray] = useState([])
 
-    // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
-
+    const userId = firebase.auth().currentUser.uid
+    
     const getAllGroups = () => {
-        getGroups()
+        console.log(userId)
+        getBetterGroups(userId)
             .then(data => {
-                let arrayWithFBID = Object.keys(data).map((key, index) => {
-                    data[key].fbid = key;
-                    return data[key];
+                console.log("fb data", data)
+                data.map(friendObject => {
+                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
+                    friendObject[key].fbid = key;
+                    return friendObject[key];
+                    
                 })
+                console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setGroupArray(arrayWithFBID)
             })
+            })
     }
 
-    useEffect(() => {	
+    useEffect(() => {
         getAllGroups()
-	}, [])
+        console.log(groupArray)
+    }, [])
 
     return (
         <Container className="groups">
