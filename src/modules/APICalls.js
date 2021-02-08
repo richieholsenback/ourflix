@@ -131,7 +131,7 @@ export const getFriends = () => {
 			console.log("first call", parsedResponse)
 			const urlArray = Object.keys(parsedResponse)
 			const responseArray = urlArray.map(item => {
-				console.log(parsedResponse[item].uid)
+				console.log(urlArray)
 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].uid}"`)
 				.then(response => {
 					response.json()

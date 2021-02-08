@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
-import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
 import "../../scss/_card.scss"
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { GetOneMovie } from "../../../modules/APICalls";
 import { FaPlay } from "react-icons/fa";
 // import poster from "../../../images/New_Girl.jpg"
@@ -11,7 +10,6 @@ import { FaPlay } from "react-icons/fa";
 export const MovieDetails = () => {
 
     const [movie, setMovie] = useState({})
-    const history = useHistory();
     const { fbid } = useParams();
 
     useEffect(() => {

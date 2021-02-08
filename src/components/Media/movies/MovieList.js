@@ -12,7 +12,6 @@ import firebase from "firebase/app";
 export const MovieList = () => {
 
     const [movieArray, setMovieArray] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
 
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
@@ -82,13 +81,13 @@ export const MovieList = () => {
     }
 
     const [like, setLike] = useState({});
-    const [dislike, setDislike] = useState({});
+    // const [dislike, setDislike] = useState({});
 
-  const handleInputChange = (event) => {
-    const newLikeObj = { ...like };
-    newLikeObj[event.target.id] = event.target.value;
-    setLike(newLikeObj);
-  }
+//   const handleInputChange = (event) => {
+//     const newLikeObj = { ...like };
+//     newLikeObj[event.target.id] = event.target.value;
+//     setLike(newLikeObj);
+//   }
 
   const handleAddLike = (item) => {
     const newLikeObj = { ...like };
@@ -106,14 +105,14 @@ export const MovieList = () => {
       .then(response => history.push("/"))
   }
 
-  const likeCheck = (userObj) => {
-    const hasLiked = movieArray.find(movie => movie.fbid === userObj.fbid)
-    if (!hasLiked) {
-      return ( null )
-    } else {
-        return null
-    }
-  }
+//   const likeCheck = (userObj) => {
+//     const hasLiked = movieArray.find(movie => movie.fbid === userObj.fbid)
+//     if (!hasLiked) {
+//       return ( null )
+//     } else {
+//         return null
+//     }
+//   }
 
     return (
         <Container>

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { MediaCard } from "../card/Card"
 import { addDislike, addLike, getShows } from "../../../modules/APICalls"
 import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import TinderCard from "react-tinder-card"

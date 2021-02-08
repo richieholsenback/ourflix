@@ -37,10 +37,10 @@ export const LogIn = () => {
             <Form onSubmit={loginSubmit} >
               <fieldset>
                 <Form.Group controlId="formBasicEmail" className="mb-2" >
-                  <Form.Control type="email" placeholder="Email Address" onChange={e => setEmail(e.target.value)} className="gray-input" />
+                  <Form.Control type="email" placeholder="Email Address" onChange={e => setEmail(e.target.value)} />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
-                  <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} className="gray-input" />
+                  <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
 
                 <Button block type="submit" id="button-sign-in-red">Sign In</Button>

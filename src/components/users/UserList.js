@@ -7,7 +7,7 @@ import { UserCard } from './UserCard'
 export const UserList = () => {
 
   const [userArray, setUserArray ] = useState([])
-  const [ searchTerms, setSearchTerms ] = useState("")
+  const [ searchTerms] = useState("")
   const [filteredUsers, setFiltered] = useState([])
   
   const getAllUsers = () => {

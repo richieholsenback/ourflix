@@ -20,6 +20,7 @@ import { UserForm } from "./users/UserForm";
 import { GroupForm } from "./groups/GroupAddUser";
 import { GroupList } from "./groups/GroupList"
 import { UserSearch } from "./users/UserSearch";
+import { UserActiveDetails } from "./users/UserActiveDetails"
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -71,8 +72,12 @@ export const ApplicationView = () => {
             </Route>
 
 
-            <Route path="/user/details/:uid">
+            <Route path="/user/details/:fbid">
                 {isLoggedIn ? <> <NavBar /><UserDetails /></> : <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/myprofile/:uid">
+                {isLoggedIn ? <> <NavBar /><UserActiveDetails /></> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/friend/details/:friendId">
@@ -87,7 +92,7 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><GroupForm /> </>: <Redirect to="/login" />}
             </Route>
             
-            <Route path="/user/update/:userfbid">
+            <Route path="/user/update/:fbid">
                 {isLoggedIn ? <> <NavBar /><UserForm /> </>: <Redirect to="/login" />}
             </Route>
         </Switch>

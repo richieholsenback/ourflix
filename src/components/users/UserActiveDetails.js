@@ -6,19 +6,27 @@ import "../scss/_user.scss"
 
 
 
-export const UserDetails = () => {
+export const UserActiveDetails = () => {
 
     const [user, setUser] = useState({})
-    const { fbid } = useParams();
-
-    const userId = sessionStorage.getItem("active_user").fbid
+    const { uid } = useParams();
 
     useEffect(() => {
-        GetOneUser(fbid)
+        getOneUserAlt(uid)
             .then(response => {
-                setUser(response)
+                const result = Object.keys(response)
+                GetOneUser(result)
+                    .then(response => {
+                        setUser(response)
+                    })
             })
     }, [])
+
+    const editProfile = () => {
+        return (
+            <Link to={`/user/update/${uid}`} >Edit Profile</Link>
+        )
+    }
 
     return (
         <Container id="user-card">
@@ -26,6 +34,9 @@ export const UserDetails = () => {
                 <Col>
                     <Image src={user.photoURL} />
                     <h2>{user.displayName}'s profile</h2>
+                </Col>
+                <Col>
+                    {editProfile()}
                 </Col>
             </Row>
             <Row>

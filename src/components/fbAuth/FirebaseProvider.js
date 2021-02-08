@@ -76,6 +76,7 @@ export const FirebaseProvider = (props) => {
         //Grab their uid
       }).then(uid => {
         //then run it through our user check
+        sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         checkUser(uid)
         refreshPage()
       }
@@ -102,6 +103,7 @@ export const FirebaseProvider = (props) => {
           addUser(firebase.auth().currentUser)
           .then(() => {
             sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
+            setIsLoggedIn(true)
           })
           //add to user in DB
           setIsLoggedIn(true)

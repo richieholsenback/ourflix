@@ -8,7 +8,7 @@ export const Register = () => {
   const history = useHistory();
   const { register } = useContext(FirebaseContext);
 
-  const [name, setName] = useState();
+  const [name] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -36,17 +36,17 @@ export const Register = () => {
             <Form onSubmit={registerClick}>
               <fieldset>
                 <Form.Group controlId="email">
-                  <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} id="gray-input" />
+                  <Form.Control type="text" placeholder="name@example.com" onChange={e => setEmail(e.target.value)} />
                   <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="password">
-                  <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} id="gray-input" />
+                  <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="confirmPassword">
-                  <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} id="gray-input" />
+                  <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
                 </Form.Group>
 
 

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import "../scss/_user.scss"
 import { useHistory, useParams } from 'react-router-dom';
 import firebase from "firebase/app";
-import { addUser, GetOneUser, updateUser } from "../../modules/APICalls";
+import { GetOneUser, updateUser } from "../../modules/APICalls";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 export const UserForm = () => {
@@ -19,7 +19,11 @@ export const UserForm = () => {
 
     const handleUpdateItem = () => {
         const newUser = { ...user }
-        newUser["fbid"] = firebase.auth().currentUser.uid;
+        newUser.uid = firebase.auth().currentUser.uid;
+        newUser.createdAt = firebase.auth().currentUser.createdAt;
+        newUser.apiKey = firebase.auth().currentUser.apiKey;
+        newUser.email = firebase.auth().currentUser.email;
+        newUser.lastLoginAt = firebase.auth().currentUser.lastLoginAt;
         updateUser(newUser)
             .then(response => history.push("/users"))
     }
