@@ -3,12 +3,12 @@ import { Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import "../scss/_friend.scss"
 
-export const FriendCard = ({ friend, user }) => {
+export const FriendCard = ({ friend }) => {
     return (
-        <Link to={`friends/detail/${user.id}`}>
+        <Link to={`friend/details/${friend.fbid}`}>
             <div className="friend-card">
-                <Image src={user.photoURL} alt="friend pic" id="friend-pic" />
-                <h2>{user.firstName} {user.lastName}</h2>
+                <Image src={friend.photoURL} alt="friend pic" id="friend-pic" />
+                <h2>{friend.displayName}</h2>
             </div>
         </Link>
     )

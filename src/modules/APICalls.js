@@ -128,22 +128,14 @@ export const getFriends = () => {
 	return fetch(`${dataURL}/friends.json/?orderBy="friendedId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
-			console.log("first call", parsedResponse)
-			const urlArray = Object.keys(parsedResponse)
-			const responseArray = urlArray.map(item => {
-				console.log(urlArray)
-				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].uid}"`)
-				.then(response => {
-					response.json()
-				})
+			const urlArray = Object.keys(parsedResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].UserUid}"`)
+				.then(response => response.json())
 			})
-			return responseArray;
+			return urlArray;
 		})
 		.then(requests => {
-			Promise.all(requests)
-			.then(responses => {
-				console.log("responses", responses)
-			})
+			return Promise.all(requests)
 		})
 }
 
