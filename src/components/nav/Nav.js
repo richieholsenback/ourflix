@@ -10,7 +10,6 @@ export const NavBar = () => {
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        console.log(firebase.auth().currentUser.uid)
         getOneUserAlt(firebase.auth().currentUser.uid)
         .then(response => {
             const result = Object.keys(response)
@@ -32,9 +31,6 @@ export const NavBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end" >
                     <Nav className="mr-auto" id="nav-left">
-                        <Nav.Item>
-                            <Nav.Link href="/">Home</Nav.Link>
-                        </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/movies">Movies</Nav.Link>
                         </Nav.Item>

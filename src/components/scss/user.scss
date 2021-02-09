@@ -1,0 +1,71 @@
+#user-card {
+    h2 {
+        font-family: "Gotham Bold";
+        color: white;
+        font-size: 48px;
+        @media only screen and (max-width: 576px) {
+            font-family: "Gotham Bold";
+        color: white;
+        font-size: 30px;
+        }
+    }
+
+    h4 {
+        font-family: "Gotham Book";
+        color: white;
+        font-size: 36px;
+        padding: 1em 0 0 1em;
+        @media only screen and (max-width: 576px) {
+            font-family: "Gotham Book";
+        color: white;
+        font-size: 30px;
+        }
+    }
+    
+    h5 {
+        font-family: "Gotham Book";
+        color: white;
+        font-size: 48px;
+        @media only screen and (max-width: 576px) {
+            font-family: "Gotham Book";
+        color: white;
+        font-size: 24px;
+        }
+    }
+    
+    #user-pic {
+        @media only screen and (max-width: 576px) {
+            
+            
+        width: 4em;
+        height: 4em;
+        object-fit: cover;
+        object-position: center right;
+        }
+    }
+    #spacing {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5em 2em;
+        @media only screen and (max-width: 576px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        }
+    }
+    #align-card-name {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        @media only screen and (max-width: 576px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        }
+    }
+}
+

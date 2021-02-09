@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import "../scss/_user.scss"
+import "../scss/user.scss"
 import { useHistory, useParams } from 'react-router-dom';
 import firebase from "firebase/app";
 import { GetOneUser, updateUser } from "../../modules/APICalls";

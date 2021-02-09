@@ -78,7 +78,7 @@ export const ShowList = () => {
                     {
                         showArray.map((item, index) => {
                             return (
-                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.fbid)}>
+                                <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.netflixid)}>
                                     <Container >
                                         <Row className="card-image">
                                             <Col>
@@ -88,7 +88,7 @@ export const ShowList = () => {
                                         <Row id="card-options">
                                             <Col xs={3}>
                                                 <Button onClick={() => swipe('left')} variant="link">
-                                                    <IoCloseCircleOutline color="white" size="5em" />
+                                                    <IoCloseCircleOutline color="white" size="2em" />
                                                 </Button>
                                             </Col>
                                             <Col xs={3} >
@@ -99,7 +99,7 @@ export const ShowList = () => {
                                             </Col>
                                             <Col xs={3}>
                                                 <Button onClick={() => swipe('right')} variant="link">
-                                                    <IoCheckmarkCircleOutline color="white" size="5em" />
+                                                    <IoCheckmarkCircleOutline color="white" size="2em" />
                                                 </Button>
                                             </Col>
                                         </Row>

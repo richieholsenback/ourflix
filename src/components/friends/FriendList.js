@@ -11,17 +11,14 @@ export const FriendList = () => {
     const userId = firebase.auth().currentUser.uid
 
     const getAllFriends = () => {
-        console.log(userId)
         getFriends(userId)
             .then(data => {
-                console.log("fb data", data)
                 data.map(friendObject => {
                 let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
                     friendObject[key].fbid = key;
                     return friendObject[key];
                     
                 })
-                console.log("arrayWithFBID", arrayWithFBID);
                 //and sort with most recent date first
                 arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                 setFriendArray(arrayWithFBID)
@@ -31,19 +28,20 @@ export const FriendList = () => {
 
     useEffect(() => {
         getAllFriends()
-        console.log(friendArray)
     }, [])
 
 
     return (
+        
         <Container className="friends">
+            {console.log(friendArray)}
             <Row>
                 <Col>
-                    <h2>Your Friends</h2>
+                    <h2>Your Friends X</h2>
                     <div className="followingList">
                         {
                             friendArray.map(friend => {
-                                return <FriendCard key={friend.fbid} friend={friend} />
+                                return <FriendCard key={friend.uid} friend={friend} />
                             })
                         }
                     </div>

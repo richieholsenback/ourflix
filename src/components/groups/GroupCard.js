@@ -2,7 +2,7 @@ import React from "react"
 import { Col, Row, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { deleteGroup } from "../../modules/APICalls"
-import "../scss/_user.scss"
+import "../scss/group.scss"
 
 export const GroupCard = ({ group }) => {
 

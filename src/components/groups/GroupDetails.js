@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Button, Col, Container, Row, Dropdown } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
-import "../scss/_group.scss"
+import "../scss/group.scss"
 import { deleteGroup, getGroups, GetOneGroup } from "../../modules/APICalls"
 
 export const GroupDetails = () => {
@@ -13,7 +13,6 @@ export const GroupDetails = () => {
         getGroups(groupId)
             .then(response => {
                 const result = Object.keys(response)
-                console.log(result)
                 GetOneGroup(groupId)
                     .then(response => {
                         setGroup(response)
@@ -22,7 +21,7 @@ export const GroupDetails = () => {
     }, [])
 
     return (
-        <Container id="group-page">
+        <Container id="groups">
             <Row>
                 <Col>
                     <h2>The {group.name} should watch</h2>
@@ -46,12 +45,12 @@ export const GroupDetails = () => {
             <br />
             <Row>
                 <Col>
-                    <h3>Movies</h3>
+                    <h4>Movies</h4>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <h3>TV Shows</h3>
+                    <h4>TV Shows</h4>
                 </Col>
             </Row>
         </Container>

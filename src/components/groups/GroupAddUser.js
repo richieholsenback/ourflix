@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Button} from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { addGroupUser, getGroups, GetOneGroup, getUsers } from "../../modules/APICalls";
 
 export const GroupForm = () => {
@@ -44,7 +45,6 @@ export const GroupForm = () => {
         getGroups(groupId)
             .then(response => {
                 const result = Object.keys(response)
-                console.log(result)
                 GetOneGroup(groupId)
                     .then(response => {
                         setGroup(response)
@@ -59,6 +59,7 @@ export const GroupForm = () => {
     return (
         <>
         <Container >
+            <Link to={`/group/details/${groupId}`}>Back</Link>
           <h2>Add friends to the {group.name}</h2>
       {
         userArray.map(user => {

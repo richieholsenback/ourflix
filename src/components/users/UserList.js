@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Container } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 import { getUsers } from "../../modules/APICalls"
 import { UserCard } from './UserCard'
+import "../scss/user.scss"
 
 
 export const UserList = () => {
@@ -39,7 +40,12 @@ export const UserList = () => {
   }, [searchTerms, userArray])
 
   return (
-    <Container >
+    <Container id="user-card">
+      <Row>
+        <Col>
+      <h2>Other Users</h2>
+        </Col>
+      </Row>
       {
         userArray.map(user => {
           return (

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Image, Button, Row, Col } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import { addGroupUser } from "../../modules/APICalls"
-import "../scss/_user.scss"
+import "../scss/group.scss"
 import firebase from "firebase/app";
 
 export const GroupUserCard = ({ user }) => {

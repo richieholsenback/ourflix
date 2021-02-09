@@ -20,7 +20,7 @@ export const getMovies = () => {
 
 	// https://firebase.google.com/docs/database/rest/retrieve-data?authuser=0
 	// combine orderBy with any of the other five parameters: limitToFirst, limitToLast, startAt, endAt, and equalTo
-	return fetch(`${dataURL}/movies.json`)
+	return fetch(`${dataURL}/movies.json/`)
 		.then(response => response.json())
 
 }
@@ -63,7 +63,6 @@ export const getMovieLikes = (uid) => {
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
-				console.log("oh yeah!", `${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				return fetch(`${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				.then(response => response.json())
 			})
@@ -71,6 +70,21 @@ export const getMovieLikes = (uid) => {
 		})
 		.then(requests => {
 			console.log(Promise.all(requests))
+			return Promise.all(requests)
+		})
+}
+
+export const getShowLikes = (uid) => {
+	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="${uid}"`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			const urlArray = Object.keys(parsedResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/shows.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
+				.then(response => response.json())
+			})
+			return urlArray;
+		})
+		.then(requests => {
 			return Promise.all(requests)
 		})
 }
@@ -141,21 +155,49 @@ export const updateUser = (userObj) => {
 
 //////// Friends
 
+// export const getFriends = (uid) => {
+// 	return fetch(`${dataURL}/friends.json/?orderBy="friendedById"&equalTo="${uid}"`)
+// 		.then(response => response.json())
+// 		.then(parsedResponse => {
+// 			const urlArray = Object.keys(parsedResponse).map(item => { 
+// 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
+// 				.then(response => response.json())
+// 				.then(parsedResponse => Object.keys(parsedResponse))
+// 			})
+// 			return urlArray;
+// 		})
+// 		.then(requests => {
+// 			console.log(Promise.all(requests))
+// 			let allPromises = Promise.all(requests)
+// 			.then(response => {
+
+// 				response.map(item => {
+// 					const newItem = Object.values(item)
+// 					return newItem
+// 				})
+				
+// 				console.log("API Console", response)
+// 				return response
+// 			})
+// 			return allPromises
+// 		})
+// }
+
 export const getFriends = (uid) => {
-	return fetch(`${dataURL}/friends.json/?orderBy="friendedId"&equalTo="${uid}"`)
+	return fetch(`${dataURL}/friends.json/?orderBy="friendedById"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
-			const urlArray = Object.keys(parsedResponse).map(item => { 
+			const urlArray = Object.keys(parsedResponse).map(item => {
+				// const fetchDataURL = parsedResponse[item].pName;
 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
 				.then(response => response.json())
+				.then(parsedResponse => {
+					return Object.values(Object.entries(parsedResponse));
+				})
 			})
-			return urlArray;
-		})
-		.then(requests => {
-			console.log(Promise.all(requests))
-			return Promise.all(requests)
-		})
-}
+				return urlArray; 
+			})
+		}
 
 export const addFriend = (friendObj) => {
 	return fetch(`${dataURL}/friends.json`, {

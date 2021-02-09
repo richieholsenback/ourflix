@@ -23,6 +23,11 @@
     #media-img {
         width: auto;
         height: 75vh;
+        @media only screen and (max-width: 576px) {
+            width: auto;
+            height: 60vh;
+        }
+
     }
     
     #media-img-detail {
@@ -31,6 +36,7 @@
         object-fit: cover;
         object-position: center right;
         opacity: 10%;
+        
     }
     p {
         font-family: "Gotham Book";
@@ -102,5 +108,17 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        @media only screen and (max-width: 576px) {
+            justify-content: center;
+        }
     }
+
+}
+button {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    }
+
+    #button-svg {
+    size: 3em;
 }

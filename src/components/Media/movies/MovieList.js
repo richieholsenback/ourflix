@@ -124,14 +124,14 @@ export const MovieList = () => {
                                 <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.netflixid)}>
                                     <Container className="card-image">
                                         <Row >
-                                            <Col>
+                                            <Col xs={6}>
                                                 <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
                                             </Col>
                                         </Row>
                                         <Row id="card-options">
                                             <Col xs={3}>
-                                                <Button onClick={() => handleAddDisike(`${item.netflixid}`, "left")} variant="link">
-                                                    <IoCloseCircleOutline color="white" size="5em" />
+                                                <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
+                                                    <IoCloseCircleOutline color="white" size="2em" />
                                                 </Button>
                                             </Col>
                                             <Col xs={3} >
@@ -141,8 +141,8 @@ export const MovieList = () => {
                                                 </Link>
                                             </Col>
                                             <Col xs={3}>
-                                                <Button onClick={() => swipe(`${item.netflixid}`, "right")} variant="link">
-                                                    <IoCheckmarkCircleOutline color="white" size="5em" />
+                                                <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
+                                                    <IoCheckmarkCircleOutline color="white" size="2em" />
                                                 </Button>
                                             </Col>
                                         </Row>

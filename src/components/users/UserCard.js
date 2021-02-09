@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { Image, Button, Row, Col } from "react-bootstrap"
+import { Image, Button, Row, div } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import { addFriend } from "../../modules/APICalls"
-import "../scss/_user.scss"
+import "../scss/user.scss"
 import firebase from "firebase/app";
 
 export const UserCard = ({ user }) => {
@@ -21,18 +21,20 @@ export const UserCard = ({ user }) => {
 
     return (
         <>
-            <Row>
-                <Col xs={1}>
-                    <Link to={`user/details/${user.fbid}`}>
-                        <Image src={user.photoURL} alt="user pic" id="user-pic" />
-                    </Link>
-                </Col>
-                <Col xs={4}>
-                    <Link to={`user/details/${user.fbid}`}>
-                        <h2>{user.displayName}</h2>
-                    </Link>
-                </Col>
-                <Col>
+            <div id="spacing">
+                <div id="align-card-name">
+                    <div xs={1}>
+                        <Link to={`user/details/${user.fbid}`}>
+                            <Image src={user.photoURL} alt="user pic" id="user-pic" />
+                        </Link>
+                    </div>
+                    <div xs={4}>
+                        <Link to={`user/details/${user.uid}`}>
+                            <h2>{user.displayName}</h2>
+                        </Link>
+                    </div>
+                </div>
+                <div >
                     <Button
                         type="submit"
                         onClick={() => {
@@ -41,8 +43,8 @@ export const UserCard = ({ user }) => {
                     >
                         Add Friend
             </Button>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </>
     )
 }
