@@ -72,11 +72,11 @@ export const FirebaseProvider = (props) => {
       .then(savedactive_user => {
         //take the user that was signed in
         console.log('savedU', savedactive_user)
+        sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         return (savedactive_user.user.uid)
         //Grab their uid
       }).then(uid => {
         //then run it through our user check
-        sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         checkUser(uid)
         refreshPage()
       }

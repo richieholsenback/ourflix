@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { useParams } from "react-router-dom"
-import "../scss/_friend.scss"
+import "../scss/friend.scss"
 
 // export const FriendDetails = ({ }) => {
 

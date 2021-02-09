@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import { getFriends, getUsers } from "../../modules/APICalls"
 import { FriendCard } from "./FriendCard"
 import firebase from "firebase/app";
+import "../scss/friend.scss"
 
 export const FriendList = () => {
 
@@ -14,6 +15,7 @@ export const FriendList = () => {
         getFriends(userId)
             .then(data => {
                 data.map(friendObject => {
+                    console.log(friendObject)
                 let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
                     friendObject[key].fbid = key;
                     return friendObject[key];
@@ -27,21 +29,22 @@ export const FriendList = () => {
     }
 
     useEffect(() => {
-        getAllFriends()
+        getFriends(userId)
+        .then(results => setFriendArray(results))
     }, [])
 
 
     return (
         
-        <Container className="friends">
+        <Container id="friends">
             {console.log(friendArray)}
             <Row>
                 <Col>
-                    <h2>Your Friends X</h2>
+                    <h2>Your Friends</h2>
                     <div className="followingList">
                         {
                             friendArray.map(friend => {
-                                return <FriendCard key={friend.uid} friend={friend} />
+                                return <FriendCard key={friend.apiKey} friend={friend} />
                             })
                         }
                     </div>

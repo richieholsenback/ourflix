@@ -155,34 +155,6 @@ export const updateUser = (userObj) => {
 
 //////// Friends
 
-// export const getFriends = (uid) => {
-// 	return fetch(`${dataURL}/friends.json/?orderBy="friendedById"&equalTo="${uid}"`)
-// 		.then(response => response.json())
-// 		.then(parsedResponse => {
-// 			const urlArray = Object.keys(parsedResponse).map(item => { 
-// 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
-// 				.then(response => response.json())
-// 				.then(parsedResponse => Object.keys(parsedResponse))
-// 			})
-// 			return urlArray;
-// 		})
-// 		.then(requests => {
-// 			console.log(Promise.all(requests))
-// 			let allPromises = Promise.all(requests)
-// 			.then(response => {
-
-// 				response.map(item => {
-// 					const newItem = Object.values(item)
-// 					return newItem
-// 				})
-				
-// 				console.log("API Console", response)
-// 				return response
-// 			})
-// 			return allPromises
-// 		})
-// }
-
 export const getFriends = (uid) => {
 	return fetch(`${dataURL}/friends.json/?orderBy="friendedById"&equalTo="${uid}"`)
 		.then(response => response.json())
@@ -191,13 +163,22 @@ export const getFriends = (uid) => {
 				// const fetchDataURL = parsedResponse[item].pName;
 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
 				.then(response => response.json())
-				.then(parsedResponse => {
-					return Object.values(Object.entries(parsedResponse));
-				})
+				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1])
 			})
 				return urlArray; 
 			})
-		}
+		.then(requests => {
+			let allPromises = (Promise.all(requests))
+			.then(response => {
+				response.map(item => {
+					const newItem = Object.entries(item)
+					return newItem
+				})
+				return response
+			})
+			return allPromises
+		})
+}
 
 export const addFriend = (friendObj) => {
 	return fetch(`${dataURL}/friends.json`, {
