@@ -5,7 +5,7 @@ import "../scss/friend.scss"
 
 export const FriendCard = ({ friend }) => {
     return (
-        <Link to={`friend/details/${friend.fbid}`}>
+        <Link to={`friend/details/${friend.uid}`}>
             <div className="friend-card">
                 <Image src={friend.photoURL} alt="friend pic" id="friend-pic" />
                 <h5>{friend.displayName}</h5>

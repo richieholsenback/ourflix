@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom"
 import { FirebaseContext } from "./fbAuth/FirebaseProvider";
-// import { FriendDetails } from "./friends/FriendDetails";
+import { FriendDetails } from "./friends/FriendDetails";
 import { FriendList } from "./friends/FriendList";
 import { GroupDetails } from "./groups/GroupDetails";
 import { UserDetails } from "./users/UserDetails";
@@ -80,9 +80,9 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><UserActiveDetails /></> : <Redirect to="/login" />}
             </Route>
 
-            {/* <Route path="/friend/details/:friendId">
+            <Route path="/friend/details/:uid">
                 {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
-            </Route> */}
+            </Route>
 
             <Route exact path="/group/details/:groupId">
                 {isLoggedIn ? <> <NavBar /><GroupDetails /> </>: <Redirect to="/login" />}

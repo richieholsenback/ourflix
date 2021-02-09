@@ -45,7 +45,6 @@ export const UserCard = ({ user }) => {
                         variant="danger"
                         onClick={() => {
                             handleAddFriend(user.uid)
-                            refreshPage()
                         }}
                     >
                         <AiOutlineUserAdd />

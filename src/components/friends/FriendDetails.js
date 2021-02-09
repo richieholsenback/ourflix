@@ -8,10 +8,12 @@ import "../scss/user.scss"
 import firebase from "firebase/app";
 
 
-export const UserDetails = () => {
+export const FriendDetails = () => {
 
     const [user, setUser] = useState({})
+    const [userMovieLikes, setUserMovieLikes] = useState([])
     const [movieLikes, setMovieLikes] = useState([])
+    const [userShowLikes, setUserShowLikes] = useState([])
     const [showLikes, setShowLikes] = useState([])
     const { uid } = useParams();
 
@@ -28,54 +30,35 @@ export const UserDetails = () => {
             })
     }, [])
 
-    const getAllMovieLikes = () => {
-        getMovieLikes(uid)
-            .then(data => {
-                console.log("fb data", data)
-                data.map(movieObject => {
-                    let arrayWithFBID = Object.keys(movieObject).map((key, index) => {
-                        movieObject[key].fbid = key;
-                        return movieObject[key];
 
-                    })
-                    //and sort with most recent date first
-                    console.log("arrayWithshow", arrayWithFBID);
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setMovieLikes(arrayWithFBID)
-                })
-            })
-    }
 
-    const getAllShowLikes = () => {
-        getShowLikes(uid)
-            .then(data => {
-                console.log("fb show data", data)
-                data.map(showObject => {
-                    let arrayWithFBID = Object.keys(showObject).map((key, index) => {
-                        showObject[key].fbid = key;
-                        return showObject[key];
-
-                    })
-                    console.log("arrayWithshow", arrayWithFBID);
-                    //and sort with most recent date first
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setShowLikes(arrayWithFBID)
-                })
-            })
-    }
 
     useEffect(() => {
-        getAllMovieLikes()
-        console.log(movieLikes)
+        getMovieLikes(uid)
+            .then(results => setMovieLikes(results))
     }, [])
 
     useEffect(() => {
-        getAllShowLikes()
-        console.log(movieLikes)
+        getMovieLikes(userId)
+            .then(results => {
+                setUserMovieLikes(results)
+            })
+    }, [])
+
+    useEffect(() => {
+        getShowLikes(uid)
+            .then(results => setShowLikes(results))
+    }, [])
+
+    useEffect(() => {
+        getShowLikes(userId)
+            .then(results => {
+                setUserShowLikes(results)
+            })
     }, [])
 
     const profileOptions = (userObj) => {
-        if (uid === userObj.uid){
+        if (uid === userObj.uid) {
             return (
                 <Link to={`/user/update/${uid}`} >Edit Profile</Link>
             )
@@ -84,14 +67,46 @@ export const UserDetails = () => {
         }
     }
 
+    //Movies in common
+    //First, we need to get all of the likes for movies
+    //then we need to see what the current user likes
+    //then we check if the friend has liked any of those movies
+
+    const findMoviesInCommon = (obj) => {
+
+        const hasInCommon = userMovieLikes.find((movie) => movie.netflixid === obj.netflixid)
+
+        if (hasInCommon) {
+            return (
+                <MediaCard key={obj.fbid} item={obj} />
+            )
+        } else {
+            return null
+        }
+    }
+    
+    const findShowsInCommon = (obj) => {
+
+        const hasInCommon = userShowLikes.find((show) => show.netflixid === obj.netflixid)
+
+        if (hasInCommon) {
+            return (
+                <MediaCard key={obj.fbid} item={obj} />
+            )
+        } else {
+            return null
+        }
+    }
+
     return (
         <Container id="user-card">
+            {console.log("movies the user has liked", userMovieLikes)}
             <Row>
                 <Col>
                     <Image src={user.photoURL} />
-                    <h2>{user.displayName}'s profile</h2>
+                    <h2>You and {user.displayName} should watch</h2>
                 </Col>
-                {profileOptions(`${user.uid}`)}
+                {/* {profileOptions(`${user}`)} */}
             </Row>
             <Row>
                 <Col>
@@ -99,16 +114,14 @@ export const UserDetails = () => {
                 </Col>
             </Row>
             <Row>
-
-                {
-                    movieLikes.map(like => {
-                        return (
-                            <Col xs={4}>
-                                <MediaCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
+                <Col xs={4}>
+                    {
+                        movieLikes.map(like => {
+                            console.log("movies the friend has liked", like)
+                            return findMoviesInCommon(like)
+                        })
+                    }
+                </Col>
             </Row>
             <Row>
                 <Col>
@@ -119,13 +132,10 @@ export const UserDetails = () => {
 
                 {
                     showLikes.map(like => {
-                        return (
-                            <Col xs={4}>
-                                <MediaCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
+                        console.log("movies the friend has liked", like)
+                        return findShowsInCommon(like)
+                })
+            }
             </Row>
         </Container>
     )

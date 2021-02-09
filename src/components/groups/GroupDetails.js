@@ -9,16 +9,29 @@ export const GroupDetails = () => {
     const [group, setGroup] = useState({})
     const { groupId } = useParams()
 
-    useEffect(() => {
-        getGroups(groupId)
-            .then(response => {
-                const result = Object.keys(response)
-                GetOneGroup(groupId)
-                    .then(response => {
-                        setGroup(response)
-                    })
+    const getAllGroups = () => {
+        GetOneGroup(groupId)
+            .then(data => {
+                data.map(friendObject => {
+                    console.log(friendObject)
+                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
+                    friendObject[key].fbid = key;
+                    return friendObject[key];
+                    
+                })
+                //and sort with most recent date first
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setGroup(arrayWithFBID)
             })
+            })
+    }
+
+    useEffect(() => {
+        GetOneGroup(groupId)
+        .then(response => setGroup(response))
     }, [])
+
+
 
     return (
         <Container id="groups">
@@ -36,7 +49,7 @@ export const GroupDetails = () => {
                                 Add User
                             </Dropdown.Item>
                             <Dropdown.Item onClick={deleteGroup(`${group.fbid}`)}>
-                                    Delete Group
+                                Delete Group
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

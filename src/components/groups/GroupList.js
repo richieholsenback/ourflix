@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Row, Button } from "react-bootstrap"
 import { getGroups } from "../../modules/APICalls"
 import { GroupCard } from "./GroupCard"
 import "../scss/group.scss"
@@ -10,32 +10,24 @@ export const GroupList = () => {
     const [groupArray, setGroupArray] = useState([])
 
     const userId = firebase.auth().currentUser.uid
-    
-    const getAllGroups = () => {
-        getGroups(userId)
-            .then(data => {
-                data.map(friendObject => {
-                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
-                    friendObject[key].fbid = key;
-                    return friendObject[key];
-                    
-                })
-                //and sort with most recent date first
-                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setGroupArray(arrayWithFBID)
-            })
-            })
-    }
 
     useEffect(() => {
-        getAllGroups()
+        getGroups(userId)
+            .then(results => setGroupArray(results))
     }, [])
 
     return (
         <Container id="groups">
             <Row>
-                <Col>
+                <Col >
                     <h2>Your Groups</h2>
+                </Col>
+                <Col >
+                    <Button variant="secondary">New Group</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <div className="followingList">
                         {
                             groupArray.map(group => {

@@ -13,6 +13,7 @@ export const NavBar = () => {
         getOneUserAlt(firebase.auth().currentUser.uid)
         .then(response => {
             const result = Object.keys(response)
+            console.log("reult",result)
                 GetOneUser(result)
                     .then(response => {
                         setUser(response)
@@ -46,7 +47,7 @@ export const NavBar = () => {
                             <Nav.Link href="/groups">Groups</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href={`/myprofile/${user.uid}`}>
+                            <Nav.Link href={`/myprofile/${firebase.auth().currentUser.uid}`}>
                                 <Image id="prof-pic" src={user.photoURL} />
                                 {/* Home */}
                             </Nav.Link>

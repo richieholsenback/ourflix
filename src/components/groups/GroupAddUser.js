@@ -20,7 +20,7 @@ export const GroupForm = () => {
     const handleAddGroupUser = (userId) => {
             const newGroupUserObj = { ...groupUserItem }
             newGroupUserObj.userId = groupId
-            newGroupUserObj.GroupId = userId
+            newGroupUserObj.groupId = userId
             addGroupUser(newGroupUserObj)
     }
 

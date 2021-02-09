@@ -73,7 +73,6 @@ export const getMovieLikes = (uid) => {
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
-				console.log("Extryy Extryyy!!", `${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				return fetch(`${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				.then(response => response.json())
 				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1]
@@ -232,23 +231,33 @@ export const getGroupUsers = () => {
 }
 
 export const getGroups = (uid) => {
-		return fetch(`${dataURL}/groupUsers.json/?orderBy="userId"&equalTo="xVcCfTO4f1Mvu9eLYMhuFyyu54A3"`)
-			.then(response => response.json())
-			.then(parsedResponse => {
-				const urlArray = Object.keys(parsedResponse).map(item => { 
-					return fetch(`${firebaseConfig.databaseURL}/groups.json/?orderBy="groupId"&equalTo="${parsedResponse[item].groupId}"`)
+		return fetch(`${dataURL}/groupUsers.json/?orderBy="userId"&equalTo="${uid}"`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			console.log(Object.keys(parsedResponse))
+			const urlArray = Object.keys(parsedResponse).map(item => {
+				// const fetchDataURL = parsedResponse[item].pName;
+				return fetch(`${firebaseConfig.databaseURL}/groups.json/?orderBy="groupId"&equalTo="${parsedResponse[item].groupId}"`)
 					.then(response => response.json())
+					.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1])
 				})
-				return urlArray;
-			})
+					return urlArray; 
+				})
 			.then(requests => {
-				console.log(Promise.all(requests))
-				return Promise.all(requests)
+				let allPromises = (Promise.all(requests))
+				.then(response => {
+					response.map(item => {
+						const newItem = Object.entries(item)
+						return newItem
+					})
+					return response
+				})
+				return allPromises
 			})
-}
+	}
 
-export const GetOneGroup = (fbid) => {
-	return fetch(`${dataURL}/groups/${fbid}.json`)
+export const GetOneGroup = (groupId) => {
+	return fetch(`${dataURL}/groups.json/?orderBy="groupId"&equalTo="a1234567"`)
 		.then(response => response.json())
 }
 
