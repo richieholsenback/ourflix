@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom"
 import { addFriend } from "../../modules/APICalls"
 import "../scss/user.scss"
 import firebase from "firebase/app";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 export const UserCard = ({ user }) => {
     const [friendItem, setFriendItem] = useState({})
@@ -30,18 +31,19 @@ export const UserCard = ({ user }) => {
                     </div>
                     <div xs={4}>
                         <Link to={`user/details/${user.uid}`}>
-                            <h2>{user.displayName}</h2>
+                            <h5>{user.displayName}</h5>
                         </Link>
                     </div>
                 </div>
                 <div >
                     <Button
                         type="submit"
+                        variant="danger"
                         onClick={() => {
                             handleAddFriend(user.uid)
                         }}
                     >
-                        Add Friend
+                        <AiOutlineUserAdd />
             </Button>
                 </div>
             </div>
