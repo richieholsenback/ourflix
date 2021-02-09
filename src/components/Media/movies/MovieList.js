@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Col, Row, Container, Image, Button } from "react-bootstrap"
-import { addDislike, addLike, getMovies } from "../../../modules/APICalls"
+import { addDislike, addMovieLike, getMovies } from "../../../modules/APICalls"
 import "../../scss/_list.scss"
 import "../../scss/_advanced.scss"
 import TinderCard from "react-tinder-card";
@@ -46,7 +46,7 @@ export const MovieList = () => {
         
         const userId = sessionStorage.getItem("active_user").uid
                 if (direction === "right") {
-                    addLike({
+                    addMovieLike({
                         showId: idOfShow,
                         userId: firebase.auth().currentUser.uid
                     })
@@ -93,7 +93,7 @@ export const MovieList = () => {
     const newLikeObj = { ...like };
     newLikeObj.userId = firebase.auth().currentUser.uid;
     newLikeObj.resultId = item;
-    addLike(newLikeObj)
+    addMovieLike(newLikeObj)
       .then(response => history.push("/"))
   }
 

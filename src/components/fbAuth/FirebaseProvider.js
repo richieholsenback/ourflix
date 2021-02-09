@@ -43,6 +43,7 @@ export const FirebaseProvider = (props) => {
   const login = (email, pw) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
     .then(savedactive_user => {
+      sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
       console.log('savedU', savedactive_user)
       return (savedactive_user.user.uid)
     }).then(uid => {
@@ -62,6 +63,7 @@ export const FirebaseProvider = (props) => {
   const register = (active_user, password) => {
     return firebase.auth().createUserWithEmailAndPassword(active_user.email, password)
       .then(savedactive_user => {
+        sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         return (savedactive_user.user.uid)
       })
     }

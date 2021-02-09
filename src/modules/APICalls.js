@@ -48,8 +48,18 @@ export const GetOneShow = (fbid) => {
 
 // }
 
-export const addLike = (likeObj) => {
-	return fetch(`${dataURL}/likes.json`, {
+export const addMovieLike = (likeObj) => {
+	return fetch(`${dataURL}/movieLikes.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(likeObj)
+	}).then(response => response.json())
+}
+
+export const addShowLike = (likeObj) => {
+	return fetch(`${dataURL}/showLikes.json`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -59,33 +69,56 @@ export const addLike = (likeObj) => {
 }
 
 export const getMovieLikes = (uid) => {
-	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="${uid}"`)
+	return fetch(`${dataURL}/movieLikes.json/?orderBy="userId"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
+				console.log("Extryy Extryyy!!", `${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				return fetch(`${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				.then(response => response.json())
+				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1]
+				)
 			})
-			return urlArray;
-		})
+
+				return urlArray; 
+			})
 		.then(requests => {
-			console.log(Promise.all(requests))
-			return Promise.all(requests)
+			let allPromises = (Promise.all(requests))
+			.then(response => {
+				response.map(item => {
+					const newItem = Object.entries(item)
+					return newItem
+				})
+				return response
+			})
+			return allPromises
 		})
 }
 
 export const getShowLikes = (uid) => {
-	return fetch(`${dataURL}/likes.json/?orderBy="userId"&equalTo="${uid}"`)
+	
+	return fetch(`${dataURL}/showLikes.json/?orderBy="userId"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => { 
 				return fetch(`${firebaseConfig.databaseURL}/shows.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
 				.then(response => response.json())
+				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1]
+				)
 			})
-			return urlArray;
-		})
+
+				return urlArray; 
+			})
 		.then(requests => {
-			return Promise.all(requests)
+			let allPromises = (Promise.all(requests))
+			.then(response => {
+				response.map(item => {
+					const newItem = Object.entries(item)
+					return newItem
+				})
+				return response
+			})
+			return allPromises
 		})
 }
 

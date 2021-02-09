@@ -20,6 +20,10 @@ export const UserCard = ({ user }) => {
             .then(response => history.push("/friends"))
     }
 
+    function refreshPage() {
+        window.location.reload(false);
+    }
+
     return (
         <>
             <div id="spacing">
@@ -41,6 +45,7 @@ export const UserCard = ({ user }) => {
                         variant="danger"
                         onClick={() => {
                             handleAddFriend(user.uid)
+                            refreshPage()
                         }}
                     >
                         <AiOutlineUserAdd />

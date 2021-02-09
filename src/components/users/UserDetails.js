@@ -28,50 +28,17 @@ export const UserDetails = () => {
             })
     }, [])
 
-    const getAllMovieLikes = () => {
-        getMovieLikes(uid)
-            .then(data => {
-                console.log("fb data", data)
-                data.map(movieObject => {
-                    let arrayWithFBID = Object.keys(movieObject).map((key, index) => {
-                        movieObject[key].fbid = key;
-                        return movieObject[key];
 
-                    })
-                    //and sort with most recent date first
-                    console.log("arrayWithshow", arrayWithFBID);
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setMovieLikes(arrayWithFBID)
-                })
-            })
-    }
-
-    const getAllShowLikes = () => {
-        getShowLikes(uid)
-            .then(data => {
-                console.log("fb show data", data)
-                data.map(showObject => {
-                    let arrayWithFBID = Object.keys(showObject).map((key, index) => {
-                        showObject[key].fbid = key;
-                        return showObject[key];
-
-                    })
-                    console.log("arrayWithshow", arrayWithFBID);
-                    //and sort with most recent date first
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setShowLikes(arrayWithFBID)
-                })
-            })
-    }
+    
 
     useEffect(() => {
-        getAllMovieLikes()
-        console.log(movieLikes)
+        getMovieLikes(uid)
+        .then(results => setMovieLikes(results))
     }, [])
 
     useEffect(() => {
-        getAllShowLikes()
-        console.log(movieLikes)
+        getShowLikes(uid)
+        .then(results => setShowLikes(results))
     }, [])
 
     const profileOptions = (userObj) => {
@@ -91,7 +58,7 @@ export const UserDetails = () => {
                     <Image src={user.photoURL} />
                     <h2>{user.displayName}'s profile</h2>
                 </Col>
-                {profileOptions(`${user.uid}`)}
+                {profileOptions(`${user}`)}
             </Row>
             <Row>
                 <Col>

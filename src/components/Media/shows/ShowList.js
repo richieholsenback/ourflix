@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { addDislike, addLike, getShows } from "../../../modules/APICalls"
+import { addDislike, addLike, addShowLike, getShows } from "../../../modules/APICalls"
 import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import TinderCard from "react-tinder-card"
 import { IoCheckmarkCircleOutline, IoCloseCircleOutline } from "react-icons/io5"
@@ -45,7 +45,7 @@ export const ShowList = () => {
         
         const userId = sessionStorage.getItem("active_user").uid
                 if (direction === "right") {
-                    addLike({
+                    addShowLike({
                         showId: idOfShow,
                         userId: firebase.auth().currentUser.uid
                     })
