@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { getUsers } from "../../modules/APICalls"
+import { getFriends, getUsers } from "../../modules/APICalls"
 import { UserCard } from './UserCard'
 import "../scss/user.scss"
+import firebase from "firebase/app";
 
 
 export const UserList = () => {
@@ -10,6 +11,31 @@ export const UserList = () => {
   const [userArray, setUserArray ] = useState([])
   const [ searchTerms] = useState("")
   const [filteredUsers, setFiltered] = useState([])
+  const [friendArray, setFriendArray] = useState([])
+
+  const userIdFB = firebase.auth().currentUser.uid
+
+  const getAllFriends = () => {
+      getFriends(userIdFB)
+          .then(data => {
+              data.map(friendObject => {
+                  console.log(friendObject)
+              let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
+                  friendObject[key].fbid = key;
+                  return friendObject[key];
+                  
+              })
+              //and sort with most recent date first
+              arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+              setFriendArray(arrayWithFBID)
+          })
+          })
+  }
+
+  useEffect(() => {
+      getFriends(userIdFB)
+      .then(results => setFriendArray(results))
+  }, [])
   
   const getAllUsers = () => {
         
@@ -39,6 +65,15 @@ export const UserList = () => {
     }
   }, [searchTerms, userArray])
 
+  const findIfFriends = (obj) => {
+    const hasFriends = friendArray.find(friend => friend.uid === obj.uid)
+    if (!hasFriends && obj.uid !== userIdFB) {
+      return <UserCard key={obj.id} user={obj} />
+    } else {
+      return null
+    }
+  }
+
   return (
     <Container id="user-card">
       <Row>
@@ -48,9 +83,7 @@ export const UserList = () => {
       </Row>
       {
         userArray.map(user => {
-          return (
-          <UserCard key={user.id} user={user} />
-          )
+          return findIfFriends(user)
         })
       }
     </Container>

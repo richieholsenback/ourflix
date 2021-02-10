@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { Col, Container, Image, Row } from "react-bootstrap"
+import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import { Link, useHistory, useParams } from "react-router-dom"
 import { getMovieLikes, GetOneUser, getOneUserAlt, getShowLikes } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import firebase from "firebase/app";
 import "../scss/user.scss"
+import { ShowCard } from "../Media/card/ShowCardUser"
 
 export const UserActiveDetails = () => {
 
@@ -27,50 +28,26 @@ export const UserActiveDetails = () => {
             })
     }, [])
 
-    const getAllMovieLikes = () => {
-        getMovieLikes(userId)
-            .then(data => {
-                data.map(movieObject => {
-                    let arrayWithFBID = Object.keys(movieObject).map((key, index) => {
-                        movieObject[key].fbid = key;
-                        return movieObject[key];
 
-                    })
-                    //and sort with most recent date first
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setMovieLikes(arrayWithFBID)
-                })
-            })
-    }
-
-    const getAllShowLikes = () => {
-        getShowLikes(userId)
-            .then(data => {
-                data.map(showObject => {
-                    let arrayWithFBID = Object.keys(showObject).map((key, index) => {
-                        showObject[key].fbid = key;
-                        return showObject[key];
-
-                    })
-                    //and sort with most recent date first
-                    arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                    setShowLikes(arrayWithFBID)
-                })
-            })
-    }
 
     useEffect(() => {
-        getAllMovieLikes()
+        getMovieLikes(uid)
+        .then(results => setMovieLikes(results))
     }, [])
 
     useEffect(() => {
-        getAllShowLikes()
+        getShowLikes(uid)
+        .then(results => setShowLikes(results))
     }, [])
 
     const editProfile = () => {
         return (
             <Col>
-            <Link to={`/user/update/${uid}`} >Edit Profile</Link>
+            <Link to={`/user/update/${uid}`} >
+                <Button variant="danger">
+                Edit Account
+                </Button>
+                </Link>
             </Col>
         )
     }
@@ -79,8 +56,7 @@ export const UserActiveDetails = () => {
         <Container id="user-card">
             <Row>
                 <Col>
-                    <Image src={user.photoURL} />
-                    <h2>{user.displayName}'s profile</h2>
+                    <h2>Your Profile, {user.displayName}</h2>
                     {editProfile()}
                 </Col>
             </Row>
@@ -112,7 +88,7 @@ export const UserActiveDetails = () => {
                     showLikes.map(like => {
                         return (
                             <Col xs={4}>
-                                <MediaCard key={like.fbid} item={like} />
+                                <ShowCard key={like.fbid} item={like} />
                             </Col>
                         )
                     })

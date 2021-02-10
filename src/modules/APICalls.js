@@ -34,6 +34,11 @@ export const GetFriendMovie = (netflixid) => {
 		.then(response => response.json())
 }
 
+export const GetFriendShow = (netflixid) => {
+	return fetch(`${dataURL}/shows.json/?orderBy="netflixid"&equalTo="${netflixid}"`)
+		.then(response => response.json())
+}
+
 export const getShows = () => {
 	return fetch(`${dataURL}/shows.json/?orderBy="rating"`)
 		.then(response => response.json())
@@ -291,6 +296,11 @@ export const getFriends = (uid) => {
 		})
 }
 
+export const getFriendsList = () => {
+	return fetch(`${dataURL}/friends.json`)
+		.then(response => response.json())
+}
+
 export const addFriend = (friendObj) => {
 	return fetch(`${dataURL}/friends.json`, {
 		method: "POST",
@@ -310,7 +320,7 @@ export const getGroupUsers = () => {
 }
 
 export const getGroups = (uid) => {
-		return fetch(`${dataURL}/groupUsers.json/?orderBy="userId"&equalTo="${uid}"`)
+		return fetch(`${dataURL}/groupUsers.json/?orderBy="friendedById"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
 			console.log(Object.keys(parsedResponse))
@@ -336,7 +346,7 @@ export const getGroups = (uid) => {
 	}
 
 export const GetOneGroup = (groupId) => {
-	return fetch(`${dataURL}/groups.json/?orderBy="groupId"&equalTo="a1234567"`)
+	return fetch(`${dataURL}/groups.json/?orderBy="groupId"&equalTo="${groupId}"`)
 		.then(response => response.json())
 }
 

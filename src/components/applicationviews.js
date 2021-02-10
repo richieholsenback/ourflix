@@ -22,6 +22,7 @@ import { GroupList } from "./groups/GroupList"
 import { UserSearch } from "./users/UserSearch";
 import { UserActiveDetails } from "./users/UserActiveDetails"
 import { LikedMediaDetails } from "./Media/card/UserCardDetail";
+import { LikedShowDetails } from "./Media/card/UserCardDetailShow";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -87,6 +88,10 @@ export const ApplicationView = () => {
             
             <Route path="/media/details/:netflixid">
                 {isLoggedIn ? <> <NavBar /><LikedMediaDetails /></> : <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/media/show/details/:netflixid">
+                {isLoggedIn ? <> <NavBar /><LikedShowDetails /></> : <Redirect to="/login" />}
             </Route>
 
             <Route exact path="/group/details/:groupId">

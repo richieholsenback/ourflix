@@ -80,7 +80,6 @@ export const FirebaseProvider = (props) => {
       }).then(uid => {
         //then run it through our user check
         checkUser(uid)
-        refreshPage()
       }
 
       )
@@ -88,12 +87,15 @@ export const FirebaseProvider = (props) => {
   const history = useHistory();
 
   const checkUser = (userId) => {
+    
+    console.log("checkUser", (`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`))
     fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
       // go to the db and pull any user with the uid of the signed in user
       .then(result => result.json())
       //convert to JSON
       .then(parsedResult => {
         console.log("check result", parsedResult)
+        debugger
         let resultArray = Object.keys(parsedResult)
         //Convert the logged in user object into an array - children cannot be objects
         if (resultArray.length > 0) {
@@ -115,7 +117,7 @@ export const FirebaseProvider = (props) => {
   }
   
   const checkUserRegister = (userId) => {
-    console.log("checkUser", userId)
+    console.log("checkUser", (`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`))
     fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
       // go to the db and pull any user with the uid of the signed in user
       .then(result => result.json())
@@ -133,9 +135,9 @@ export const FirebaseProvider = (props) => {
           addUser(firebase.auth().currentUser)
           .then(() => {
             sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-            setIsLoggedIn(true);
           })
           //add to user in DB
+          setIsLoggedIn(true);
         }
       })
   }
