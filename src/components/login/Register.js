@@ -11,6 +11,8 @@ export const Register = () => {
   const [name] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [displayName, setDisplayName] = useState();
+  const [photoURL, setPhotoURL] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
   const registerClick = (e) => {
@@ -44,11 +46,9 @@ export const Register = () => {
                 <Form.Group controlId="password">
                   <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
-
                 <Form.Group controlId="confirmPassword">
                   <Form.Control type="password" placeholder="Confirm password" onChange={e => setConfirmPassword(e.target.value)} />
                 </Form.Group>
-
 
                 <Button variant="primary" className="btn btn-block" type="submit" id="button-sign-in-red">Create your account</Button>
               </fieldset>

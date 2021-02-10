@@ -15,7 +15,6 @@ export const FriendList = () => {
         getFriends(userId)
             .then(data => {
                 data.map(friendObject => {
-                    console.log(friendObject)
                 let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
                     friendObject[key].fbid = key;
                     return friendObject[key];
@@ -37,7 +36,6 @@ export const FriendList = () => {
     return (
         
         <Container id="friends">
-            {console.log(friendArray)}
             <Row>
                 <Col>
                     <h2>Your Friends</h2>

@@ -19,7 +19,6 @@ export const UserList = () => {
       getFriends(userIdFB)
           .then(data => {
               data.map(friendObject => {
-                  console.log(friendObject)
               let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
                   friendObject[key].fbid = key;
                   return friendObject[key];

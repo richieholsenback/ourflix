@@ -90,7 +90,7 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><LikedMediaDetails /></> : <Redirect to="/login" />}
             </Route>
             
-            <Route path="/media/show/details/:netflixid">
+            <Route path="/media/showdetails/:netflixid">
                 {isLoggedIn ? <> <NavBar /><LikedShowDetails /></> : <Redirect to="/login" />}
             </Route>
 
@@ -102,7 +102,7 @@ export const ApplicationView = () => {
                 {isLoggedIn ? <> <NavBar /><GroupForm /> </>: <Redirect to="/login" />}
             </Route>
             
-            <Route path="/user/update/:fbid">
+            <Route path="/user/update/:uid">
                 {isLoggedIn ? <> <NavBar /><UserForm /> </>: <Redirect to="/login" />}
             </Route>
         </Switch>

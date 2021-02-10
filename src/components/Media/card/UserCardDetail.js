@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Container, Image, Row } from "react-bootstrap"
-import { Link, useParams } from "react-router-dom"
+import { Col, Container, Image, Row } from "react-bootstrap"
+import { useParams } from "react-router-dom"
 import "../../scss/card.scss"
-import { GetFriendMovie, GetOneMovie, Unlike } from "../../../modules/APICalls"
+import { GetFriendMovie, GetOneMovie } from "../../../modules/APICalls"
 import { BiStar } from "react-icons/bi"
 import { FaPlay } from "react-icons/fa"
-import { setActiveLink } from "react-scroll/modules/mixins/scroller"
 
 export const LikedMediaDetails = () => {
     

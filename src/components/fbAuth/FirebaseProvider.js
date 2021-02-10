@@ -44,7 +44,6 @@ export const FirebaseProvider = (props) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
     .then(savedactive_user => {
       sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-      console.log('savedU', savedactive_user)
       return (savedactive_user.user.uid)
     }).then(uid => {
       checkUser(uid)
@@ -73,7 +72,6 @@ export const FirebaseProvider = (props) => {
     //sign in
       .then(savedactive_user => {
         //take the user that was signed in
-        console.log('savedU', savedactive_user)
         sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         return (savedactive_user.user.uid)
         //Grab their uid
@@ -88,19 +86,16 @@ export const FirebaseProvider = (props) => {
 
   const checkUser = (userId) => {
     
-    console.log("checkUser", (`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`))
     fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
       // go to the db and pull any user with the uid of the signed in user
       .then(result => result.json())
       //convert to JSON
       .then(parsedResult => {
-        console.log("check result", parsedResult)
         debugger
         let resultArray = Object.keys(parsedResult)
         //Convert the logged in user object into an array - children cannot be objects
         if (resultArray.length > 0) {
           //if the array in the db has info, has more info than 0, just log them in
-          console.log("YEAH, true user")
           sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         } else {
           //if not, create a user in the db and then log them in
@@ -117,18 +112,15 @@ export const FirebaseProvider = (props) => {
   }
   
   const checkUserRegister = (userId) => {
-    console.log("checkUser", (`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`))
     fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${firebase.auth().currentUser.uid}"`)
       // go to the db and pull any user with the uid of the signed in user
       .then(result => result.json())
       //convert to JSON
       .then(parsedResult => {
-        console.log("check result", parsedResult)
         let resultArray = Object.keys(parsedResult)
         //Convert the logged in user object into an array - children cannot be objects
         if (resultArray.length > 0) {
           //if the array in the db has info, has more info than 0, just log them in
-          console.log("YEAH, true user")
           sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
         } else {
           //if not, create a user in the db and then log them in

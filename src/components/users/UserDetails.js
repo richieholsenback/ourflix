@@ -4,8 +4,9 @@ import { Link, useParams } from "react-router-dom"
 import { GetOneUser, getShowLikes, getMovieLikes, getOneUserAlt } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import { LikedShows } from "../Media/shows/LikedShows"
-import "../scss/user.scss"
+import "../scss/friend.scss"
 import firebase from "firebase/app";
+import { ShowCard } from "../Media/card/ShowCardUser"
 
 
 export const UserDetails = () => {
@@ -29,20 +30,20 @@ export const UserDetails = () => {
     }, [])
 
 
-    
+
 
     useEffect(() => {
         getMovieLikes(uid)
-        .then(results => setMovieLikes(results))
+            .then(results => setMovieLikes(results))
     }, [])
 
     useEffect(() => {
         getShowLikes(uid)
-        .then(results => setShowLikes(results))
+            .then(results => setShowLikes(results))
     }, [])
 
     const profileOptions = (userObj) => {
-        if (uid === userObj.uid){
+        if (uid === userObj.uid) {
             return (
                 <Link to={`/user/update/${uid}`} >Edit Profile</Link>
             )
@@ -52,48 +53,46 @@ export const UserDetails = () => {
     }
 
     return (
-        <Container id="user-card">
-            <Row>
-                <Col>
+        <div id="friend-card">
+            <div className="left-align">
+                <div id="profile-info">
                     <Image src={user.photoURL} />
-                    <h2>{user.displayName}'s profile</h2>
-                </Col>
-                {profileOptions(`${user}`)}
-            </Row>
-            <Row>
-                <Col>
-                    <h5>Movies</h5>
-                </Col>
-            </Row>
-            <Row>
-
-                {
-                    movieLikes.map(like => {
-                        return (
-                            <Col xs={4}>
+                    <h2 id="username">{user.displayName}'s profile</h2>
+                </div>
+            </div>
+            <div>
+                <div className="left-align-extra">
+                    <h3>Movies</h3>
+                </div>
+            </div>
+            <div className="movie-row ">
+                <div className="movie-column center">
+                    {
+                        movieLikes.map(like => {
+                            return (
                                 <MediaCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
-            </Row>
-            <Row>
-                <Col>
-                    <h5>Shows</h5>
-                </Col>
-            </Row>
-            <Row>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div>
+                <div className="left-align-extra">
+                    <h3>Shows</h3>
+                </div>
+            </div>
+            <div className="movie-row">
+                <div className="movie-column center">
 
-                {
-                    showLikes.map(like => {
-                        return (
-                            <Col xs={4}>
-                                <MediaCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
-            </Row>
-        </Container>
+                    {
+                        showLikes.map(like => {
+                            return (
+                                <ShowCard key={like.fbid} item={like} />
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        </div>
     )
 }

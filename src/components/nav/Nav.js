@@ -42,9 +42,9 @@ export const NavBar = () => {
                         <Nav.Item>
                             <Nav.Link href="/friends">Friends</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                             <Nav.Link href="/groups">Groups</Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                         <Nav.Item>
                             <Nav.Link href={`/myprofile/${firebase.auth().currentUser.uid}`}>
                                 <Image id="prof-pic" src={user.photoURL} />

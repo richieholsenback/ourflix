@@ -31,13 +31,13 @@ let charactersState = db // This fixes issues with updating characters state for
 
 function Advanced () {
   const [characters, setCharacters] = useState(db)
-  const [lastDirection, setLastDirection] = useState()
+  // const [lastDirection, setLastDirection] = useState()
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
-    setLastDirection(direction)
+    // setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
     console.log(alreadyRemoved)
   }
@@ -76,7 +76,7 @@ function Advanced () {
         <button onClick={() => swipe('left')}>Swipe left!</button>
         <button onClick={() => swipe('right')}>Swipe right!</button>
       </div>
-      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
+      {/* {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>} */}
     </div>
   )
 }

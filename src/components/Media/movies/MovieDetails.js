@@ -21,7 +21,6 @@ export const MovieDetails = () => {
 
     return (
         <Container id="card-container">
-            {console.log(movie)}
             <Row className="card-image">
                 <Col>
                     <Image id="media-img-detail" src={movie.image} alt="movie or show poster" rounded />

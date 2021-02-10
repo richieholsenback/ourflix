@@ -254,18 +254,18 @@ export const addUser = (userObj) => {
 	}).then(response => response.json())
 }
 
-export const updateUser = (userObj) => {
+export const updateUser = (object) => {
 	//we don't want to add the firebase key to the user object on firebase(duplication of data) so, 
 	//make a reference to the fbid and then remove it from the object
-	const fbid = userObj.fbid;
-	delete userObj.fbid;
+	const uid = object.uid;
+	delete object.uid;
 
-	return fetch(`${dataURL}/users/${fbid}.json`,{
+	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${uid}"`,{
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify(userObj)
+		body: JSON.stringify(object)
 	})	
 }
 
@@ -316,14 +316,37 @@ export const addFriend = (friendObj) => {
 export const getGroupUsers = () => {
 	return fetch(`${dataURL}/groupUsers.json`)
 		.then(response => response.json())
+}
 
+export const getUsersInGroup = () => {
+	return fetch(`${dataURL}/groupUsers.json`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			const urlArray = Object.keys(parsedResponse).map(item => {
+				// const fetchDataURL = parsedResponse[item].pName;
+				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
+					.then(response => response.json())
+					.then(parsedResponse => Object.values(Object.entries(parsedResponse))[0][1])
+			})
+			return urlArray;
+		})
+		.then(requests => {
+			let allPromises = (Promise.all(requests))
+				.then(response => {
+					response.map(item => {
+						const newItem = Object.entries(item)
+						return newItem
+					})
+					return response
+				})
+			return allPromises
+		})
 }
 
 export const getGroups = (uid) => {
 		return fetch(`${dataURL}/groupUsers.json/?orderBy="friendedById"&equalTo="${uid}"`)
 		.then(response => response.json())
 		.then(parsedResponse => {
-			console.log(Object.keys(parsedResponse))
 			const urlArray = Object.keys(parsedResponse).map(item => {
 				// const fetchDataURL = parsedResponse[item].pName;
 				return fetch(`${firebaseConfig.databaseURL}/groups.json/?orderBy="groupId"&equalTo="${parsedResponse[item].groupId}"`)

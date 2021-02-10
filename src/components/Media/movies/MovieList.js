@@ -82,13 +82,6 @@ export const MovieList = () => {
             const toBeRemoved = cardsLeft[cardsLeft.length - 1].title // Find the card object to be removed
             const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
             childRefs[index].current.swipe(dir) // Swipe the card!
-            //     if(dir === "left"){ // Make sure the next card gets removed next time if this card do not have time to exit the screen
-            //     handleAddDisike(item.fbid)
-            //     childRefs[index].current.swipe(dir) // Swipe the card!
-            // } else if(dir === "right"){
-            //     handleAddLike(item.fbid)
-            //     childRefs[index].current.swipe(dir)
-            // }
         }
     }
 
@@ -123,32 +116,31 @@ export const MovieList = () => {
 
         if (!hasLiked && !hasDisliked) {
             return (
-                <Container className="card-image">
-                    <Row >
-                        {console.log(movieLikes)}
-                        <Col xs={6}>
+                <div className="card-image">
+                    <div >
+                        <div xs={6}>
                             <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
-                        </Col>
-                    </Row>
-                    <Row id="card-options">
-                        <Col xs={3}>
+                        </div>
+                    </div>
+                    <div id="card-options">
+                        <div xs={3}>
                             <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
-                                <IoCloseCircleOutline color="white" size="2em" />
+                                <IoCloseCircleOutline color="white" size="5em" />
                             </Button>
-                        </Col>
-                        <Col xs={3} >
-                            <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                        </div>
+                        <div xs={3} >
+                            <Link to={`/movie/details/${item.fbid}`} >
                                 <h6 id="card-detail-button-text">Details</h6>
                                 <FiChevronDown color="white" size="3em" />
                             </Link>
-                        </Col>
-                        <Col xs={3}>
+                        </div>
+                        <div xs={3}>
                             <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
-                                <IoCheckmarkCircleOutline color="white" size="2em" />
+                                <IoCheckmarkCircleOutline color="white" size="5em" />
                             </Button>
-                        </Col>
-                    </Row>
-                </Container>
+                        </div>
+                    </div>
+                </div>
             )
         } else {
             return null

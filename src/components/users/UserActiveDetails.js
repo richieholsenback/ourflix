@@ -4,7 +4,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import { getMovieLikes, GetOneUser, getOneUserAlt, getShowLikes } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import firebase from "firebase/app";
-import "../scss/user.scss"
+import "../scss/friend.scss"
 import { ShowCard } from "../Media/card/ShowCardUser"
 
 export const UserActiveDetails = () => {
@@ -32,20 +32,20 @@ export const UserActiveDetails = () => {
 
     useEffect(() => {
         getMovieLikes(uid)
-        .then(results => setMovieLikes(results))
+            .then(results => setMovieLikes(results))
     }, [])
 
     useEffect(() => {
         getShowLikes(uid)
-        .then(results => setShowLikes(results))
+            .then(results => setShowLikes(results))
     }, [])
 
     const editProfile = () => {
         return (
             <Col>
-            <Link to={`/user/update/${uid}`} >
-                <Button variant="danger">
-                Edit Account
+                <Link to={`/user/update/${uid}`} >
+                    <Button variant="danger">
+                        Edit Account
                 </Button>
                 </Link>
             </Col>
@@ -53,48 +53,51 @@ export const UserActiveDetails = () => {
     }
 
     return (
-        <Container id="user-card">
-            <Row>
-                <Col>
-                    <h2>Your Profile, {user.displayName}</h2>
+        <div id="friend-card">
+            <div className="left-align">
+                <div>
+                    <h2>Your Profile</h2>
                     {editProfile()}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <h4>Movies</h4>
-                </Col>
-            </Row>
-            <Row>
+                </div>
+            </div>
+            <div>
+                <div className="left-align-extra">
+                    <h3>Movies</h3>
+                </div>
+            </div>
+            <div className="movie-row ">
+                <div className="movie-column center">
 
-                {
-                    movieLikes.map(like => {
-                        return (
-                            <Col xs={4}>
+                    {
+                        movieLikes.map(like => {
+                            return (
                                 <MediaCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
-            </Row>
-            <Row>
-                <Col>
-                    <h4>Shows</h4>
-                </Col>
-            </Row>
-            <Row>
 
-                {
-                    showLikes.map(like => {
-                        return (
-                            <Col xs={4}>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            <div>
+                <div className="left-align-extra">
+                    <h3>Shows</h3>
+                </div>
+            </div>
+            <div className="movie-row">
+                <div className="movie-column center">
+
+                    {
+                        showLikes.map(like => {
+                            return (
+
                                 <ShowCard key={like.fbid} item={like} />
-                            </Col>
-                        )
-                    })
-                }
-            </Row>
-        </Container>
+
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        </div>
     )
 }
 
@@ -104,4 +107,3 @@ export const UserActiveDetails = () => {
 
 
 
-   

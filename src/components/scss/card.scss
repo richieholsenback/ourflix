@@ -7,6 +7,9 @@
         font-family: "Gotham Bold";
         color: white;
         font-size: 48px;
+        @media only screen and (max-width: 576px) {
+            font-size: 32px;
+        }
     }
     
     h6 {
@@ -36,12 +39,19 @@
         object-fit: cover;
         object-position: center right;
         opacity: 10%;
+        @media only screen and (max-width: 576px) {
+            width: auto;
+            height: 60vh;
+        }
         
     }
     p {
         font-family: "Gotham Book";
         color: white;
         font-size: 24px;
+        @media only screen and (max-width: 576px) {
+            font-size: 20px;
+        }
     }
 
     #outline-button{
@@ -114,6 +124,12 @@
     }
 
 }
+
+#card-div {
+    width: 100vw;
+    height: auto;
+}
+
 button {
     background-color: rgba(255, 255, 255, 0);
     border: none;
@@ -132,7 +148,9 @@ button {
 }
 
 .media-title-container{
-
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
 }
 
 #media-img {

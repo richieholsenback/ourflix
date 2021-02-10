@@ -16,14 +16,12 @@ export const LikedShows = () => {
     const getAllShowLikes = () => {
         getShowLikes(userId)
             .then(data => {
-                console.log("fb show data", data)
                 data.map(showObject => {
                     let arrayWithFBID = Object.keys(showObject).map((key, index) => {
                         showObject[key].fbid = key;
                         return showObject[key];
 
                     })
-                    console.log("arrayWithshow", arrayWithFBID);
                     //and sort with most recent date first
                     arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
                     setShowLikes(arrayWithFBID)
@@ -38,7 +36,7 @@ export const LikedShows = () => {
 
     return (
         <Row>
-
+            
             {
                 showLikes.map(like => {
                     return (
