@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Col, Row, Container, Image, Button } from "react-bootstrap"
-import { addDislike, addMovieLike, getMovies } from "../../../modules/APICalls"
+import { addMovieLike, getMovieLikes, getMovies, getDislikes, getDislikesByUser, addMovieDislike } from "../../../modules/APICalls"
 import "../../scss/_list.scss"
 import "../../scss/_advanced.scss"
 import TinderCard from "react-tinder-card";
@@ -12,6 +12,10 @@ import firebase from "firebase/app";
 export const MovieList = () => {
 
     const [movieArray, setMovieArray] = useState([])
+    const [movieLikes, setMovieLikes] = useState([])
+    const [dislikes, setDislikes] = useState([])
+
+    const userId = firebase.auth().currentUser.uid
 
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
@@ -33,29 +37,37 @@ export const MovieList = () => {
         getAllMovies()
     }, [])
 
+    useEffect(() => {
+        getMovieLikes(userId)
+            .then(results => setMovieLikes(results))
+    }, [])
+
+    useEffect(() => {
+        getDislikesByUser(userId)
+            .then(results => setDislikes(results))
+    }, [])
+
     const alreadyRemoved = []
     let MovieState = movieArray
 
     const [movies, setMovies] = useState(movieArray)
-    const [lastDirection, setLastDirection] = useState()
     const history = useHistory();
 
     const childRefs = useMemo(() => Array(movieArray.length).fill(0).map(i => React.createRef()), [])
 
     const swiped = (direction, idOfShow) => {
-        
-        const userId = sessionStorage.getItem("active_user").uid
-                if (direction === "right") {
-                    addMovieLike({
-                        showId: idOfShow,
-                        userId: firebase.auth().currentUser.uid
-                    })
-                } else if (direction === "left") {
-                    addDislike({
-                        showId: idOfShow,
-                        userId: firebase.auth().currentUser.uid
-                    })
-                }
+
+        if (direction === "right") {
+            addMovieLike({
+                showId: idOfShow,
+                userId: firebase.auth().currentUser.uid
+            })
+        } else if (direction === "left") {
+            addMovieDislike({
+                showId: idOfShow,
+                userId: firebase.auth().currentUser.uid
+            })
+        }
     }
 
 
@@ -71,48 +83,77 @@ export const MovieList = () => {
             const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
             childRefs[index].current.swipe(dir) // Swipe the card!
             //     if(dir === "left"){ // Make sure the next card gets removed next time if this card do not have time to exit the screen
-        //     handleAddDisike(item.fbid)
-        //     childRefs[index].current.swipe(dir) // Swipe the card!
-        // } else if(dir === "right"){
-        //     handleAddLike(item.fbid)
-        //     childRefs[index].current.swipe(dir)
-        // }
-    }
+            //     handleAddDisike(item.fbid)
+            //     childRefs[index].current.swipe(dir) // Swipe the card!
+            // } else if(dir === "right"){
+            //     handleAddLike(item.fbid)
+            //     childRefs[index].current.swipe(dir)
+            // }
+        }
     }
 
     const [like, setLike] = useState({});
     // const [dislike, setDislike] = useState({});
 
-//   const handleInputChange = (event) => {
-//     const newLikeObj = { ...like };
-//     newLikeObj[event.target.id] = event.target.value;
-//     setLike(newLikeObj);
-//   }
+    //   const handleInputChange = (event) => {
+    //     const newLikeObj = { ...like };
+    //     newLikeObj[event.target.id] = event.target.value;
+    //     setLike(newLikeObj);
+    //   }
 
-  const handleAddLike = (item) => {
-    const newLikeObj = { ...like };
-    newLikeObj.userId = firebase.auth().currentUser.uid;
-    newLikeObj.resultId = item;
-    addMovieLike(newLikeObj)
-      .then(response => history.push("/"))
-  }
+    const handleAddLike = (item) => {
+        const newLikeObj = { ...like };
+        newLikeObj.userId = firebase.auth().currentUser.uid;
+        newLikeObj.resultId = item;
+        addMovieLike(newLikeObj)
+            .then(response => history.push("/"))
+    }
 
-  const handleAddDisike = (item) => {
-    const newDislikeObj = { ...like };
-    newDislikeObj.userId = firebase.auth().currentUser.uid;
-    newDislikeObj.resultId = item;
-    addDislike(newDislikeObj)
-      .then(response => history.push("/"))
-  }
+    const handleAddDisike = (item) => {
+        const newDislikeObj = { ...like };
+        newDislikeObj.userId = firebase.auth().currentUser.uid;
+        newDislikeObj.resultId = item;
+        addMovieDislike(newDislikeObj)
+            .then(response => history.push("/"))
+    }
 
-//   const likeCheck = (userObj) => {
-//     const hasLiked = movieArray.find(movie => movie.fbid === userObj.fbid)
-//     if (!hasLiked) {
-//       return ( null )
-//     } else {
-//         return null
-//     }
-//   }
+    const whatToShow = (item) => {
+        const hasLiked = movieLikes.find((movie) => movie.netflixid === item.netflixid)
+        const hasDisliked = dislikes.find((dislike) => dislike.netflixid === item.netflixid)
+
+        if (!hasLiked && !hasDisliked) {
+            return (
+                <Container className="card-image">
+                    <Row >
+                        {console.log(movieLikes)}
+                        <Col xs={6}>
+                            <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
+                        </Col>
+                    </Row>
+                    <Row id="card-options">
+                        <Col xs={3}>
+                            <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
+                                <IoCloseCircleOutline color="white" size="2em" />
+                            </Button>
+                        </Col>
+                        <Col xs={3} >
+                            <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                                <h6 id="card-detail-button-text">Details</h6>
+                                <FiChevronDown color="white" size="3em" />
+                            </Link>
+                        </Col>
+                        <Col xs={3}>
+                            <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
+                                <IoCheckmarkCircleOutline color="white" size="2em" />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            )
+        } else {
+            return null
+        }
+    }
 
     return (
         <Container>
@@ -122,31 +163,7 @@ export const MovieList = () => {
                         movieArray.map((item, index) => {
                             return (
                                 <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.netflixid)}>
-                                    <Container className="card-image">
-                                        <Row >
-                                            <Col xs={6}>
-                                                <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
-                                            </Col>
-                                        </Row>
-                                        <Row id="card-options">
-                                            <Col xs={3}>
-                                                <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
-                                                    <IoCloseCircleOutline color="white" size="2em" />
-                                                </Button>
-                                            </Col>
-                                            <Col xs={3} >
-                                                <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
-                                                    <h6 id="card-detail-button-text">Details</h6>
-                                                    <FiChevronDown color="white" size="3em" />
-                                                </Link>
-                                            </Col>
-                                            <Col xs={3}>
-                                                <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
-                                                    <IoCheckmarkCircleOutline color="white" size="2em" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </Container>
+                                    {whatToShow(item)}
                                 </TinderCard>
                             )
                         })

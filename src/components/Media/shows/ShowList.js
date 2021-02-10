@@ -1,16 +1,22 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { addDislike, addLike, addShowLike, getShows } from "../../../modules/APICalls"
+import { addShowDislike, addShowLike, getShowDislikesByUser, getShowLikes, getShows } from "../../../modules/APICalls"
 import { Button, Col, Container, Image, Row } from "react-bootstrap"
 import TinderCard from "react-tinder-card"
 import { IoCheckmarkCircleOutline, IoCloseCircleOutline } from "react-icons/io5"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { FiChevronDown } from "react-icons/fi"
 import firebase from "firebase/app";
 
 export const ShowList = () => {
 
     const [showArray, setShowArray] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+    const [showLikes, setShowLikes] = useState([])
+    const [dislikes, setDislikes] = useState([])
+    const [like, setLike] = useState({});
+
+    const userId = firebase.auth().currentUser.uid
+
+    const history = useHistory();
 
     // const [lastSwipeDirection, setLastSwipeDirection] = React.useState(null);
 
@@ -32,6 +38,16 @@ export const ShowList = () => {
         getAllShows()
     }, [])
 
+    useEffect(() => {
+        getShowLikes(userId)
+            .then(results => setShowLikes(results))
+    }, [])
+
+    useEffect(() => {
+        getShowDislikesByUser(userId)
+            .then(results => setDislikes(results))
+    }, [])
+
     const alreadyRemoved = []
     let ShowState = showArray
 
@@ -50,7 +66,7 @@ export const ShowList = () => {
                         userId: firebase.auth().currentUser.uid
                     })
                 } else if (direction === "left") {
-                    addDislike({
+                    addShowDislike({
                         showId: idOfShow,
                         userId: firebase.auth().currentUser.uid
                     })
@@ -71,6 +87,52 @@ export const ShowList = () => {
             childRefs[index].current.swipe(dir) // Swipe the card!
         }
     }
+
+    const handleAddDisike = (item) => {
+        const newDislikeObj = { ...like };
+        newDislikeObj.userId = firebase.auth().currentUser.uid;
+        newDislikeObj.resultId = item;
+        addShowDislike(newDislikeObj)
+            .then(response => history.push("/"))
+    }
+
+    const whatToShow = (item) => {
+        const hasLiked = showLikes.find((show) => show.netflixid === item.netflixid)
+        const hasDisliked = dislikes.find((dislike) => dislike.netflixid === item.netflixid)
+
+        if (!hasLiked && !hasDisliked) {
+            return (
+                <Container className="card-image">
+                    <Row >
+                        <Col xs={6}>
+                            <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
+                        </Col>
+                    </Row>
+                    <Row id="card-options">
+                        <Col xs={3}>
+                            <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
+                                <IoCloseCircleOutline color="white" size="2em" />
+                            </Button>
+                        </Col>
+                        <Col xs={3} >
+                            <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                                <h6 id="card-detail-button-text">Details</h6>
+                                <FiChevronDown color="white" size="3em" />
+                            </Link>
+                        </Col>
+                        <Col xs={3}>
+                            <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
+                                <IoCheckmarkCircleOutline color="white" size="2em" />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            )
+        } else {
+            return null
+        }
+    }
+
     return (
         <Container>
             <Row>
@@ -79,31 +141,7 @@ export const ShowList = () => {
                         showArray.map((item, index) => {
                             return (
                                 <TinderCard key={item.fbid} ref={childRefs[index]} onCardLeftScreen={() => outOfFrame(item.title)} className='swipe' onSwipe={(dir) => swiped(dir, item.netflixid)}>
-                                    <Container >
-                                        <Row className="card-image">
-                                            <Col>
-                                                <Image id="media-img" src={item.image} alt="show poster" rounded />
-                                            </Col>
-                                        </Row>
-                                        <Row id="card-options">
-                                            <Col xs={3}>
-                                                <Button onClick={() => swipe('left')} variant="link">
-                                                    <IoCloseCircleOutline color="white" size="2em" />
-                                                </Button>
-                                            </Col>
-                                            <Col xs={3} >
-                                                <Link to={`/show/details/${item.fbid}`} id="card-detail-button">
-                                                    <h6 id="card-detail-button-text">Details</h6>
-                                                    <FiChevronDown color="white" size="3em" />
-                                                </Link>
-                                            </Col>
-                                            <Col xs={3}>
-                                                <Button onClick={() => swipe('right')} variant="link">
-                                                    <IoCheckmarkCircleOutline color="white" size="2em" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
-                                    </Container>
+                                    {whatToShow(item)}
                                 </TinderCard>
                             )
                         })

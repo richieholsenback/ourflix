@@ -29,6 +29,11 @@ export const GetOneMovie = (fbid) => {
 		.then(response => response.json())
 }
 
+export const GetFriendMovie = (netflixid) => {
+	return fetch(`${dataURL}/movies.json/?orderBy="netflixid"&equalTo="${netflixid}"`)
+		.then(response => response.json())
+}
+
 export const getShows = () => {
 	return fetch(`${dataURL}/shows.json/?orderBy="rating"`)
 		.then(response => response.json())
@@ -121,20 +126,94 @@ export const getShowLikes = (uid) => {
 		})
 }
 
-export const getDislikes = () => {
-	return fetch(`${dataURL}/dislikes.json`)
+export const getDislikes = (uid) => {
+	return fetch(`${dataURL}/dislikes.json/?orderBy="userId"&equalTo="${uid}"`)
 		.then(response => response.json())
 
 }
 
-export const addDislike = (dislikeObj) => {
-	return fetch(`${dataURL}/dislikes.json`, {
+export const getDislikesByUser = (uid) => {
+	return fetch(`${dataURL}/movieDislikes.json/?orderBy="userId"&equalTo="${uid}"`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			const urlArray = Object.keys(parsedResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/movies.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
+				.then(response => response.json())
+				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1]
+				)
+			})
+
+				return urlArray; 
+			})
+		.then(requests => {
+			let allPromises = (Promise.all(requests))
+			.then(response => {
+				response.map(item => {
+					const newItem = Object.entries(item)
+					return newItem
+				})
+				return response
+			})
+			return allPromises
+		})
+}
+
+export const getShowDislikesByUser = (uid) => {
+	return fetch(`${dataURL}/showDislikes.json/?orderBy="userId"&equalTo="${uid}"`)
+		.then(response => response.json())
+		.then(parsedResponse => {
+			const urlArray = Object.keys(parsedResponse).map(item => { 
+				return fetch(`${firebaseConfig.databaseURL}/shows.json/?orderBy="netflixid"&equalTo="${parsedResponse[item].showId}"`)
+				.then(response => response.json())
+				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1]
+				)
+			})
+
+				return urlArray; 
+			})
+		.then(requests => {
+			let allPromises = (Promise.all(requests))
+			.then(response => {
+				response.map(item => {
+					const newItem = Object.entries(item)
+					return newItem
+				})
+				return response
+			})
+			return allPromises
+		})
+}
+
+export const addMovieDislike = (dislikeObj) => {
+	return fetch(`${dataURL}/movieDislikes.json`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(dislikeObj)
 	}).then(response => response.json())
+}
+
+export const addShowDislike = (dislikeObj) => {
+	return fetch(`${dataURL}/showDislikes.json`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(dislikeObj)
+	}).then(response => response.json())
+}
+
+export const Unlike = (netflixid) => {
+	return fetch(`${dataURL}/movieLikes.json/?orderBy="showId"&equalTo="${netflixid}"`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+	}).then(response => {
+		//should return 200 OK HTTP status code
+		return response.status
+	})
 }
 
 //////// Users

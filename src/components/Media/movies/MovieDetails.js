@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import { BiStar } from "react-icons/bi";
-import "../../scss/_card.scss"
+import "../../scss/card.scss"
 import { useParams } from "react-router-dom";
 import { GetOneMovie } from "../../../modules/APICalls";
 import { FaPlay } from "react-icons/fa";
@@ -21,6 +21,7 @@ export const MovieDetails = () => {
 
     return (
         <Container id="card-container">
+            {console.log(movie)}
             <Row className="card-image">
                 <Col>
                     <Image id="media-img-detail" src={movie.image} alt="movie or show poster" rounded />

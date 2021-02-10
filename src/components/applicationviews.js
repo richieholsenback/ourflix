@@ -21,6 +21,7 @@ import { GroupForm } from "./groups/GroupAddUser";
 import { GroupList } from "./groups/GroupList"
 import { UserSearch } from "./users/UserSearch";
 import { UserActiveDetails } from "./users/UserActiveDetails"
+import { LikedMediaDetails } from "./Media/card/UserCardDetail";
 
 export const ApplicationView = () => {
     const { isLoggedIn } = useContext(FirebaseContext);
@@ -82,6 +83,10 @@ export const ApplicationView = () => {
 
             <Route path="/friend/details/:uid">
                 {isLoggedIn ? <> <NavBar /><FriendDetails /></> : <Redirect to="/login" />}
+            </Route>
+            
+            <Route path="/media/details/:netflixid">
+                {isLoggedIn ? <> <NavBar /><LikedMediaDetails /></> : <Redirect to="/login" />}
             </Route>
 
             <Route exact path="/group/details/:groupId">

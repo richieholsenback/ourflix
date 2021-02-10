@@ -3,7 +3,7 @@ import { Col, Container, Image, Row } from "react-bootstrap"
 import { IoCloseCircleOutline, IoCheckmarkCircleOutline, IoFilter } from "react-icons/io5"
 import { FiChevronDown } from "react-icons/fi"
 import { BiStar } from "react-icons/bi";
-import "../../scss/_card.scss"
+import "../../scss/card.scss"
 import { Link } from "react-router-dom";
 // import poster from "../../../images/New_Girl.jpg"
 

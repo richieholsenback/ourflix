@@ -122,3 +122,27 @@ button {
     #button-svg {
     size: 3em;
 }
+
+.card-container-friend{
+    margin: 0 2em;
+
+.media-title{
+    font-family: "Gotham Book";
+    text-align: center;
+}
+
+.media-title-container{
+
+}
+
+#media-img {
+    width: auto;
+    height: 60vh;
+    @media only screen and (max-width: 576px) {
+        width: auto;
+        height: 60vh;
+    }
+
+}
+
+}

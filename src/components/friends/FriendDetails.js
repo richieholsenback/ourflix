@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { GetOneUser, getShowLikes, getMovieLikes, getOneUserAlt } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import { LikedShows } from "../Media/shows/LikedShows"
-import "../scss/user.scss"
+import "../scss/friend.scss"
 import firebase from "firebase/app";
 
 
@@ -84,7 +84,7 @@ export const FriendDetails = () => {
             return null
         }
     }
-    
+
     const findShowsInCommon = (obj) => {
 
         const hasInCommon = userShowLikes.find((show) => show.netflixid === obj.netflixid)
@@ -99,11 +99,11 @@ export const FriendDetails = () => {
     }
 
     return (
-        <Container id="user-card">
+        <Container id="friend-card">
             {console.log("movies the user has liked", userMovieLikes)}
             <Row>
                 <Col>
-                    <Image src={user.photoURL} />
+                    {/* <Image src={user.photoURL} /> */}
                     <h2>You and {user.displayName} should watch</h2>
                 </Col>
                 {/* {profileOptions(`${user}`)} */}
@@ -113,30 +113,31 @@ export const FriendDetails = () => {
                     <h5>Movies</h5>
                 </Col>
             </Row>
-            <Row>
-                <Col xs={4}>
+            <div className="movie-row">
+                <div className="movie-column">
                     {
                         movieLikes.map(like => {
                             console.log("movies the friend has liked", like)
                             return findMoviesInCommon(like)
                         })
                     }
-                </Col>
-            </Row>
+                </div>
+            </div>
             <Row>
                 <Col>
                     <h5>Shows</h5>
                 </Col>
             </Row>
-            <Row>
-
-                {
-                    showLikes.map(like => {
-                        console.log("movies the friend has liked", like)
-                        return findShowsInCommon(like)
-                })
-            }
-            </Row>
+            <div className="movie-row">
+                <div className="movie-column">
+                    {
+                        showLikes.map(like => {
+                            console.log("movies the friend has liked", like)
+                            return findShowsInCommon(like)
+                        })
+                    }
+                </div>
+            </div>
         </Container>
     )
 }

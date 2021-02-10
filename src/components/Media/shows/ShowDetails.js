@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import { BiStar } from "react-icons/bi";
-import "../../scss/_card.scss"
+import "../../scss/card.scss"
 import { Link, useHistory, useParams } from "react-router-dom";
 import { GetOneShow } from "../../../modules/APICalls";
 import { FaPlay } from "react-icons/fa";

@@ -13,7 +13,6 @@ export const NavBar = () => {
         getOneUserAlt(firebase.auth().currentUser.uid)
         .then(response => {
             const result = Object.keys(response)
-            console.log("reult",result)
                 GetOneUser(result)
                     .then(response => {
                         setUser(response)
