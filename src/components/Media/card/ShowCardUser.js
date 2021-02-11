@@ -9,9 +9,9 @@ export const ShowCard = ({ item }) => {
             <div className="media-image">
                 <Image id="media-img" src={item.image} alt="movie or show poster" loading="lazy" rounded />
             </div>
-            <div className="media-title-container">
+            {/* <div className="media-title-container">
                 <h4 className="media-title">{item.title}</h4>
-            </div>
+            </div> */}
         </Link >
     )
 }

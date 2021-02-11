@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
-import "../scss/_navBar.scss"
+import "../scss/navBar.scss"
 import firebase from "firebase/app";
 import { GetOneUser, getOneUserAlt } from "../../modules/APICalls";
 

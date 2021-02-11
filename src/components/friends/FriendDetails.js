@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { GetOneUser, getShowLikes, getMovieLikes, getOneUserAlt } from "../../modules/APICalls"
+import { GetOneUser, getShowLikes, getMovieLikes, getOneUserAlt, unlikeMovie } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import "../scss/friend.scss"
 import firebase from "firebase/app";
@@ -67,7 +67,7 @@ export const FriendDetails = () => {
 
         if (hasInCommon) {
             return (
-                <MediaCard key={obj.fbid} item={obj} />
+                <MediaCard key={obj.fbid} item={obj}/>
             )
         } else {
             return null
@@ -80,12 +80,18 @@ export const FriendDetails = () => {
 
         if (hasInCommon) {
             return (
+                <>
+                {console.log(obj.fbid)}
                 <ShowCard key={obj.fbid} item={obj} />
+                </>
             )
         } else {
             return null
         }
     }
+
+    
+                       
 
     return (
         <div id="friend-card">

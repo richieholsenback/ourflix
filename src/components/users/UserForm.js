@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import "../scss/user.scss"
 import { useHistory, useParams } from 'react-router-dom';
-import { getOneUserAlt, updateUser } from "../../modules/APICalls";
+import { GetOneUser, getOneUserAlt, updateUser } from "../../modules/APICalls";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import firebase from "firebase/app";
 
 export const UserForm = () => {
 
@@ -17,19 +18,23 @@ export const UserForm = () => {
     }
 
     const handleUpdateItem = () => {
+        if (user.displayName === ""){
+            window.alert("You need a username!")
+        } else {
         const newUser = { ...user }
-        newUser.uid = uid;
-        // newUser.createdAt = firebase.auth().currentUser.createdAt;
-        // newUser.apiKey = firebase.auth().currentUser.apiKey;
-        // newUser.email = firebase.auth().currentUser.email;
-        // newUser.lastLoginAt = firebase.auth().currentUser.lastLoginAt;
+        newUser.uid = firebase.auth().currentUser.uid;
+        newUser.createdAt = firebase.auth().currentUser.createdAt;
+        newUser.apiKey = firebase.auth().currentUser.apiKey;
+        newUser.email = firebase.auth().currentUser.email;
         updateUser(newUser)
-            .then(response => history.push(`/myprofile/${uid}`))
+            .then(response => history.push(`/myprofile/${firebase.auth().currentUser.uid}`))}
     }
 
     useEffect(() => {
-        getOneUserAlt(uid)
-            .then(response => setUser(response))
+        GetOneUser(uid)
+            .then((response) => {
+                setUser(response)
+            })
     }, [uid])
 
     return (
@@ -39,18 +44,20 @@ export const UserForm = () => {
                     <h2 className="userForm__title">Your Profile Info</h2>
                     <br />
                     <br />
+
                     <Form className="userForm" onChange={handleInputChange}>
                         <Form.Group controlId="displayName">
                             <p>User Name</p>
-                            <Form.Control type="text" value={user?.displayName} />
+                            <Form.Control type="text" value={user.displayName} />
                         </Form.Group>
                         <br />
+
                         <Form.Group controlId="photoURL">
                             <p>Profile Pic</p>
-                            <Form.Control type="input" value={user?.photoURL} />
+                            <Form.Control type="input" value={user.photoURL} />
                         </Form.Group>
 
-                        <Button onClick={handleUpdateItem}>Save Changes</Button>
+                        <Button onClick={handleUpdateItem} variant="danger">Save Changes</Button>
                     </Form>
                 </Col>
             </Row>

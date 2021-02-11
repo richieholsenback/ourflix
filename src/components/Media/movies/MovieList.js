@@ -76,23 +76,26 @@ export const MovieList = () => {
         setMovies(MovieState)
     }
 
-    const swipe = (item, dir) => {
+    // const swipe = (dir) => {
+    //     const cardsLeft = movies.filter(movie => !alreadyRemoved.includes(movie.title))
+    //     if (cardsLeft.length) {
+    //         const toBeRemoved = cardsLeft[cardsLeft.length - 1].title // Find the card object to be removed
+    //         const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
+    //         childRefs[index].current.swipe(dir) // Swipe the card!
+    //     }
+    // }
+
+    const swipe = (dir) => {
         const cardsLeft = movies.filter(movie => !alreadyRemoved.includes(movie.title))
         if (cardsLeft.length) {
-            const toBeRemoved = cardsLeft[cardsLeft.length - 1].title // Find the card object to be removed
-            const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
-            childRefs[index].current.swipe(dir) // Swipe the card!
+          const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
+          const index = movieArray.map(movie => movie.title).indexOf(toBeRemoved) // Find the index of which to make the reference to
+          alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
+          childRefs[index].current.swipe(dir) // Swipe the card!
         }
-    }
+      }
 
     const [like, setLike] = useState({});
-    // const [dislike, setDislike] = useState({});
-
-    //   const handleInputChange = (event) => {
-    //     const newLikeObj = { ...like };
-    //     newLikeObj[event.target.id] = event.target.value;
-    //     setLike(newLikeObj);
-    //   }
 
     const handleAddLike = (item) => {
         const newLikeObj = { ...like };
@@ -117,30 +120,21 @@ export const MovieList = () => {
         if (!hasLiked && !hasDisliked) {
             return (
                 <Container className="card-image">
-                <Row >
-                    <Col xs={6}>
-                        <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
-                    </Col>
-                </Row>
-                <Row id="card-options">
-                    <div xs={3}>
-                        <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
-                            <IoCloseCircleOutline color="white" size="5em" />
-                        </Button>
+                    <Row >
+                        <Col xs={6}>
+                            <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
+                        </Col>
+                    </Row>
+                    <div id="card-options">
+                        <div xs={3} >
+                            <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                                <h6 id="card-detail-button-text">Details</h6>
+                                <FiChevronDown color="white" size="3em" />
+                            </Link>
+                        </div>
+
                     </div>
-                    <Col xs={3} >
-                        <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
-                            <h6 id="card-detail-button-text">Details</h6>
-                            <FiChevronDown color="white" size="3em" />
-                        </Link>
-                    </Col>
-                    <div xs={3}>
-                        <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
-                            <IoCheckmarkCircleOutline color="white" size="5em" />
-                        </Button>
-                    </div>
-                </Row>
-            </Container>
+                </Container>
             )
         } else {
             return null
@@ -161,6 +155,9 @@ export const MovieList = () => {
                         })
                     }
                 </Col>
+            </Row>
+            <Row>
+
             </Row>
         </Container>
     )

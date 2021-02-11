@@ -207,8 +207,8 @@ export const addShowDislike = (dislikeObj) => {
 	}).then(response => response.json())
 }
 
-export const Unlike = (netflixid) => {
-	return fetch(`${dataURL}/movieLikes.json/?orderBy="showId"&equalTo="${netflixid}"`, {
+export const unlikeMovie = (fbid) => {
+	return fetch(`${dataURL}/movieLikes/${fbid}.json`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json"
@@ -255,10 +255,10 @@ export const addUser = (userObj) => {
 export const updateUser = (object) => {
 	//we don't want to add the firebase key to the user object on firebase(duplication of data) so, 
 	//make a reference to the fbid and then remove it from the object
-	const uid = object.uid;
-	delete object.uid;
+	const fbid = object.fbid;
+	delete object.fbid;
 
-	return fetch(`${dataURL}/users.json/?orderBy="uid"&equalTo="${uid}"`,{
+	return fetch(`${dataURL}/users/${fbid}.json`,{
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json"

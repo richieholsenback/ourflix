@@ -117,7 +117,8 @@
     #card-options{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+
+        justify-content: center;
         @media only screen and (max-width: 576px) {
             justify-content: center;
         }
@@ -140,7 +141,7 @@ button {
 }
 
 .card-container-friend{
-    margin: 0 2em;
+    margin: 0  2em 2em 2em;
 
 .media-title{
     font-family: "Gotham Book";

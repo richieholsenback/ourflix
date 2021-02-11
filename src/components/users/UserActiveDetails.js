@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Button, Col } from "react-bootstrap"
-import { Link, useHistory, useParams } from "react-router-dom"
-import { getMovieLikes, GetOneUser, getOneUserAlt, getShowLikes } from "../../modules/APICalls"
+import { Link, useParams } from "react-router-dom"
+import { getMovieLikes, getOneUserAlt, getShowLikes } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
 import firebase from "firebase/app";
 import "../scss/friend.scss"
@@ -11,21 +11,32 @@ export const UserActiveDetails = () => {
 
     const [user, setUser] = useState({})
     const { uid } = useParams();
+    const [userArray, setUserArray] = useState([])
     const [movieLikes, setMovieLikes] = useState([])
     const [showLikes, setShowLikes] = useState([])
     const { fbid } = useParams();
 
     const userId = firebase.auth().currentUser.uid
 
-    useEffect(() => {
+    const getAllUser = () => {
         getOneUserAlt(uid)
-            .then(response => {
-                const result = Object.keys(response)
-                GetOneUser(result)
-                    .then(response => {
-                        setUser(response)
-                    })
+            .then(data => {
+                // since our data is returned with a unique key, we need to add it to the object. 
+                //use Object.keys
+                let arrayWithFBID = Object.keys(data).map((key, index) => {
+                    data[key].fbid = key;
+                    return data[key];
+                });
+                //and sort with most recent date first
+                console.log(arrayWithFBID)
+                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+                setUser(arrayWithFBID[0])
+                console.log(arrayWithFBID[0])
             })
+    }
+
+    useEffect(() => {
+       getAllUser()
     }, [])
 
 
@@ -40,24 +51,29 @@ export const UserActiveDetails = () => {
             .then(results => setShowLikes(results))
     }, [])
 
-    const editProfile = () => {
-        return (
-            <Col>
-                <Link to={`/user/update/${uid}`} >
-                    <Button variant="danger">
-                        Edit Account
-                </Button>
-                </Link>
-            </Col>
-        )
-    }
+    // const unlikeThisMovie = (fbid) => {
+    // 	unlikeMovie(fbid)
+    // 		.then(status => {
+    // 			if (status === 200){
+    // 				getMovieLikes(uid);
+    // 			}else {
+    // 				console.log("oops, error here")
+    // 			}
+    // 		})
+    // }
 
     return (
         <div id="friend-card">
             <div className="left-align">
                 <div>
                     <h2>Your Profile</h2>
-                    {editProfile()}
+                    <Col>
+                <Link to={`/user/update/${user.fbid}`} >
+                    <Button variant="danger">
+                        Edit Account
+                </Button>
+                </Link>
+            </Col>
                 </div>
             </div>
             <div>
@@ -72,7 +88,6 @@ export const UserActiveDetails = () => {
                         movieLikes.map(like => {
                             return (
                                 <MediaCard key={like.fbid} item={like} />
-
                             )
                         })
                     }
