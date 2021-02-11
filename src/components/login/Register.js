@@ -11,8 +11,6 @@ export const Register = () => {
   const [name] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [displayName, setDisplayName] = useState();
-  const [photoURL, setPhotoURL] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
   const registerClick = (e) => {

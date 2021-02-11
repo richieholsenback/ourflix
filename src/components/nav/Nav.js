@@ -3,7 +3,6 @@ import { Image, Nav, Navbar } from "react-bootstrap";
 import "../scss/_navBar.scss"
 import firebase from "firebase/app";
 import { GetOneUser, getOneUserAlt } from "../../modules/APICalls";
-import { useParams, Link } from "react-router-dom";
 
 export const NavBar = () => {
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Image, Button, Row, div } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
-import { addFriend } from "../../modules/APICalls"
+import { addFriend, getFriends } from "../../modules/APICalls"
 import "../scss/user.scss"
 import firebase from "firebase/app";
 import { AiOutlineUserAdd } from "react-icons/ai";
@@ -17,7 +17,7 @@ export const UserCard = ({ user }) => {
         newFriendObj.friendedById = firebase.auth().currentUser.uid;
         newFriendObj.userId = friendId;
         addFriend(newFriendObj)
-            .then(response => history.push("/friends"))
+            .then(() => refreshPage())
     }
 
     function refreshPage() {

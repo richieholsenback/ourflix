@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Button} from "react-bootstrap";
-import { useHistory, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { addGroupUser, getGroups, GetOneGroup, getUsers } from "../../modules/APICalls";
 
@@ -9,13 +9,12 @@ export const GroupForm = () => {
     const [groupUserItem, setGroupUserItem] = useState({});
     const [userArray, setUserArray] = useState([]);
     const { groupId } = useParams()
-    const history = useHistory();
 
-    const handleInputChange = (event) => {
-        const newGroupUserObj = { ...groupUserItem };
-        newGroupUserObj[event.target.id] = event.target.value;
-        setGroupUserItem(newGroupUserObj)
-    }
+    // const handleInputChange = (event) => {
+    //     const newGroupUserObj = { ...groupUserItem };
+    //     newGroupUserObj[event.target.id] = event.target.value;
+    //     setGroupUserItem(newGroupUserObj)
+    // }
 
     const handleAddGroupUser = (userId) => {
             const newGroupUserObj = { ...groupUserItem }

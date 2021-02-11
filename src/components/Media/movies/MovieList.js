@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Col, Row, Container, Image, Button } from "react-bootstrap"
-import { addMovieLike, getMovieLikes, getMovies, getDislikes, getDislikesByUser, addMovieDislike } from "../../../modules/APICalls"
+import { addMovieLike, getMovieLikes, getMovies, getDislikesByUser, addMovieDislike } from "../../../modules/APICalls"
 import "../../scss/_list.scss"
 import "../../scss/_advanced.scss"
 import TinderCard from "react-tinder-card";
@@ -116,31 +116,31 @@ export const MovieList = () => {
 
         if (!hasLiked && !hasDisliked) {
             return (
-                <div className="card-image">
-                    <div >
-                        <div xs={6}>
-                            <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
-                        </div>
+                <Container className="card-image">
+                <Row >
+                    <Col xs={6}>
+                        <Image id="media-img" src={item.image} alt="movie or show poster" rounded />
+                    </Col>
+                </Row>
+                <Row id="card-options">
+                    <div xs={3}>
+                        <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
+                            <IoCloseCircleOutline color="white" size="5em" />
+                        </Button>
                     </div>
-                    <div id="card-options">
-                        <div xs={3}>
-                            <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
-                                <IoCloseCircleOutline color="white" size="5em" />
-                            </Button>
-                        </div>
-                        <div xs={3} >
-                            <Link to={`/movie/details/${item.fbid}`} >
-                                <h6 id="card-detail-button-text">Details</h6>
-                                <FiChevronDown color="white" size="3em" />
-                            </Link>
-                        </div>
-                        <div xs={3}>
-                            <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
-                                <IoCheckmarkCircleOutline color="white" size="5em" />
-                            </Button>
-                        </div>
+                    <Col xs={3} >
+                        <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                            <h6 id="card-detail-button-text">Details</h6>
+                            <FiChevronDown color="white" size="3em" />
+                        </Link>
+                    </Col>
+                    <div xs={3}>
+                        <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
+                            <IoCheckmarkCircleOutline color="white" size="5em" />
+                        </Button>
                     </div>
-                </div>
+                </Row>
+            </Container>
             )
         } else {
             return null

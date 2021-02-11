@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState } from "react"
-import { Button, Col, Container, Row, Dropdown } from "react-bootstrap"
-import { Link, useParams } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { Col, Container, Row, Dropdown } from "react-bootstrap"
+import { useParams } from "react-router-dom"
 import "../scss/group.scss"
-import { deleteGroup, getGroups, GetOneGroup } from "../../modules/APICalls"
+import { deleteGroup, GetOneGroup } from "../../modules/APICalls"
 
 export const GroupDetails = () => {
 
     const [group, setGroup] = useState({})
     const { groupId } = useParams()
 
-    const getAllGroups = () => {
-        GetOneGroup(groupId)
-            .then(data => {
-                data.map(friendObject => {
-                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
-                    friendObject[key].fbid = key;
-                    return friendObject[key];
+    // const getAllGroups = () => {
+    //     GetOneGroup(groupId)
+    //         .then(data => {
+    //             data.map(friendObject => {
+    //             let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
+    //                 friendObject[key].fbid = key;
+    //                 return friendObject[key];
                     
-                })
-                //and sort with most recent date first
-                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setGroup(arrayWithFBID)
-            })
-            })
-    }
+    //             })
+    //             //and sort with most recent date first
+    //             arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
+    //             setGroup(arrayWithFBID)
+    //         })
+    //         })
+    // }
 
     useEffect(() => {
         GetOneGroup(groupId)

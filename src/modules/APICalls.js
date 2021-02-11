@@ -1,7 +1,5 @@
 import firebase from "firebase/app";
 import { firebaseConfig } from "../components/fbAuth/FirebaseConfig";
-import { MediaCard } from "../components/Media/card/Card";
-import { UserList } from "../components/users/UserList";
 
 const dataURL = firebaseConfig.databaseURL;
 
@@ -277,6 +275,7 @@ export const getFriends = (uid) => {
 		.then(parsedResponse => {
 			const urlArray = Object.keys(parsedResponse).map(item => {
 				// const fetchDataURL = parsedResponse[item].pName;
+				console.log(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
 				return fetch(`${firebaseConfig.databaseURL}/users.json/?orderBy="uid"&equalTo="${parsedResponse[item].userId}"`)
 				.then(response => response.json())
 				.then(parsedResponse =>  Object.values(Object.entries(parsedResponse))[0][1])

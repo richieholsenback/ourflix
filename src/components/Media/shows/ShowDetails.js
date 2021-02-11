@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import { BiStar } from "react-icons/bi";
 import "../../scss/card.scss"
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GetOneShow } from "../../../modules/APICalls";
 import { FaPlay } from "react-icons/fa";
 
@@ -10,7 +10,6 @@ import { FaPlay } from "react-icons/fa";
 export const ShowDetails = () => {
 
     const [show, setShow] = useState({})
-    const history = useHistory();
     const { fbid } = useParams();
 
     useEffect(() => {

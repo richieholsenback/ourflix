@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "../scss/user.scss"
 import { useHistory, useParams } from 'react-router-dom';
-import firebase from "firebase/app";
-import { GetOneUser, getOneUserAlt, updateUser } from "../../modules/APICalls";
+import { getOneUserAlt, updateUser } from "../../modules/APICalls";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 export const UserForm = () => {

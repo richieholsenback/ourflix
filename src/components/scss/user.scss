@@ -34,6 +34,11 @@
     }
     
     #user-pic {
+        width: 8em;
+        height: 8em;
+        object-fit: cover;
+        object-position: center right;
+        
         @media only screen and (max-width: 576px) { 
         width: 4em;
         height: 4em;

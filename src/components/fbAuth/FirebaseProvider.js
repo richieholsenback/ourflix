@@ -4,7 +4,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from "../fbAuth/FirebaseConfig";
 import { addUser } from "../../modules/APICalls";
-import { UserForm } from "../users/UserForm";
 import { useHistory } from "react-router-dom";
 
 /*
@@ -91,7 +90,6 @@ export const FirebaseProvider = (props) => {
       .then(result => result.json())
       //convert to JSON
       .then(parsedResult => {
-        debugger
         let resultArray = Object.keys(parsedResult)
         //Convert the logged in user object into an array - children cannot be objects
         if (resultArray.length > 0) {

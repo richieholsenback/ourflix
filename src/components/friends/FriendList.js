@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { getFriends, getUsers } from "../../modules/APICalls"
+import { getFriends } from "../../modules/APICalls"
 import { FriendCard } from "./FriendCard"
 import firebase from "firebase/app";
 import "../scss/friend.scss"
@@ -11,21 +11,6 @@ export const FriendList = () => {
 
     const userId = firebase.auth().currentUser.uid
 
-    const getAllFriends = () => {
-        getFriends(userId)
-            .then(data => {
-                data.map(friendObject => {
-                let arrayWithFBID = Object.keys(friendObject).map((key, index) => {
-                    friendObject[key].fbid = key;
-                    return friendObject[key];
-                    
-                })
-                //and sort with most recent date first
-                arrayWithFBID.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1)
-                setFriendArray(arrayWithFBID)
-            })
-            })
-    }
 
     useEffect(() => {
         getFriends(userId)

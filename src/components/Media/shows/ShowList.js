@@ -109,22 +109,22 @@ export const ShowList = () => {
                         </Col>
                     </Row>
                     <Row id="card-options">
-                        <Col xs={3}>
+                        <div xs={3}>
                             <Button onClick={() => handleAddDisike(`${item.fbid}`, "left")} variant="link">
-                                <IoCloseCircleOutline color="white" size="2em" />
+                                <IoCloseCircleOutline color="white" size="5em" />
                             </Button>
-                        </Col>
+                        </div>
                         <Col xs={3} >
                             <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
                                 <h6 id="card-detail-button-text">Details</h6>
                                 <FiChevronDown color="white" size="3em" />
                             </Link>
                         </Col>
-                        <Col xs={3}>
+                        <div xs={3}>
                             <Button onClick={() => swipe(`${item.fbid}`, "right")} variant="link">
-                                <IoCheckmarkCircleOutline color="white" size="2em" />
+                                <IoCheckmarkCircleOutline color="white" size="5em" />
                             </Button>
-                        </Col>
+                        </div>
                     </Row>
                 </Container>
             )

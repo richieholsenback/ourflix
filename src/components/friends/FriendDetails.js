@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { Col, Container, Image, Row } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import { GetOneUser, getShowLikes, getMovieLikes, getOneUserAlt } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"
-import { LikedShows } from "../Media/shows/LikedShows"
 import "../scss/friend.scss"
 import firebase from "firebase/app";
 import { ShowCard } from "../Media/card/ShowCardUser"
@@ -57,16 +55,6 @@ export const FriendDetails = () => {
                 setUserShowLikes(results)
             })
     }, [])
-
-    const profileOptions = (userObj) => {
-        if (uid === userObj.uid) {
-            return (
-                <Link to={`/user/update/${uid}`} >Edit Profile</Link>
-            )
-        } else {
-            return null
-        }
-    }
 
     //Movies in common
     //First, we need to get all of the likes for movies

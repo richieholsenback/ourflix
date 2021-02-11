@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Container, Image, Row } from "react-bootstrap"
+import { Button, Col } from "react-bootstrap"
 import { Link, useHistory, useParams } from "react-router-dom"
 import { getMovieLikes, GetOneUser, getOneUserAlt, getShowLikes } from "../../modules/APICalls"
 import { MediaCard } from "../Media/card/Card"

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Image, Button, Row, Col } from "react-bootstrap"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { addGroupUser } from "../../modules/APICalls"
 import "../scss/group.scss"
 import firebase from "firebase/app";
