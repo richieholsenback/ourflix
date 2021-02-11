@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Image, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom"
 import "../scss/navBar.scss"
 import firebase from "firebase/app";
 import { GetOneUser, getOneUserAlt } from "../../modules/APICalls";
+import { IoLogOutOutline } from "react-icons/io5";
 
 export const NavBar = () => {
 
     const [user, setUser] = useState({})
 
+    const activeUser = JSON.parse(sessionStorage.getItem("active_user"))
+
     useEffect(() => {
         getOneUserAlt(firebase.auth().currentUser.uid)
-        .then(response => {
-            const result = Object.keys(response)
+            .then(response => {
+                const result = Object.keys(response)
                 GetOneUser(result)
                     .then(response => {
                         setUser(response)
                     })
             })
     }, [])
+
+    function refreshPage() {
+        window.location.reload(false);
+    }
 
     return (
         <>
@@ -46,8 +54,17 @@ export const NavBar = () => {
                         </Nav.Item> */}
                         <Nav.Item>
                             <Nav.Link href={`/myprofile/${firebase.auth().currentUser.uid}`}>
+                                {console.log(activeUser)}
                                 <Image id="prof-pic" src={firebase.auth().currentUser.photoURL} />
                                 {/* Home */}
+                            </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link onClick={() => {
+                                sessionStorage.clear()
+                            }}
+                                href="/login">
+                                <h4 className="navtext"><IoLogOutOutline color="white" size="2em"/></h4>
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>

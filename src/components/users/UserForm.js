@@ -22,6 +22,7 @@ export const UserForm = () => {
             window.alert("You need a username!")
         } else {
         const newUser = { ...user }
+        newUser["fbid"] = uid;
         newUser.uid = firebase.auth().currentUser.uid;
         newUser.createdAt = firebase.auth().currentUser.createdAt;
         newUser.apiKey = firebase.auth().currentUser.apiKey;

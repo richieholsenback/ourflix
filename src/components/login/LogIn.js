@@ -19,8 +19,13 @@ export const LogIn = () => {
       .catch(() => alert("Invalid email or password"));
   };
 
+  function refreshPage() {
+    window.location.reload(false);
+}
+
   const loginGoogle = () => {
     signInWithGoogle()
+    .then(() => refreshPage())
   }
 
 
