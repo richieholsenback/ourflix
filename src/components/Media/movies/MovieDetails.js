@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import { BiStar } from "react-icons/bi";
 import "../../scss/card.scss"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GetOneMovie } from "../../../modules/APICalls";
 import { FaPlay } from "react-icons/fa";
 // import poster from "../../../images/New_Girl.jpg"
@@ -21,6 +21,13 @@ export const MovieDetails = () => {
 
     return (
         <Container id="card-container">
+            <Row>
+                <Col id="filter">
+                    <Link to="/">
+                        <h3>Back</h3>
+                    </Link>
+                </Col>
+            </Row>
             <Row className="card-image">
                 <Col>
                     <Image id="media-img-detail" src={movie.image} alt="movie or show poster" rounded />

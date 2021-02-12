@@ -115,7 +115,7 @@ export const ShowList = () => {
                             </Button>
                         </div> */}
                         <Col xs={3} >
-                            <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
+                            <Link to={`/show/details/${item.fbid}`} id="card-detail-button">
                                 <h6 id="card-detail-button-text">Details</h6>
                                 <FiChevronDown color="white" size="3em" />
                             </Link>
