@@ -20,7 +20,7 @@ export const Register = () => {
     } else {
       const userProfile = { name, email };
       register(userProfile, password)
-        .then(() => history.push(`/user/update/${firebase.auth().currentUser.uid}`));
+        .then(() => history.push(`/login`));
     }
   };
 

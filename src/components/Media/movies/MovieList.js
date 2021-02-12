@@ -97,21 +97,21 @@ export const MovieList = () => {
 
     const [like, setLike] = useState({});
 
-    const handleAddLike = (item) => {
-        const newLikeObj = { ...like };
-        newLikeObj.userId = firebase.auth().currentUser.uid;
-        newLikeObj.resultId = item;
-        addMovieLike(newLikeObj)
-            .then(response => history.push("/"))
-    }
+    // const handleAddLike = (item) => {
+    //     const newLikeObj = { ...like };
+    //     newLikeObj.userId = firebase.auth().currentUser.uid;
+    //     newLikeObj.showId = item.netflixid;
+    //     addMovieLike(newLikeObj)
+    //         .then(response => history.push("/"))
+    // }
 
-    const handleAddDisike = (item) => {
-        const newDislikeObj = { ...like };
-        newDislikeObj.userId = firebase.auth().currentUser.uid;
-        newDislikeObj.resultId = item;
-        addMovieDislike(newDislikeObj)
-            .then(response => history.push("/"))
-    }
+    // const handleAddDislike = (item) => {
+    //     const newDislikeObj = { ...like };
+    //     newDislikeObj.userId = firebase.auth().currentUser.uid;
+    //     newDislikeObj.showId = item.netflixid;
+    //     addMovieDislike(newDislikeObj)
+    //         .then(response => history.push("/"))
+    // }
 
     const whatToShow = (item) => {
         const hasLiked = movieLikes.find((movie) => movie.netflixid === item.netflixid)
@@ -126,13 +126,12 @@ export const MovieList = () => {
                         </Col>
                     </Row>
                     <div id="card-options">
-                        <div xs={3} >
+                        <div>
                             <Link to={`/movie/details/${item.fbid}`} id="card-detail-button">
                                 <h6 id="card-detail-button-text">Details</h6>
                                 <FiChevronDown color="white" size="3em" />
                             </Link>
                         </div>
-
                     </div>
                 </Container>
             )

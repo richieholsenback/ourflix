@@ -60,10 +60,6 @@ export const FirebaseProvider = (props) => {
 
   const register = (active_user, password) => {
     return firebase.auth().createUserWithEmailAndPassword(active_user.email, password)
-      .then(savedactive_user => {
-        sessionStorage.setItem("active_user", JSON.stringify(firebase.auth().currentUser))
-        return (savedactive_user.user.uid)
-      })
     }
 
   const signInWithGoogle = () => {

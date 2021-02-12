@@ -23,8 +23,12 @@ export const NavBar = () => {
             })
     }, [])
 
-    function refreshPage() {
-        window.location.reload(false);
+    const profilePic = () => {
+        if (firebase.auth().currentUser.photoURL === null){
+            return <Image id="prof-pic" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/dddb0c1b4ab622854dd81280840458d3/98032aebff601c1d993e12a0_rw_600.png?h=8030f4d5734548795c22da59ca72e3e1" />
+        } else {
+            return <Image id="prof-pic" src={activeUser.photoURL} />
+        }
     }
 
     return (
@@ -54,9 +58,7 @@ export const NavBar = () => {
                         </Nav.Item> */}
                         <Nav.Item>
                             <Nav.Link href={`/myprofile/${firebase.auth().currentUser.uid}`}>
-                                {console.log(activeUser)}
-                                <Image id="prof-pic" src={firebase.auth().currentUser.photoURL} />
-                                {/* Home */}
+                                {profilePic()}
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
